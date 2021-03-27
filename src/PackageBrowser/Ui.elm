@@ -1,4 +1,4 @@
-module Ui exposing (..)
+module PackageBrowser.Ui exposing (..)
 
 import Element exposing (..)
 import Element.Background as Background
