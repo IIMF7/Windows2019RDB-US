@@ -345,7 +345,7 @@ viewRightColumn view_ readmes =
 
             Router.PackageView b ->
                 [ viewPackageHeader b
-                , viewPackageReadme readmes b
+                , viewReadme viewPackageReadme (NameDict.get b readmes)
                 ]
 
             Router.ModuleView b c ->
@@ -358,6 +358,38 @@ viewRightColumn view_ readmes =
                     ]
                 ]
         )
+
+
+viewReadme : (a -> Element msg) -> Maybe (Result Error a) -> Element msg
+viewReadme fn a =
+    column
+        [ Element.height Element.fill
+        , Element.scrollbars
+        , Element.padding 16
+        ]
+        [ case a of
+            Just b ->
+                case b of
+                    Ok c ->
+                        fn c
+
+                    Err c ->
+                        case c of
+                            Loading ->
+                                status []
+                                    [ text Strings.loading
+                                    ]
+
+                            HttpError d ->
+                                status []
+                                    [ text (Strings.httpError d)
+                                    ]
+
+            Nothing ->
+                status []
+                    [ text Strings.packageNotFound
+                    ]
+        ]
 
 
 viewPackageHeader : Elm.Package.Name -> Element msg
@@ -405,36 +437,9 @@ viewModuleHeader a b =
         ]
 
 
-viewPackageReadme : NameDict.NameDict (Result Error Readme.Readme) -> Elm.Package.Name -> Element msg
-viewPackageReadme readmes a =
-    column
-        [ Element.height Element.fill
-        , Element.scrollbars
-        , Element.padding 16
-        ]
-        [ case readmes |> NameDict.get a of
-            Just b ->
-                case b of
-                    Ok c ->
-                        text c.readme
-
-                    Err c ->
-                        case c of
-                            Loading ->
-                                status []
-                                    [ text Strings.loading
-                                    ]
-
-                            HttpError d ->
-                                status []
-                                    [ text (Strings.httpError d)
-                                    ]
-
-            Nothing ->
-                status []
-                    [ text Strings.packageNotFound
-                    ]
-        ]
+viewPackageReadme : Readme.Readme -> Element msg
+viewPackageReadme a =
+    text a.readme
 
 
 
