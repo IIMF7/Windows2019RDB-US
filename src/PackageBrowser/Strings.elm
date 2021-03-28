@@ -19,6 +19,22 @@ noPackagesFound =
     "No packages found."
 
 
+packageNotFound =
+    "Package not found."
+
+
+moduleNotFound =
+    "Module not found."
+
+
+source =
+    "Source"
+
+
+officialDocs =
+    "Official Docs"
+
+
 httpError a =
     case a of
         Http.BadUrl _ ->
