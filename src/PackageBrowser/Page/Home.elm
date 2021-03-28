@@ -1,5 +1,6 @@
 module PackageBrowser.Page.Home exposing (..)
 
+import Browser.Dom
 import Database.Package as Package
 import Database.Package.Decode
 import Element
@@ -18,6 +19,7 @@ import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
 import Regex
+import Task
 
 
 type alias Context a b =
@@ -70,15 +72,21 @@ getPackages =
 
 type Msg
     = GotPackages (Result Http.Error (List Package.Package))
+    | ViewportChanged (Result Browser.Dom.Error ())
     | SearchChanged String
     | ScrollOffsetChanged Float
 
 
-update : Msg -> Model -> ( Model, Cmd msg )
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GotPackages a ->
             ( { model | packages = a |> Result.mapError PackagesHttpError }
+            , Browser.Dom.setViewportOf packagesId 0 6240 |> Task.attempt ViewportChanged
+            )
+
+        ViewportChanged a ->
+            ( model
             , Cmd.none
             )
 
@@ -91,6 +99,10 @@ update msg model =
             ( { model | scrollOffset = a }
             , Cmd.none
             )
+
+
+packagesId =
+    "packages"
 
 
 
@@ -168,6 +180,7 @@ viewPackages view_ recent model =
                     Element.Virtualized.column
                         [ borderColor
                         , borderTop
+                        , id packagesId
                         ]
                         { data = c
                         , getKey = .name >> Elm.Package.toString
