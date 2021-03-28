@@ -58,6 +58,19 @@ viewFromUrl a =
             DefaultView
 
 
+viewToPackageName : View -> Maybe Elm.Package.Name
+viewToPackageName a =
+    case a of
+        DefaultView ->
+            Nothing
+
+        PackageView b ->
+            Just b
+
+        ModuleView b _ ->
+            Just b
+
+
 viewToUrl : View -> String
 viewToUrl a =
     (case a of
