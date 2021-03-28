@@ -4,6 +4,7 @@ import Browser.Dom
 import Database.Package as Package
 import Database.Package.Decode
 import Database.Package.Readme as Readme
+import Database.Package.Readme.Decode
 import Element
 import Element.Background as Background
 import Element.Font as Font
@@ -69,12 +70,22 @@ getPackages =
         }
 
 
+getPackage : Elm.Package.Name -> Cmd Msg
+getPackage a =
+    Http.get
+        { url = "db/" ++ (a |> Elm.Package.toString |> String.replace "/" " ") ++ ".json"
+        , expect = Http.expectJson (GotReadme a) Database.Package.Readme.Decode.readme
+        }
+
+
 
 --
 
 
 type Msg
     = GotPackages (Result Http.Error (List Package.Package))
+    | LoadReadme Elm.Package.Name
+    | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
     | ViewportChanged (Result Browser.Dom.Error ())
     | SearchChanged String
     | ScrollOffsetChanged Float
@@ -86,6 +97,16 @@ update msg model =
         GotPackages a ->
             ( { model | packages = a |> Result.mapError HttpError }
             , Browser.Dom.setViewportOf packagesId 0 6240 |> Task.attempt ViewportChanged
+            )
+
+        LoadReadme a ->
+            ( { model | readmes = model.readmes |> NameDict.insert a (Err Loading) }
+            , getPackage a
+            )
+
+        GotReadme a b ->
+            ( { model | readmes = model.readmes |> NameDict.insert a (b |> Result.mapError HttpError) }
+            , Cmd.none
             )
 
         ViewportChanged _ ->
