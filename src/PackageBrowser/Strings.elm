@@ -8,7 +8,7 @@ title =
 
 
 searchInput =
-    "Search package name or module name"
+    "Search in package and module names"
 
 
 loading =
