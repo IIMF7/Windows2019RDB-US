@@ -272,6 +272,10 @@ p a =
     paragraph (spacing 8 :: a)
 
 
+status a =
+    p (Element.padding 16 :: Font.center :: mutedTextColor :: a)
+
+
 
 --
 

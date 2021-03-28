@@ -208,7 +208,7 @@ viewPackages view_ recent model =
         Ok b ->
             case filterPackages model.search b of
                 [] ->
-                    viewStatus []
+                    status []
                         [ text Strings.noPackagesFound
                         ]
 
@@ -228,7 +228,7 @@ viewPackages view_ recent model =
                         }
 
         Err b ->
-            viewStatus []
+            status []
                 [ case b of
                     Loading ->
                         text Strings.loading
@@ -236,10 +236,6 @@ viewPackages view_ recent model =
                     HttpError c ->
                         text (Strings.httpError c)
                 ]
-
-
-viewStatus a =
-    p (Element.padding 16 :: Font.center :: mutedTextColor :: a)
 
 
 modulesLimit : Int
