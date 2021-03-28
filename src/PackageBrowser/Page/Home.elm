@@ -38,21 +38,21 @@ type alias Context a b =
 
 
 type alias Model =
-    { packages : Result PackagesError (List Package.Package)
-    , readmes : NameDict.NameDict (Result PackagesError Readme.Readme)
+    { packages : Result Error (List Package.Package)
+    , readmes : NameDict.NameDict (Result Error Readme.Readme)
     , search : String
     , scrollOffset : Float
     }
 
 
-type PackagesError
-    = LoadingPackages
-    | PackagesHttpError Http.Error
+type Error
+    = Loading
+    | HttpError Http.Error
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { packages = Err LoadingPackages
+    ( { packages = Err Loading
       , readmes = NameDict.fromList []
       , search = ""
       , scrollOffset = 0
@@ -84,7 +84,7 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GotPackages a ->
-            ( { model | packages = a |> Result.mapError PackagesHttpError }
+            ( { model | packages = a |> Result.mapError HttpError }
             , Browser.Dom.setViewportOf packagesId 0 6240 |> Task.attempt ViewportChanged
             )
 
@@ -205,10 +205,10 @@ viewPackages view_ recent model =
                 ]
                 [ p [ Font.center, mutedTextColor, Element.padding 16 ]
                     [ case b of
-                        LoadingPackages ->
+                        Loading ->
                             text Strings.loading
 
-                        PackagesHttpError c ->
+                        HttpError c ->
                             text (Strings.httpError c)
                     ]
                 ]
