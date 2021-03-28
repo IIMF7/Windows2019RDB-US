@@ -173,27 +173,30 @@ viewLeftColumn view_ recent model =
     column
         [ Element.height Element.fill
         , Element.width (Element.px 400)
-        , Element.spacing 8
+        , Element.spacing 0
         ]
-        [ text ""
-        , h5
-            [ Element.spacing 2
-            , Element.paddingXY 16 0
+        [ column
+            [ Element.spacing 8
+            , Element.paddingXY 0 8
+            , borderColor
+            , borderBottom
             ]
-            [ link [ bodyTextColor ]
-                { label = text Strings.title
-                , url = Router.DefaultView |> Router.viewToUrl
-                }
-            ]
-        , row
-            [ Element.paddingXY 16 0
-            ]
-            [ searchInput [ Input.focusedOnLoad ]
-                { label = labelHidden Strings.searchInput
-                , placeholder = Just (placeholder [] (text Strings.searchInput))
-                , text = model.search
-                , onChange = SearchChanged
-                }
+            [ h5 [ Element.paddingXY 16 0 ]
+                [ link [ bodyTextColor ]
+                    { label = text Strings.title
+                    , url = Router.DefaultView |> Router.viewToUrl
+                    }
+                ]
+            , row
+                [ Element.paddingXY 16 0
+                ]
+                [ searchInput [ Input.focusedOnLoad ]
+                    { label = labelHidden Strings.searchInput
+                    , placeholder = Just (placeholder [] (text Strings.searchInput))
+                    , text = model.search
+                    , onChange = SearchChanged
+                    }
+                ]
             ]
         , viewPackages view_ recent model
         ]
@@ -205,16 +208,12 @@ viewPackages view_ recent model =
         Ok b ->
             case filterPackages model.search b of
                 [] ->
-                    viewStatus [ borderColor, borderTop ]
+                    viewStatus []
                         [ text Strings.noPackagesFound
                         ]
 
                 c ->
-                    Element.Virtualized.column
-                        [ borderColor
-                        , borderTop
-                        , id packagesId
-                        ]
+                    Element.Virtualized.column [ id packagesId ]
                         { data = c
                         , getKey = .name >> Elm.Package.toString
                         , getSize = \v -> getSize (NameDict.member v.name recent) v
@@ -229,7 +228,7 @@ viewPackages view_ recent model =
                         }
 
         Err b ->
-            viewStatus [ borderColor, borderTop ]
+            viewStatus []
                 [ case b of
                     Loading ->
                         text Strings.loading
