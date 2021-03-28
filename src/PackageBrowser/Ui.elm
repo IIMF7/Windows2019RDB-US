@@ -297,3 +297,31 @@ buttonLink a =
             :: Border.rounded 2
             :: a
         )
+
+
+
+--
+
+
+border =
+    Border.color gray300
+
+
+borderLeft =
+    Border.widthEach { edges | left = 1 }
+
+
+borderRight =
+    Border.widthEach { edges | right = 1 }
+
+
+borderTop =
+    Border.widthEach { edges | top = 1 }
+
+
+borderBottom =
+    Border.widthEach { edges | bottom = 1 }
+
+
+edges =
+    { left = 0, right = 0, top = 0, bottom = 0 }
