@@ -161,15 +161,15 @@ view ctx model =
         , Background.color white
         ]
         [ border_
-        , Lazy.lazy3 viewFirst ctx.router.view ctx.router.recent model
+        , Lazy.lazy3 viewLeftColumn ctx.router.view ctx.router.recent model
         , border_
-        , Lazy.lazy2 viewSecond ctx.router.view model.readmes
+        , Lazy.lazy2 viewRightColumn ctx.router.view model.readmes
         , border_
         ]
 
 
-viewFirst : Router.View -> NameDict.NameDict () -> Model -> Element Msg
-viewFirst view_ recent model =
+viewLeftColumn : Router.View -> NameDict.NameDict () -> Model -> Element Msg
+viewLeftColumn view_ recent model =
     column
         [ Element.height Element.fill
         , Element.width (Element.px 400)
@@ -359,8 +359,8 @@ viewPackage expand active a =
         ]
 
 
-viewSecond : Router.View -> NameDict.NameDict (Result Error Readme.Readme) -> Element.Element msg
-viewSecond view_ readmes =
+viewRightColumn : Router.View -> NameDict.NameDict (Result Error Readme.Readme) -> Element.Element msg
+viewRightColumn view_ readmes =
     column
         [ Element.width (Element.px 800)
         , Element.height Element.fill
