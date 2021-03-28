@@ -5,6 +5,7 @@ import Browser.Navigation as Navigation
 import Elm.Module
 import Elm.Package
 import Elm.Package.NameDict as NameDict
+import Task
 import Url
 import Url.Builder
 import Url.Parser as Parser
@@ -19,25 +20,15 @@ type alias Model =
     }
 
 
-init : Url.Url -> Navigation.Key -> Model
+init : Url.Url -> Navigation.Key -> ( Model, Cmd Msg )
 init url key =
-    let
-        view : View
-        view =
-            viewFromUrl url
-
-        recent : NameDict.NameDict ()
-        recent =
-            [ viewToPackageName view ]
-                |> List.filterMap identity
-                |> List.map (\v -> ( v, () ))
-                |> NameDict.fromList
-    in
-    { key = key
-    , baseUrl = { url | query = Nothing, fragment = Nothing }
-    , view = view
-    , recent = recent
-    }
+    ( { key = key
+      , baseUrl = { url | query = Nothing, fragment = Nothing }
+      , view = DefaultView
+      , recent = NameDict.fromList []
+      }
+    , Task.succeed () |> Task.perform (\_ -> UrlChanged url)
+    )
 
 
 

@@ -38,13 +38,19 @@ type alias Model =
 init : Decode.Value -> Url -> Navigation.Key -> ( Model, Cmd Msg )
 init _ url key =
     let
+        ( router, routerCmd ) =
+            Router.init url key
+
         ( home, homeCmd ) =
             Home.init
     in
-    ( { router = Router.init url key
+    ( { router = router
       , home = home
       }
-    , homeCmd |> Cmd.map HomeMsg
+    , Cmd.batch
+        [ routerCmd |> Cmd.map RouterMsg
+        , homeCmd |> Cmd.map HomeMsg
+        ]
     )
 
 
