@@ -149,7 +149,7 @@ view ctx model =
         [ border_
         , Lazy.lazy3 viewFirst ctx.router.view ctx.router.recent model
         , border_
-        , Lazy.lazy viewSecond ctx.router.view
+        , Lazy.lazy2 viewSecond ctx.router.view model.readmes
         , border_
         ]
 
@@ -346,13 +346,13 @@ viewPackage expand active a =
         ]
 
 
-viewSecond : Router.View -> Element.Element msg
-viewSecond a =
+viewSecond : Router.View -> NameDict.NameDict (Result Error Readme.Readme) -> Element.Element msg
+viewSecond view_ readmes =
     column
         [ Element.width (Element.px 800)
         , Element.height Element.fill
         ]
-        (case a of
+        (case view_ of
             Router.DefaultView ->
                 []
 
