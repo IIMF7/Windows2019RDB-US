@@ -5,6 +5,7 @@ import Database.Package as Package
 import Database.Package.Decode
 import Database.Package.Readme as Readme
 import Database.Package.Readme.Decode
+import Dict
 import Element
 import Element.Background as Background
 import Element.Font as Font
@@ -336,19 +337,14 @@ viewRightColumn view_ readmes =
     column
         [ Element.width (Element.px 800)
         , Element.height Element.fill
+        , Element.spacing 0
         ]
         (case view_ of
             Router.DefaultView ->
                 []
 
             Router.PackageView b ->
-                [ text ""
-                , h5
-                    [ Element.spacing 2
-                    , Element.paddingXY 16 0
-                    ]
-                    [ text (Elm.Package.toString b)
-                    ]
+                [ viewPackageReadme readmes b
                 ]
 
             Router.ModuleView b c ->
@@ -405,6 +401,41 @@ viewModuleHeader a b =
             { label = text Strings.officialDocs
             , url = "https://package.elm-lang.org/packages/" ++ Elm.Package.toString a ++ "/latest/" ++ (Elm.Module.toString b |> String.replace "." "-")
             }
+        ]
+
+
+viewPackageReadme : NameDict.NameDict (Result Error Readme.Readme) -> Elm.Package.Name -> Element msg
+viewPackageReadme readmes a =
+    column [ Element.height Element.fill ]
+        [ viewPackageHeader a
+        , column
+            [ Element.height Element.fill
+            , Element.scrollbars
+            , Element.padding 16
+            ]
+            [ case readmes |> NameDict.get a of
+                Just b ->
+                    case b of
+                        Ok c ->
+                            text c.readme
+
+                        Err c ->
+                            case c of
+                                Loading ->
+                                    status []
+                                        [ text Strings.loading
+                                        ]
+
+                                HttpError d ->
+                                    status []
+                                        [ text (Strings.httpError d)
+                                        ]
+
+                Nothing ->
+                    status []
+                        [ text Strings.packageNotFound
+                        ]
+            ]
         ]
 
 
