@@ -145,41 +145,41 @@ viewFirst view_ recent model =
         ]
 
 
-viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element.Element msg
+viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element.Element Msg
 viewPackages view_ recent model =
-    Element.Keyed.column
-        [ Element.height Element.fill
-        , Element.width Element.fill
-        , Element.scrollbars
-        , borderColor
-        , borderTop
-        ]
-        (case model.packages of
-            Ok b ->
-                b
-                    |> List.map
-                        (\v ->
-                            ( Elm.Package.toString v.name
-                            , Lazy.lazy3 viewPackage
-                                (NameDict.member v.name recent)
-                                (activePackageAndModule view_ v)
-                                v
-                            )
-                        )
-
-            Err b ->
-                [ ( ""
-                  , p [ Font.center, mutedTextColor, Element.padding 16 ]
-                        [ case b of
-                            LoadingPackages ->
-                                text Strings.loading
-
-                            PackagesHttpError c ->
-                                text (Strings.httpError c)
-                        ]
-                  )
+    case model.packages of
+        Ok b ->
+            Element.Virtualized.column
+                [ borderColor
+                , borderTop
                 ]
-        )
+                { data = b
+                , getKey = .name >> Elm.Package.toString
+                , getSize = \_ -> 100
+                , scrollOffset = model.scrollOffset
+                , view =
+                    \v ->
+                        Lazy.lazy3 viewPackage
+                            (NameDict.member v.name recent)
+                            (activePackageAndModule view_ v)
+                            v
+                , onScroll = ScrollOffsetChanged
+                }
+
+        Err b ->
+            column
+                [ borderColor
+                , borderTop
+                ]
+                [ p [ Font.center, mutedTextColor, Element.padding 16 ]
+                    [ case b of
+                        LoadingPackages ->
+                            text Strings.loading
+
+                        PackagesHttpError c ->
+                            text (Strings.httpError c)
+                    ]
+                ]
 
 
 viewPackage : Bool -> Maybe (Maybe Elm.Module.Name) -> Package.Package -> Element msg
