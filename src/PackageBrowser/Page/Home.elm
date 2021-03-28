@@ -13,6 +13,7 @@ import Element.Input as Input
 import Element.Keyed
 import Element.Lazy as Lazy
 import Element.Virtualized
+import Elm.Docs as Docs
 import Elm.Module
 import Elm.Package
 import Elm.Package.NameDict as NameDict
@@ -349,13 +350,9 @@ viewRightColumn view_ readmes =
                 ]
 
             Router.ModuleView b c ->
-                [ text ""
-                , h5
-                    [ Element.spacing 2
-                    , Element.paddingXY 16 0
-                    ]
-                    [ text (Elm.Package.toString b ++ " - " ++ Elm.Module.toString c)
-                    ]
+                [ viewPackageHeader b
+                , viewModuleHeader b c
+                , viewReadme (viewModuleReadme c) (NameDict.get b readmes)
                 ]
         )
 
@@ -440,6 +437,40 @@ viewModuleHeader a b =
 viewPackageReadme : Readme.Readme -> Element msg
 viewPackageReadme a =
     text a.readme
+
+
+viewModuleReadme : Elm.Module.Name -> Readme.Readme -> Element msg
+viewModuleReadme b a =
+    case a.modules |> Dict.get (Elm.Module.toString b) of
+        Just c ->
+            column [] (c |> List.map viewBlock)
+
+        Nothing ->
+            status []
+                [ text Strings.moduleNotFound
+                ]
+
+
+viewBlock : Docs.Block -> Element msg
+viewBlock a =
+    case a of
+        Docs.MarkdownBlock b ->
+            text b
+
+        Docs.UnionBlock _ ->
+            text "Union"
+
+        Docs.AliasBlock _ ->
+            text "Alias"
+
+        Docs.ValueBlock _ ->
+            text "Value"
+
+        Docs.BinopBlock _ ->
+            text "Binop"
+
+        Docs.UnknownBlock _ ->
+            text "Unknown"
 
 
 
