@@ -69,6 +69,39 @@ type alias VirtualList a =
     }
 
 
+compute : (a -> Int) -> Float -> List a -> VirtualList a
+compute getSize scrollOffset a =
+    let
+        step =
+            1000
+
+        offsetRounded : Int
+        offsetRounded =
+            scrollOffset / step |> round |> (*) step
+
+        fold : a -> VirtualList a -> VirtualList a
+        fold b { size, items } =
+            let
+                itemSize : Int
+                itemSize =
+                    getSize b
+
+                nextItems =
+                    if offsetRounded - step < size && offsetRounded + step + step > size then
+                        { offset = size, size = itemSize, value = b } :: items
+
+                    else
+                        items
+            in
+            { size = size + itemSize
+            , items = nextItems
+            }
+    in
+    a
+        |> List.foldl fold { size = 0, items = [] }
+        |> (\v -> { v | items = List.reverse v.items })
+
+
 onScroll_ : (Float -> msg) -> Element.Attribute msg
 onScroll_ toMsg =
     let
