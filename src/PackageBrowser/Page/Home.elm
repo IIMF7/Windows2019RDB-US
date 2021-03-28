@@ -10,6 +10,7 @@ import Element.Keyed
 import Element.Lazy as Lazy
 import Elm.Module
 import Elm.Package
+import Elm.Package.NameDict as NameDict
 import Http
 import Json.Decode as Decode
 import PackageBrowser.Router as Router
@@ -22,6 +23,7 @@ type alias Context a b =
         | router :
             { b
                 | view : Router.View
+                , recent : NameDict.NameDict ()
             }
     }
 
@@ -99,15 +101,15 @@ view ctx model =
         , Background.color white
         ]
         [ border_
-        , Lazy.lazy2 viewFirst ctx.router.view model
+        , Lazy.lazy3 viewFirst ctx.router.view ctx.router.recent model
         , border_
         , Lazy.lazy viewSecond ctx.router.view
         , border_
         ]
 
 
-viewFirst : Router.View -> Model -> Element Msg
-viewFirst view_ model =
+viewFirst : Router.View -> NameDict.NameDict () -> Model -> Element Msg
+viewFirst view_ recent model =
     column
         [ Element.height Element.fill
         , Element.width (Element.px 400)
@@ -130,12 +132,12 @@ viewFirst view_ model =
                 , onChange = SearchChanged
                 }
             ]
-        , viewPackages view_ model
+        , viewPackages view_ recent model
         ]
 
 
-viewPackages : Router.View -> Model -> Element.Element msg
-viewPackages view_ model =
+viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element.Element msg
+viewPackages view_ recent model =
     Element.Keyed.column
         [ Element.height Element.fill
         , Element.width Element.fill
@@ -149,7 +151,10 @@ viewPackages view_ model =
                     |> List.map
                         (\v ->
                             ( Elm.Package.toString v.name
-                            , Lazy.lazy3 viewPackage False (activePackageAndModule view_ v) v
+                            , Lazy.lazy3 viewPackage
+                                (NameDict.member v.name recent)
+                                (activePackageAndModule view_ v)
+                                v
                             )
                         )
 
