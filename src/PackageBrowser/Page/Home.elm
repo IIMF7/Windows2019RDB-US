@@ -390,6 +390,30 @@ viewRightColumn view_ readmes =
         )
 
 
+viewPackageHeader : Elm.Package.Name -> Element.Element msg
+viewPackageHeader a =
+    row
+        [ Element.paddingXY 16 12
+        , defaultBorderColor
+        , borderBottom
+        ]
+        [ h5 []
+            [ link [ defaultTextColor ]
+                { label = text (Elm.Package.toString a)
+                , url = Router.PackageView a |> Router.viewToUrl
+                }
+            ]
+        , newTabLink []
+            { label = text Strings.source
+            , url = "https://github.com/" ++ Elm.Package.toString a
+            }
+        , newTabLink []
+            { label = text Strings.officialDocs
+            , url = "https://package.elm-lang.org/packages/" ++ Elm.Package.toString a ++ "/latest/"
+            }
+        ]
+
+
 
 --
 
