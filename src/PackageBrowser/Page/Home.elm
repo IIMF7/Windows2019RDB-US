@@ -84,25 +84,39 @@ getPackage a =
 
 type Msg
     = GotPackages (Result Http.Error (List Package.Package))
-    | LoadReadme Elm.Package.Name
+    | UrlChanged
     | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
     | ViewportChanged (Result Browser.Dom.Error ())
     | SearchChanged String
     | ScrollOffsetChanged Float
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
+update ctx msg model =
     case msg of
         GotPackages a ->
             ( { model | packages = a |> Result.mapError HttpError }
             , Browser.Dom.setViewportOf packagesId 0 6240 |> Task.attempt ViewportChanged
             )
 
-        LoadReadme a ->
-            ( { model | readmes = model.readmes |> NameDict.insert a (Err Loading) }
-            , getPackage a
-            )
+        UrlChanged ->
+            case ctx.router.view |> Router.viewToPackageName of
+                Just b ->
+                    case model.readmes |> NameDict.get b of
+                        Just _ ->
+                            ( model
+                            , Cmd.none
+                            )
+
+                        Nothing ->
+                            ( { model | readmes = model.readmes |> NameDict.insert b (Err Loading) }
+                            , getPackage b
+                            )
+
+                Nothing ->
+                    ( model
+                    , Cmd.none
+                    )
 
         GotReadme a b ->
             ( { model | readmes = model.readmes |> NameDict.insert a (b |> Result.mapError HttpError) }

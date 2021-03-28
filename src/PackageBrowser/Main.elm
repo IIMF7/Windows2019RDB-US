@@ -10,7 +10,9 @@ import PackageBrowser.Page.Home as Home
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui as Ui
+import Task
 import Url exposing (Url)
+import Utils.Update as Update
 
 
 main : Program Decode.Value Model Msg
@@ -65,14 +67,28 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    case msg of
+    (case msg of
         RouterMsg a ->
             Router.update a model.router
                 |> Tuple.mapBoth (\v -> { model | router = v }) (Cmd.map RouterMsg)
 
         HomeMsg a ->
-            Home.update a model.home
+            Home.update model a model.home
                 |> Tuple.mapBoth (\v -> { model | home = v }) (Cmd.map HomeMsg)
+    )
+        |> Update.andThen
+            (\v ->
+                case msg of
+                    RouterMsg (Router.UrlChanged _) ->
+                        ( v
+                        , Task.succeed () |> Task.perform (\_ -> HomeMsg Home.UrlChanged)
+                        )
+
+                    _ ->
+                        ( v
+                        , Cmd.none
+                        )
+            )
 
 
 
