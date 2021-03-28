@@ -4,6 +4,7 @@ import Database.Package as Package
 import Database.Package.Decode
 import Element
 import Element.Background as Background
+import Element.Font as Font
 import Element.Keyed
 import Element.Lazy as Lazy
 import Elm.Module
@@ -129,6 +130,40 @@ viewFirst model =
             ]
         , viewPackages model.packages
         ]
+
+
+viewPackages : Result PackagesError (List Package.Package) -> Element.Element msg
+viewPackages a =
+    Element.Keyed.column
+        [ Element.height Element.fill
+        , Element.width Element.fill
+        , Element.scrollbars
+        , border
+        , borderTop
+        ]
+        (case a of
+            Ok b ->
+                b
+                    |> List.map
+                        (\v ->
+                            ( Elm.Package.toString v.name
+                            , Lazy.lazy viewPackage v
+                            )
+                        )
+
+            Err b ->
+                [ ( ""
+                  , p [ Font.center, muted, Element.padding 16 ]
+                        [ case b of
+                            LoadingPackages ->
+                                text Strings.loading
+
+                            PackagesHttpError c ->
+                                text (Strings.httpError c)
+                        ]
+                  )
+                ]
+        )
 
 
 viewSecond : Router.View -> Element.Element msg
