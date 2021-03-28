@@ -149,7 +149,7 @@ viewPackages view_ model =
                     |> List.map
                         (\v ->
                             ( Elm.Package.toString v.name
-                            , Lazy.lazy2 viewPackage False v
+                            , Lazy.lazy3 viewPackage False (activePackageAndModule view_ v) v
                             )
                         )
 
@@ -249,3 +249,28 @@ viewSecond a =
                     ]
                 ]
         )
+
+
+
+--
+
+
+activePackageAndModule : Router.View -> Package.Package -> Maybe (Maybe Elm.Module.Name)
+activePackageAndModule view_ a =
+    case view_ of
+        Router.DefaultView ->
+            Nothing
+
+        Router.PackageView b ->
+            if a.name == b then
+                Just Nothing
+
+            else
+                Nothing
+
+        Router.ModuleView b c ->
+            if a.name == b then
+                Just (Just c)
+
+            else
+                Nothing
