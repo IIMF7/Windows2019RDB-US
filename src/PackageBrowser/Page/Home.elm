@@ -99,15 +99,15 @@ view ctx model =
         , Background.color white
         ]
         [ border_
-        , Lazy.lazy viewFirst model
+        , Lazy.lazy2 viewFirst ctx.router.view model
         , border_
         , Lazy.lazy viewSecond ctx.router.view
         , border_
         ]
 
 
-viewFirst : Model -> Element Msg
-viewFirst model =
+viewFirst : Router.View -> Model -> Element Msg
+viewFirst view_ model =
     column
         [ Element.height Element.fill
         , Element.width (Element.px 400)
@@ -130,12 +130,12 @@ viewFirst model =
                 , onChange = SearchChanged
                 }
             ]
-        , viewPackages model.packages
+        , viewPackages view_ model
         ]
 
 
-viewPackages : Result PackagesError (List Package.Package) -> Element.Element msg
-viewPackages a =
+viewPackages : Router.View -> Model -> Element.Element msg
+viewPackages view_ model =
     Element.Keyed.column
         [ Element.height Element.fill
         , Element.width Element.fill
@@ -143,7 +143,7 @@ viewPackages a =
         , borderColor
         , borderTop
         ]
-        (case a of
+        (case model.packages of
             Ok b ->
                 b
                     |> List.map
