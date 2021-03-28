@@ -7,6 +7,7 @@ import Element.Font as Font
 import Element.Input as Input
 import Element.Region as Region
 import Html
+import Html.Attributes
 
 
 white =
@@ -277,6 +278,10 @@ p a =
 
 none =
     Element.none
+
+
+noneAttribute =
+    Element.htmlAttribute (Html.Attributes.classList [])
 
 
 text =
