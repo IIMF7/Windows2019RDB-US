@@ -217,14 +217,16 @@ viewPackage expand active a =
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name)
             }
-        , column [ Element.spacing 0 ]
+        , Element.Keyed.column []
             (exposed
                 |> List.map
                     (\v ->
-                        link [ Element.width Element.fill, Element.paddingXY 40 0, moduleColor v ]
+                        ( Elm.Module.toString v
+                        , link [ Element.width Element.fill, Element.paddingXY 40 0, moduleColor v ]
                             { label = text (Elm.Module.toString v)
                             , url = Router.viewToUrl (Router.ModuleView a.name v)
                             }
+                        )
                     )
             )
         , if shortened then
