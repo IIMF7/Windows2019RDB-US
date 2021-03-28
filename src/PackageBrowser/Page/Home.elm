@@ -147,7 +147,7 @@ viewPackages a =
                     |> List.map
                         (\v ->
                             ( Elm.Package.toString v.name
-                            , Lazy.lazy viewPackage v
+                            , Lazy.lazy2 viewPackage False v
                             )
                         )
 
@@ -164,6 +164,28 @@ viewPackages a =
                   )
                 ]
         )
+
+
+viewPackage : Bool -> Package.Package -> Element msg
+viewPackage expand a =
+    column
+        [ Element.spacing 0
+        , Element.paddingXY 16 8
+        , border
+        , borderBottom
+        ]
+        [ p [ muted ]
+            [ text (Elm.Package.toString a.name)
+            ]
+        , column [ Element.spacing 0, Element.paddingXY 20 4 ]
+            (a.exposed
+                |> Package.exposedToList
+                |> List.map
+                    (\v ->
+                        text (Elm.Module.toString v)
+                    )
+            )
+        ]
 
 
 viewSecond : Router.View -> Element.Element msg
