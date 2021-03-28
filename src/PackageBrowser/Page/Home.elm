@@ -198,7 +198,7 @@ viewPackages view_ recent model =
         Ok b ->
             case filterPackages model.search b of
                 [] ->
-                    viewStatus (text Strings.nothingFound)
+                    viewStatus (text Strings.noPackagesFound)
 
                 c ->
                     Element.Virtualized.column

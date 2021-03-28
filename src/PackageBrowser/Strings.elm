@@ -15,7 +15,7 @@ loading =
     "Loading..."
 
 
-nothingFound =
+noPackagesFound =
     "No packages found."
 
 
