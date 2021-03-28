@@ -129,3 +129,35 @@ viewFirst model =
             ]
         , viewPackages model.packages
         ]
+
+
+viewSecond : Router.View -> Element.Element msg
+viewSecond a =
+    column
+        [ Element.width (Element.px 800)
+        , Element.height Element.fill
+        ]
+        (case a of
+            Router.DefaultView ->
+                []
+
+            Router.PackageView b ->
+                [ text ""
+                , h5
+                    [ Element.spacing 2
+                    , Element.paddingXY 16 0
+                    ]
+                    [ text (Elm.Package.toString b)
+                    ]
+                ]
+
+            Router.ModuleView b c ->
+                [ text ""
+                , h5
+                    [ Element.spacing 2
+                    , Element.paddingXY 16 0
+                    ]
+                    [ text (Elm.Package.toString b ++ " - " ++ Elm.Module.toString c)
+                    ]
+                ]
+        )
