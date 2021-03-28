@@ -79,6 +79,12 @@ compute getSize scrollOffset a =
         offsetRounded =
             scrollOffset / step |> round |> (*) step
 
+        offsetVisible =
+            intersects
+                { min = offsetRounded - step
+                , max = offsetRounded + step + step
+                }
+
         fold : a -> VirtualList a -> VirtualList a
         fold b { size, items } =
             let
@@ -87,7 +93,7 @@ compute getSize scrollOffset a =
                     getSize b
 
                 nextItems =
-                    if offsetRounded - step < size && offsetRounded + step + step > size then
+                    if offsetVisible { min = size, max = size + itemSize } then
                         { offset = size, size = itemSize, value = b } :: items
 
                     else
@@ -100,6 +106,11 @@ compute getSize scrollOffset a =
     a
         |> List.foldl fold { size = 0, items = [] }
         |> (\v -> { v | items = List.reverse v.items })
+
+
+intersects : { min : number, max : number } -> { min : number, max : number } -> Bool
+intersects a b =
+    (b.min <= a.max) && (b.max >= a.min)
 
 
 onScroll_ : (Float -> msg) -> Element.Attribute msg
