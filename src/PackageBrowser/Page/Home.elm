@@ -218,7 +218,8 @@ viewPackage expand active a =
                 bodyTextColor
     in
     column
-        [ Element.spacing 0
+        [ Element.height Element.fill
+        , Element.spacing 0
         , borderColor
         , borderBottom
         ]
