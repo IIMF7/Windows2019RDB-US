@@ -168,6 +168,10 @@ view ctx model =
         ]
 
 
+
+--
+
+
 viewLeftColumn : Router.View -> NameDict.NameDict () -> Model -> Element Msg
 viewLeftColumn view_ recent model =
     column
@@ -321,6 +325,10 @@ viewPackage expand active a =
           else
             none
         ]
+
+
+
+--
 
 
 viewRightColumn : Router.View -> NameDict.NameDict (Result Error Readme.Readme) -> Element msg
