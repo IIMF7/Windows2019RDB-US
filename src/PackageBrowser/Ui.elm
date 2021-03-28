@@ -325,3 +325,23 @@ borderBottom =
 
 edges =
     { left = 0, right = 0, top = 0, bottom = 0 }
+
+
+
+--
+
+
+searchInput a =
+    Input.search (inputStyle a)
+
+
+placeholder a =
+    Input.placeholder (Font.size 14 :: a)
+
+
+labelHidden =
+    Input.labelHidden
+
+
+labelAbove a =
+    Input.labelAbove (Font.size 12 :: a)
