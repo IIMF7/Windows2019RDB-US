@@ -201,18 +201,13 @@ viewFirst view_ recent model =
 
 viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element.Element Msg
 viewPackages view_ recent model =
-    let
-        viewStatus : Element.Element msg -> Element.Element msg
-        viewStatus a =
-            p [ Element.padding 16, Font.center, mutedTextColor, borderColor, borderTop ]
-                [ a
-                ]
-    in
     case model.packages of
         Ok b ->
             case filterPackages model.search b of
                 [] ->
-                    viewStatus (text Strings.noPackagesFound)
+                    viewStatus [ borderColor, borderTop ]
+                        [ text Strings.noPackagesFound
+                        ]
 
                 c ->
                     Element.Virtualized.column
@@ -234,14 +229,18 @@ viewPackages view_ recent model =
                         }
 
         Err b ->
-            viewStatus
-                (case b of
+            viewStatus [ borderColor, borderTop ]
+                [ case b of
                     Loading ->
                         text Strings.loading
 
                     HttpError c ->
                         text (Strings.httpError c)
-                )
+                ]
+
+
+viewStatus a =
+    p (Element.padding 16 :: Font.center :: mutedTextColor :: a)
 
 
 filterPackages : String -> List Package.Package -> List Package.Package
