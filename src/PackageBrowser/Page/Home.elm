@@ -242,37 +242,6 @@ viewStatus a =
     p (Element.padding 16 :: Font.center :: mutedTextColor :: a)
 
 
-filterPackages : String -> List Package.Package -> List Package.Package
-filterPackages search a =
-    let
-        keywords : List String
-        keywords =
-            search |> toKeywords
-
-        isRelevant : String -> Bool
-        isRelevant b =
-            let
-                c =
-                    b |> toKeywords
-            in
-            keywords |> List.all (\v -> c |> List.any (String.startsWith v))
-
-        keywordsRegex : Regex.Regex
-        keywordsRegex =
-            Regex.fromString "[A-Za-z0-9]+" |> Maybe.withDefault Regex.never
-
-        toKeywords : String -> List String
-        toKeywords b =
-            b |> String.toLower |> Regex.find keywordsRegex |> List.map .match
-    in
-    a
-        |> List.filter
-            (\v ->
-                (v.name |> Elm.Package.toString |> isRelevant)
-                    || (v.exposed |> Package.exposedToList |> List.any (Elm.Module.toString >> isRelevant))
-            )
-
-
 modulesLimit : Int
 modulesLimit =
     6
@@ -458,3 +427,34 @@ activePackageAndModule view_ a =
 
             else
                 Nothing
+
+
+filterPackages : String -> List Package.Package -> List Package.Package
+filterPackages search a =
+    let
+        keywords : List String
+        keywords =
+            search |> toKeywords
+
+        isRelevant : String -> Bool
+        isRelevant b =
+            let
+                c =
+                    b |> toKeywords
+            in
+            keywords |> List.all (\v -> c |> List.any (String.startsWith v))
+
+        keywordsRegex : Regex.Regex
+        keywordsRegex =
+            Regex.fromString "[A-Za-z0-9]+" |> Maybe.withDefault Regex.never
+
+        toKeywords : String -> List String
+        toKeywords b =
+            b |> String.toLower |> Regex.find keywordsRegex |> List.map .match
+    in
+    a
+        |> List.filter
+            (\v ->
+                (v.name |> Elm.Package.toString |> isRelevant)
+                    || (v.exposed |> Package.exposedToList |> List.any (Elm.Module.toString >> isRelevant))
+            )
