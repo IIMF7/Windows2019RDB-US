@@ -201,7 +201,7 @@ type alias Element msg =
 
 row a =
     Element.row
-        (spacing 32
+        (spacing 16
             :: width fill
             :: a
         )
@@ -209,7 +209,7 @@ row a =
 
 column a =
     Element.column
-        (spacing 32
+        (spacing 16
             :: width fill
             :: a
         )
@@ -221,7 +221,7 @@ column a =
 
 section a =
     Element.column
-        (spacing 24
+        (spacing 16
             :: width fill
             :: a
         )
