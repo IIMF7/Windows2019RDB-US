@@ -155,7 +155,7 @@ viewPackages view_ recent model =
                 ]
                 { data = b
                 , getKey = .name >> Elm.Package.toString
-                , getSize = \_ -> 100
+                , getSize = \v -> getSize (NameDict.member v.name recent) v
                 , scrollOffset = model.scrollOffset
                 , view =
                     \v ->
@@ -182,13 +182,30 @@ viewPackages view_ recent model =
                 ]
 
 
+getSize : Bool -> Package.Package -> Int
+getSize expand a =
+    let
+        len =
+            a.exposed |> Package.exposedToList |> List.length
+    in
+    32
+        + (if not expand && len > limit then
+            (limit + 1) * 16
+
+           else
+            len * 16
+          )
+        + 12
+
+
+limit : Int
+limit =
+    6
+
+
 viewPackage : Bool -> Maybe (Maybe Elm.Module.Name) -> Package.Package -> Element msg
 viewPackage expand active a =
     let
-        limit : Int
-        limit =
-            6
-
         ( shortened, exposed ) =
             let
                 exposed_ : List Elm.Module.Name
@@ -246,8 +263,6 @@ viewPackage expand active a =
                 }
 
           else
-            none
-        , el [ Element.padding 6 ]
             none
         ]
 
