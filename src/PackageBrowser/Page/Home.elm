@@ -172,25 +172,26 @@ viewPackage : Bool -> Package.Package -> Element msg
 viewPackage expand a =
     column
         [ Element.spacing 0
-        , Element.paddingXY 16 8
         , border
         , borderBottom
         ]
-        [ link []
+        [ link [ Element.width Element.fill, Element.paddingXY 16 8, muted ]
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name)
             }
-        , column [ Element.spacing 0, Element.paddingXY 20 4 ]
+        , column [ Element.spacing 0 ]
             (a.exposed
                 |> Package.exposedToList
                 |> List.map
                     (\v ->
-                        link []
+                        link [ Element.width Element.fill, Element.paddingXY 40 0, Font.color gray900 ]
                             { label = text (Elm.Module.toString v)
                             , url = Router.viewToUrl (Router.ModuleView a.name v)
                             }
                     )
             )
+        , el [ Element.padding 6 ]
+            none
         ]
 
 
