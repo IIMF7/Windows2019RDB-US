@@ -4,6 +4,7 @@ import Browser
 import Browser.Navigation as Navigation
 import Element
 import Element.Background as Background
+import Html
 import Json.Decode as Decode
 import PackageBrowser.Page.Home as Home
 import PackageBrowser.Router as Router
@@ -89,5 +90,14 @@ view model =
             (Home.view model model.home
                 |> Element.map HomeMsg
             )
+        , scaleUi
         ]
     }
+
+
+scaleUi : Html.Html msg
+scaleUi =
+    Html.node "style"
+        []
+        [ Html.text "@media only screen and (pointer: fine) { body { zoom: 0.875 } }"
+        ]
