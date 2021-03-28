@@ -170,6 +170,23 @@ viewPackages a =
 
 viewPackage : Bool -> Package.Package -> Element msg
 viewPackage expand a =
+    let
+        limit : Int
+        limit =
+            6
+
+        ( shortened, exposed ) =
+            let
+                exposed_ : List Elm.Module.Name
+                exposed_ =
+                    a.exposed |> Package.exposedToList
+            in
+            if expand == False && List.length exposed_ > limit then
+                ( True, exposed_ |> List.take limit )
+
+            else
+                ( False, exposed_ )
+    in
     column
         [ Element.spacing 0
         , border
@@ -180,8 +197,7 @@ viewPackage expand a =
             , url = Router.viewToUrl (Router.PackageView a.name)
             }
         , column [ Element.spacing 0 ]
-            (a.exposed
-                |> Package.exposedToList
+            (exposed
                 |> List.map
                     (\v ->
                         link [ Element.width Element.fill, Element.paddingXY 40 0, Font.color gray900 ]
@@ -190,6 +206,14 @@ viewPackage expand a =
                             }
                     )
             )
+        , if shortened then
+            link [ Element.width Element.fill, Element.paddingXY 40 0, Font.color gray900 ]
+                { label = text "..."
+                , url = Router.viewToUrl (Router.PackageView a.name)
+                }
+
+          else
+            none
         , el [ Element.padding 6 ]
             none
         ]
