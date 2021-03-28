@@ -135,7 +135,10 @@ update msg model =
                 recent : NameDict.NameDict ()
                 recent =
                     if view == DefaultView then
-                        NameDict.fromList []
+                        [ Elm.Package.fromString "elm/core" ]
+                            |> List.filterMap identity
+                            |> List.map (\v -> ( v, () ))
+                            |> NameDict.fromList
 
                     else
                         case view |> viewToPackageName of
