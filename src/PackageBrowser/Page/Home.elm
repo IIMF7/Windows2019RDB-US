@@ -153,22 +153,34 @@ viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element.Element M
 viewPackages view_ recent model =
     case model.packages of
         Ok b ->
-            Element.Virtualized.column
-                [ borderColor
-                , borderTop
-                ]
-                { data = filterPackages model.search b
-                , getKey = .name >> Elm.Package.toString
-                , getSize = \v -> getSize (NameDict.member v.name recent) v
-                , scrollOffset = model.scrollOffset
-                , view =
-                    \v ->
-                        Lazy.lazy3 viewPackage
-                            (NameDict.member v.name recent)
-                            (activePackageAndModule view_ v)
-                            v
-                , onScroll = ScrollOffsetChanged
-                }
+            case filterPackages model.search b of
+                [] ->
+                    column
+                        [ borderColor
+                        , borderTop
+                        ]
+                        [ p [ Font.center, mutedTextColor, Element.padding 16 ]
+                            [ text Strings.nothingFound
+                            ]
+                        ]
+
+                c ->
+                    Element.Virtualized.column
+                        [ borderColor
+                        , borderTop
+                        ]
+                        { data = c
+                        , getKey = .name >> Elm.Package.toString
+                        , getSize = \v -> getSize (NameDict.member v.name recent) v
+                        , scrollOffset = model.scrollOffset
+                        , view =
+                            \v ->
+                                Lazy.lazy3 viewPackage
+                                    (NameDict.member v.name recent)
+                                    (activePackageAndModule view_ v)
+                                    v
+                        , onScroll = ScrollOffsetChanged
+                        }
 
         Err b ->
             column

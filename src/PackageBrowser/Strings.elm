@@ -15,6 +15,10 @@ loading =
     "Loading..."
 
 
+nothingFound =
+    "No packages found."
+
+
 httpError a =
     case a of
         Http.BadUrl _ ->
