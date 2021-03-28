@@ -92,3 +92,30 @@ view ctx model =
         ]
 
 
+viewFirst : Model -> Element Msg
+viewFirst model =
+    column
+        [ Element.height Element.fill
+        , Element.width (Element.px 400)
+        , border
+        , borderRight
+        ]
+        [ text ""
+        , h5
+            [ Element.spacing 2
+            , Element.paddingXY 16 0
+            ]
+            [ text Strings.title
+            ]
+        , row
+            [ Element.paddingXY 16 0
+            ]
+            [ searchInput []
+                { label = labelHidden Strings.searchInput
+                , placeholder = Just (placeholder [] (text Strings.searchInput))
+                , text = model.search
+                , onChange = SearchChanged
+                }
+            ]
+        , viewPackages model.packages
+        ]
