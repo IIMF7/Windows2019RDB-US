@@ -168,8 +168,8 @@ viewPackages view_ model =
         )
 
 
-viewPackage : Bool -> Package.Package -> Element msg
-viewPackage expand a =
+viewPackage : Bool -> Maybe (Maybe Elm.Module.Name) -> Package.Package -> Element msg
+viewPackage expand active a =
     let
         limit : Int
         limit =
@@ -186,13 +186,29 @@ viewPackage expand a =
 
             else
                 ( False, exposed_ )
+
+        packageColor : Element.Attribute msg
+        packageColor =
+            if active == Just Nothing then
+                noneAttribute
+
+            else
+                mutedTextColor
+
+        moduleColor : Elm.Module.Name -> Element.Attribute msg
+        moduleColor b =
+            if active == Just (Just b) then
+                noneAttribute
+
+            else
+                bodyTextColor
     in
     column
         [ Element.spacing 0
         , borderColor
         , borderBottom
         ]
-        [ link [ Element.width Element.fill, Element.paddingXY 16 8, mutedTextColor ]
+        [ link [ Element.width Element.fill, Element.paddingXY 16 8, packageColor ]
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name)
             }
@@ -200,7 +216,7 @@ viewPackage expand a =
             (exposed
                 |> List.map
                     (\v ->
-                        link [ Element.width Element.fill, Element.paddingXY 40 0, bodyTextColor ]
+                        link [ Element.width Element.fill, Element.paddingXY 40 0, moduleColor v ]
                             { label = text (Elm.Module.toString v)
                             , url = Router.viewToUrl (Router.ModuleView a.name v)
                             }
