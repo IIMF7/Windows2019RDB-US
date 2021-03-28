@@ -17,6 +17,7 @@ import Json.Decode as Decode
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
+import Regex
 
 
 type alias Context a b =
@@ -156,7 +157,7 @@ viewPackages view_ recent model =
                 [ borderColor
                 , borderTop
                 ]
-                { data = b
+                { data = filterPackages model.search b
                 , getKey = .name >> Elm.Package.toString
                 , getSize = \v -> getSize (NameDict.member v.name recent) v
                 , scrollOffset = model.scrollOffset
@@ -183,6 +184,37 @@ viewPackages view_ recent model =
                             text (Strings.httpError c)
                     ]
                 ]
+
+
+filterPackages : String -> List Package.Package -> List Package.Package
+filterPackages search a =
+    let
+        keywords : List String
+        keywords =
+            search |> toKeywords
+
+        isRelevant : String -> Bool
+        isRelevant b =
+            let
+                c =
+                    b |> toKeywords
+            in
+            keywords |> List.all (\v -> c |> List.any (String.startsWith v))
+
+        keywordsRegex : Regex.Regex
+        keywordsRegex =
+            Regex.fromString "[A-Za-z0-9]+" |> Maybe.withDefault Regex.never
+
+        toKeywords : String -> List String
+        toKeywords b =
+            b |> String.toLower |> Regex.find keywordsRegex |> List.map .match
+    in
+    a
+        |> List.filter
+            (\v ->
+                (v.name |> Elm.Package.toString |> isRelevant)
+                    || (v.exposed |> Package.exposedToList |> List.any (Elm.Module.toString >> isRelevant))
+            )
 
 
 modulesLimit : Int
