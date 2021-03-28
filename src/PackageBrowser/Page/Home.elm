@@ -217,7 +217,7 @@ viewPackage expand active a =
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name)
             }
-        , Element.Keyed.column []
+        , Element.Keyed.column [ Element.width Element.fill ]
             (exposed
                 |> List.map
                     (\v ->
