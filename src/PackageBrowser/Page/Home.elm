@@ -202,7 +202,7 @@ viewLeftColumn view_ recent model =
         ]
 
 
-viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element.Element Msg
+viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element Msg
 viewPackages view_ recent model =
     case model.packages of
         Ok b ->
@@ -358,7 +358,7 @@ viewPackage expand active a =
         ]
 
 
-viewRightColumn : Router.View -> NameDict.NameDict (Result Error Readme.Readme) -> Element.Element msg
+viewRightColumn : Router.View -> NameDict.NameDict (Result Error Readme.Readme) -> Element msg
 viewRightColumn view_ readmes =
     column
         [ Element.width (Element.px 800)
@@ -390,7 +390,7 @@ viewRightColumn view_ readmes =
         )
 
 
-viewPackageHeader : Elm.Package.Name -> Element.Element msg
+viewPackageHeader : Elm.Package.Name -> Element msg
 viewPackageHeader a =
     row
         [ Element.paddingXY 16 12
@@ -414,7 +414,7 @@ viewPackageHeader a =
         ]
 
 
-viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element.Element msg
+viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element msg
 viewModuleHeader a b =
     row
         [ Element.paddingXY 16 12
