@@ -39,6 +39,16 @@ isCompatible a =
         |> Maybe.withDefault False
 
 
+exposedToList : Project.Exposed -> List Module.Name
+exposedToList a =
+    case a of
+        Project.ExposedList b ->
+            b
+
+        Project.ExposedDict b ->
+            b |> List.concatMap Tuple.second
+
+
 sorter : Package -> String
 sorter a =
     case a.exposed of
