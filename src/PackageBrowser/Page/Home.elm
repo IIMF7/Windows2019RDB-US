@@ -151,7 +151,7 @@ view : Context a b -> Model -> Element Msg
 view ctx model =
     let
         border_ =
-            el [ Element.height Element.fill, borderColor, borderRight ] none
+            el [ Element.height Element.fill, defaultBorderColor, borderRight ] none
     in
     row
         [ Element.height Element.fill
@@ -178,11 +178,11 @@ viewLeftColumn view_ recent model =
         [ column
             [ Element.spacing 8
             , Element.paddingXY 0 8
-            , borderColor
+            , defaultBorderColor
             , borderBottom
             ]
             [ h5 [ Element.paddingXY 16 0 ]
-                [ link [ bodyTextColor ]
+                [ link [ defaultTextColor ]
                     { label = text Strings.title
                     , url = Router.DefaultView |> Router.viewToUrl
                     }
@@ -323,12 +323,12 @@ viewPackage expand active a =
                 noneAttribute
 
             else
-                bodyTextColor
+                defaultTextColor
     in
     column
         [ Element.height Element.fill
         , Element.spacing 0
-        , borderColor
+        , defaultBorderColor
         , borderBottom
         ]
         [ link [ Element.width Element.fill, Element.paddingXY 16 8, packageColor ]
@@ -348,7 +348,7 @@ viewPackage expand active a =
                     )
             )
         , if shortened then
-            link [ Element.width Element.fill, Element.paddingXY 40 0, bodyTextColor ]
+            link [ Element.width Element.fill, Element.paddingXY 40 0, defaultTextColor ]
                 { label = text "..."
                 , url = Router.viewToUrl (Router.PackageView a.name)
                 }

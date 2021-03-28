@@ -138,7 +138,7 @@ dark =
 --
 
 
-borderColor =
+defaultBorderColor =
     Border.color gray300
 
 
@@ -150,7 +150,7 @@ mutedTextColor =
     Font.color gray600
 
 
-bodyTextColor =
+defaultTextColor =
     Font.color gray900
 
 
@@ -188,7 +188,7 @@ fontMonospace =
 
 rootStyle a =
     Background.color white
-        :: bodyTextColor
+        :: defaultTextColor
         :: Font.size 16
         :: Font.family fontSansSerif
         :: a
