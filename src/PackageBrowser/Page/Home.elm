@@ -414,6 +414,27 @@ viewPackageHeader a =
         ]
 
 
+viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element.Element msg
+viewModuleHeader a b =
+    row
+        [ Element.paddingXY 16 12
+        , defaultBorderColor
+        , borderBottom
+        ]
+        [ h6 []
+            [ text (Elm.Module.toString b)
+            ]
+        , newTabLink []
+            { label = text Strings.source
+            , url = "https://github.com/" ++ Elm.Package.toString a ++ "/tree/master/src/" ++ (Elm.Module.toString b |> String.replace "." "/") ++ ".elm"
+            }
+        , newTabLink []
+            { label = text Strings.officialDocs
+            , url = "https://package.elm-lang.org/packages/" ++ Elm.Package.toString a ++ "/latest/" ++ (Elm.Module.toString b |> String.replace "." "-")
+            }
+        ]
+
+
 
 --
 
