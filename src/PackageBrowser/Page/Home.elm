@@ -185,8 +185,8 @@ viewPackages view_ recent model =
                 ]
 
 
-limit : Int
-limit =
+modulesLimit : Int
+modulesLimit =
     6
 
 
@@ -197,8 +197,8 @@ getSize expand a =
             a.exposed |> Package.exposedToList |> List.length
     in
     32
-        + (if not expand && len > limit then
-            (limit + 1) * 16
+        + (if not expand && len > modulesLimit then
+            (modulesLimit + 1) * 16
 
            else
             len * 16
@@ -215,8 +215,8 @@ viewPackage expand active a =
                 exposed_ =
                     a.exposed |> Package.exposedToList
             in
-            if expand == False && List.length exposed_ > limit then
-                ( True, exposed_ |> List.take limit )
+            if expand == False && List.length exposed_ > modulesLimit then
+                ( True, exposed_ |> List.take modulesLimit )
 
             else
                 ( False, exposed_ )
