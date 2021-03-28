@@ -320,6 +320,14 @@ buttonLink a =
 --
 
 
+id a =
+    Element.htmlAttribute (Html.Attributes.id a)
+
+
+
+--
+
+
 borderLeft =
     Border.widthEach { edges | left = 1 }
 
