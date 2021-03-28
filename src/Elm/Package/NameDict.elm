@@ -28,6 +28,11 @@ member k (NameDict a) =
     a |> Dict.member (Elm.Package.toString k)
 
 
+get : Elm.Package.Name -> NameDict v -> Maybe v
+get k (NameDict a) =
+    a |> Dict.get (Elm.Package.toString k)
+
+
 insert : Elm.Package.Name -> v -> NameDict v -> NameDict v
 insert k v (NameDict a) =
     a |> Dict.insert (Elm.Package.toString k) v |> NameDict
