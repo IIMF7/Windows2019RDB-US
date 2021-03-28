@@ -3,6 +3,7 @@ module PackageBrowser.Page.Home exposing (..)
 import Browser.Dom
 import Database.Package as Package
 import Database.Package.Decode
+import Database.Package.Readme as Readme
 import Element
 import Element.Background as Background
 import Element.Font as Font
@@ -38,6 +39,7 @@ type alias Context a b =
 
 type alias Model =
     { packages : Result PackagesError (List Package.Package)
+    , readmes : NameDict.NameDict (Result PackagesError Readme.Readme)
     , search : String
     , scrollOffset : Float
     }
@@ -51,6 +53,7 @@ type PackagesError
 init : ( Model, Cmd Msg )
 init =
     ( { packages = Err LoadingPackages
+      , readmes = NameDict.fromList []
       , search = ""
       , scrollOffset = 0
       }
