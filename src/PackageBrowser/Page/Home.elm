@@ -8,6 +8,7 @@ import Element.Font as Font
 import Element.Input as Input
 import Element.Keyed
 import Element.Lazy as Lazy
+import Element.Virtualized
 import Elm.Module
 import Elm.Package
 import Elm.Package.NameDict as NameDict
@@ -35,6 +36,7 @@ type alias Context a b =
 type alias Model =
     { search : String
     , packages : Result PackagesError (List Package.Package)
+    , scrollOffset : Float
     }
 
 
@@ -47,6 +49,7 @@ init : ( Model, Cmd Msg )
 init =
     ( { search = ""
       , packages = Err LoadingPackages
+      , scrollOffset = 0
       }
     , getPackages
     )
@@ -67,6 +70,7 @@ getPackages =
 type Msg
     = SearchChanged String
     | GotPackages (Result Http.Error (List Package.Package))
+    | ScrollOffsetChanged Float
 
 
 update : Msg -> Model -> ( Model, Cmd msg )
@@ -79,6 +83,11 @@ update msg model =
 
         GotPackages a ->
             ( { model | packages = a |> Result.mapError PackagesHttpError }
+            , Cmd.none
+            )
+
+        ScrollOffsetChanged a ->
+            ( { model | scrollOffset = a }
             , Cmd.none
             )
 
