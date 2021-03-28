@@ -129,7 +129,10 @@ viewFirst view_ recent model =
             [ Element.spacing 2
             , Element.paddingXY 16 0
             ]
-            [ text Strings.title
+            [ link [ bodyTextColor ]
+                { label = text Strings.title
+                , url = Router.DefaultView |> Router.viewToUrl
+                }
             ]
         , row
             [ Element.paddingXY 16 0
