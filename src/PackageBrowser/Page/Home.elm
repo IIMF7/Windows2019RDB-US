@@ -5,6 +5,7 @@ import Database.Package.Decode
 import Element
 import Element.Background as Background
 import Element.Font as Font
+import Element.Input as Input
 import Element.Keyed
 import Element.Lazy as Lazy
 import Elm.Module
@@ -122,7 +123,7 @@ viewFirst model =
         , row
             [ Element.paddingXY 16 0
             ]
-            [ searchInput []
+            [ searchInput [ Input.focusedOnLoad ]
                 { label = labelHidden Strings.searchInput
                 , placeholder = Just (placeholder [] (text Strings.searchInput))
                 , text = model.search
