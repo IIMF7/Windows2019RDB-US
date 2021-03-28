@@ -176,15 +176,19 @@ viewPackage expand a =
         , border
         , borderBottom
         ]
-        [ p [ muted ]
-            [ text (Elm.Package.toString a.name)
-            ]
+        [ link []
+            { label = text (Elm.Package.toString a.name)
+            , url = Router.viewToUrl (Router.PackageView a.name)
+            }
         , column [ Element.spacing 0, Element.paddingXY 20 4 ]
             (a.exposed
                 |> Package.exposedToList
                 |> List.map
                     (\v ->
-                        text (Elm.Module.toString v)
+                        link []
+                            { label = text (Elm.Module.toString v)
+                            , url = Router.viewToUrl (Router.ModuleView a.name v)
+                            }
                     )
             )
         ]
