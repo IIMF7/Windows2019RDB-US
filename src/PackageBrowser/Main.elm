@@ -3,6 +3,7 @@ module PackageBrowser.Main exposing (..)
 import Browser
 import Browser.Navigation as Navigation
 import Element
+import Element.Background as Background
 import Json.Decode as Decode
 import PackageBrowser.Page.Home as Home
 import PackageBrowser.Router as Router
@@ -84,7 +85,7 @@ view : Model -> Browser.Document Msg
 view model =
     { title = Strings.title
     , body =
-        [ Element.layout (Ui.rootStyle [])
+        [ Element.layout (Ui.rootStyle [ Background.color Ui.gray100 ])
             (Home.view model model.home
                 |> Element.map HomeMsg
             )

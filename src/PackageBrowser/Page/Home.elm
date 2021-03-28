@@ -3,6 +3,7 @@ module PackageBrowser.Page.Home exposing (..)
 import Database.Package as Package
 import Database.Package.Decode
 import Element
+import Element.Background as Background
 import Element.Keyed
 import Element.Lazy as Lazy
 import Elm.Module
@@ -93,6 +94,7 @@ view ctx model =
         , Element.width Element.shrink
         , Element.centerX
         , Element.spacing 0
+        , Background.color white
         ]
         [ border_
         , Lazy.lazy viewFirst model
