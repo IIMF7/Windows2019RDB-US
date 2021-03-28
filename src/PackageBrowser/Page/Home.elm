@@ -209,17 +209,17 @@ getSize expand a =
 viewPackage : Bool -> Maybe (Maybe Elm.Module.Name) -> Package.Package -> Element msg
 viewPackage expand active a =
     let
-        ( shortened, exposed ) =
+        ( shortened, modules ) =
             let
-                exposed_ : List Elm.Module.Name
-                exposed_ =
+                modules_ : List Elm.Module.Name
+                modules_ =
                     a.exposed |> Package.exposedToList
             in
-            if expand == False && List.length exposed_ > modulesLimit then
-                ( True, exposed_ |> List.take modulesLimit )
+            if expand == False && List.length modules_ > modulesLimit then
+                ( True, modules_ |> List.take modulesLimit )
 
             else
-                ( False, exposed_ )
+                ( False, modules_ )
 
         packageColor : Element.Attribute msg
         packageColor =
@@ -248,7 +248,7 @@ viewPackage expand active a =
             , url = Router.viewToUrl (Router.PackageView a.name)
             }
         , Element.Keyed.column [ Element.width Element.fill ]
-            (exposed
+            (modules
                 |> List.map
                     (\v ->
                         ( Elm.Module.toString v
