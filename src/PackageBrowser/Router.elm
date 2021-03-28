@@ -143,12 +143,16 @@ update msg model =
 
                 recent : NameDict.NameDict ()
                 recent =
-                    case view |> viewToPackageName of
-                        Just b ->
-                            model.recent |> NameDict.insert b ()
+                    if view == DefaultView then
+                        NameDict.fromList []
 
-                        Nothing ->
-                            model.recent
+                    else
+                        case view |> viewToPackageName of
+                            Just b ->
+                                model.recent |> NameDict.insert b ()
+
+                            Nothing ->
+                                model.recent
             in
             ( { model
                 | view = viewFromUrl a
