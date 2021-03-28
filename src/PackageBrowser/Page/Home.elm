@@ -84,11 +84,21 @@ update msg model =
 
 view : Context a b -> Model -> Element Msg
 view ctx model =
+    let
+        border_ =
+            el [ Element.height Element.fill, border, borderRight ] none
+    in
     row
         [ Element.height Element.fill
+        , Element.width Element.shrink
+        , Element.centerX
+        , Element.spacing 0
         ]
-        [ Lazy.lazy viewFirst model
+        [ border_
+        , Lazy.lazy viewFirst model
+        , border_
         , Lazy.lazy viewSecond ctx.router.view
+        , border_
         ]
 
 
@@ -97,8 +107,6 @@ viewFirst model =
     column
         [ Element.height Element.fill
         , Element.width (Element.px 400)
-        , border
-        , borderRight
         ]
         [ text ""
         , h5
