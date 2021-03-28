@@ -88,7 +88,7 @@ update msg model =
             , Browser.Dom.setViewportOf packagesId 0 6240 |> Task.attempt ViewportChanged
             )
 
-        ViewportChanged a ->
+        ViewportChanged _ ->
             ( model
             , Cmd.none
             )
