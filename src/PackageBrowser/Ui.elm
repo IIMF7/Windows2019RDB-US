@@ -177,6 +177,16 @@ rootStyle a =
         :: a
 
 
+inputStyle a =
+    padding 8
+        :: spacing 8
+        :: Background.color white
+        :: Border.color gray400
+        :: Border.width 1
+        :: Border.rounded 4
+        :: a
+
+
 
 --
 
