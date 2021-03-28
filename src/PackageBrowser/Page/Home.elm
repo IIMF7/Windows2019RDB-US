@@ -344,7 +344,8 @@ viewRightColumn view_ readmes =
                 []
 
             Router.PackageView b ->
-                [ viewPackageReadme readmes b
+                [ viewPackageHeader b
+                , viewPackageReadme readmes b
                 ]
 
             Router.ModuleView b c ->
@@ -406,36 +407,33 @@ viewModuleHeader a b =
 
 viewPackageReadme : NameDict.NameDict (Result Error Readme.Readme) -> Elm.Package.Name -> Element msg
 viewPackageReadme readmes a =
-    column [ Element.height Element.fill ]
-        [ viewPackageHeader a
-        , column
-            [ Element.height Element.fill
-            , Element.scrollbars
-            , Element.padding 16
-            ]
-            [ case readmes |> NameDict.get a of
-                Just b ->
-                    case b of
-                        Ok c ->
-                            text c.readme
+    column
+        [ Element.height Element.fill
+        , Element.scrollbars
+        , Element.padding 16
+        ]
+        [ case readmes |> NameDict.get a of
+            Just b ->
+                case b of
+                    Ok c ->
+                        text c.readme
 
-                        Err c ->
-                            case c of
-                                Loading ->
-                                    status []
-                                        [ text Strings.loading
-                                        ]
+                    Err c ->
+                        case c of
+                            Loading ->
+                                status []
+                                    [ text Strings.loading
+                                    ]
 
-                                HttpError d ->
-                                    status []
-                                        [ text (Strings.httpError d)
-                                        ]
+                            HttpError d ->
+                                status []
+                                    [ text (Strings.httpError d)
+                                    ]
 
-                Nothing ->
-                    status []
-                        [ text Strings.packageNotFound
-                        ]
-            ]
+            Nothing ->
+                status []
+                    [ text Strings.packageNotFound
+                    ]
         ]
 
 
