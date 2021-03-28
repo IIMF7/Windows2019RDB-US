@@ -185,6 +185,11 @@ viewPackages view_ recent model =
                 ]
 
 
+limit : Int
+limit =
+    6
+
+
 getSize : Bool -> Package.Package -> Int
 getSize expand a =
     let
@@ -199,11 +204,6 @@ getSize expand a =
             len * 16
           )
         + 12
-
-
-limit : Int
-limit =
-    6
 
 
 viewPackage : Bool -> Maybe (Maybe Elm.Module.Name) -> Package.Package -> Element msg
