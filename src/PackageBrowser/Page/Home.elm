@@ -89,7 +89,7 @@ view : Context a b -> Model -> Element Msg
 view ctx model =
     let
         border_ =
-            el [ Element.height Element.fill, border, borderRight ] none
+            el [ Element.height Element.fill, borderColor, borderRight ] none
     in
     row
         [ Element.height Element.fill
@@ -140,7 +140,7 @@ viewPackages a =
         [ Element.height Element.fill
         , Element.width Element.fill
         , Element.scrollbars
-        , border
+        , borderColor
         , borderTop
         ]
         (case a of
@@ -155,7 +155,7 @@ viewPackages a =
 
             Err b ->
                 [ ( ""
-                  , p [ Font.center, muted, Element.padding 16 ]
+                  , p [ Font.center, mutedTextColor, Element.padding 16 ]
                         [ case b of
                             LoadingPackages ->
                                 text Strings.loading
@@ -189,10 +189,10 @@ viewPackage expand a =
     in
     column
         [ Element.spacing 0
-        , border
+        , borderColor
         , borderBottom
         ]
-        [ link [ Element.width Element.fill, Element.paddingXY 16 8, muted ]
+        [ link [ Element.width Element.fill, Element.paddingXY 16 8, mutedTextColor ]
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name)
             }
@@ -200,14 +200,14 @@ viewPackage expand a =
             (exposed
                 |> List.map
                     (\v ->
-                        link [ Element.width Element.fill, Element.paddingXY 40 0, Font.color gray900 ]
+                        link [ Element.width Element.fill, Element.paddingXY 40 0, bodyTextColor ]
                             { label = text (Elm.Module.toString v)
                             , url = Router.viewToUrl (Router.ModuleView a.name v)
                             }
                     )
             )
         , if shortened then
-            link [ Element.width Element.fill, Element.paddingXY 40 0, Font.color gray900 ]
+            link [ Element.width Element.fill, Element.paddingXY 40 0, bodyTextColor ]
                 { label = text "..."
                 , url = Router.viewToUrl (Router.PackageView a.name)
                 }

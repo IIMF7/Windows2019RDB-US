@@ -133,20 +133,24 @@ dark =
     gray900
 
 
-border =
+
+--
+
+
+borderColor =
     Border.color gray300
 
 
-inputBorder =
+inputBorderColor =
     Border.color gray400
 
 
-muted =
+mutedTextColor =
     Font.color gray600
 
 
-
---
+bodyTextColor =
+    Font.color gray900
 
 
 fontSansSerif =
@@ -183,7 +187,7 @@ fontMonospace =
 
 rootStyle a =
     Background.color white
-        :: Font.color gray900
+        :: bodyTextColor
         :: Font.size 16
         :: Font.family fontSansSerif
         :: a
@@ -193,7 +197,7 @@ inputStyle a =
     padding 8
         :: spacing 8
         :: Background.color white
-        :: inputBorder
+        :: inputBorderColor
         :: Border.width 1
         :: Border.rounded 4
         :: a
