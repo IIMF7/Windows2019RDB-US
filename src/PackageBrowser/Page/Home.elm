@@ -202,8 +202,29 @@ viewLeftColumn view_ recent model =
         ]
 
 
+modulesLimit : Int
+modulesLimit =
+    6
+
+
 viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element Msg
 viewPackages view_ recent model =
+    let
+        getSize : Bool -> Package.Package -> Int
+        getSize expand a =
+            let
+                len =
+                    a.exposed |> Package.exposedToList |> List.length
+            in
+            32
+                + (if not expand && len > modulesLimit then
+                    (modulesLimit + 1) * 16
+
+                   else
+                    len * 16
+                  )
+                + 12
+    in
     case model.packages of
         Ok b ->
             case filterPackages model.search b of
@@ -236,27 +257,6 @@ viewPackages view_ recent model =
                     HttpError c ->
                         text (Strings.httpError c)
                 ]
-
-
-modulesLimit : Int
-modulesLimit =
-    6
-
-
-getSize : Bool -> Package.Package -> Int
-getSize expand a =
-    let
-        len =
-            a.exposed |> Package.exposedToList |> List.length
-    in
-    32
-        + (if not expand && len > modulesLimit then
-            (modulesLimit + 1) * 16
-
-           else
-            len * 16
-          )
-        + 12
 
 
 viewPackage : Bool -> Maybe (Maybe Elm.Module.Name) -> Package.Package -> Element msg
