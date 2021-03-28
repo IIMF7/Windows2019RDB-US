@@ -34,8 +34,8 @@ type alias Context a b =
 
 
 type alias Model =
-    { search : String
-    , packages : Result PackagesError (List Package.Package)
+    { packages : Result PackagesError (List Package.Package)
+    , search : String
     , scrollOffset : Float
     }
 
@@ -47,8 +47,8 @@ type PackagesError
 
 init : ( Model, Cmd Msg )
 init =
-    ( { search = ""
-      , packages = Err LoadingPackages
+    ( { packages = Err LoadingPackages
+      , search = ""
       , scrollOffset = 0
       }
     , getPackages
@@ -68,21 +68,21 @@ getPackages =
 
 
 type Msg
-    = SearchChanged String
-    | GotPackages (Result Http.Error (List Package.Package))
+    = GotPackages (Result Http.Error (List Package.Package))
+    | SearchChanged String
     | ScrollOffsetChanged Float
 
 
 update : Msg -> Model -> ( Model, Cmd msg )
 update msg model =
     case msg of
-        SearchChanged a ->
-            ( { model | search = a }
+        GotPackages a ->
+            ( { model | packages = a |> Result.mapError PackagesHttpError }
             , Cmd.none
             )
 
-        GotPackages a ->
-            ( { model | packages = a |> Result.mapError PackagesHttpError }
+        SearchChanged a ->
+            ( { model | search = a }
             , Cmd.none
             )
 
