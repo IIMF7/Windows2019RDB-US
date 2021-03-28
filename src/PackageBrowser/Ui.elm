@@ -133,6 +133,14 @@ dark =
     gray900
 
 
+muted =
+    Font.color gray600
+
+
+border =
+    Border.color gray300
+
+
 
 --
 
@@ -275,10 +283,6 @@ br =
     html (Html.br [] [])
 
 
-muted a =
-    el (Font.color gray600 :: a)
-
-
 image =
     Element.image
 
@@ -301,10 +305,6 @@ buttonLink a =
 
 
 --
-
-
-border =
-    Border.color gray300
 
 
 borderLeft =
