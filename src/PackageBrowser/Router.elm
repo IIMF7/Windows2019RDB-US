@@ -5,6 +5,7 @@ import Browser.Navigation as Navigation
 import Elm.Module
 import Elm.Package
 import Url
+import Url.Builder
 import Url.Parser as Parser
 import Url.Parser.Query as Query
 
@@ -55,6 +56,25 @@ viewFromUrl a =
 
         _ ->
             DefaultView
+
+
+viewToUrl : View -> String
+viewToUrl a =
+    (case a of
+        DefaultView ->
+            []
+
+        PackageView b ->
+            [ Url.Builder.string "package" (Elm.Package.toString b)
+            ]
+
+        ModuleView b c ->
+            [ Url.Builder.string "package" (Elm.Package.toString b)
+            , Url.Builder.string "module" (Elm.Module.toString c)
+            ]
+    )
+        |> Url.Builder.toQuery
+        |> (++) "./"
 
 
 
