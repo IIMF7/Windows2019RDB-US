@@ -110,6 +110,7 @@ viewFirst model =
     column
         [ Element.height Element.fill
         , Element.width (Element.px 400)
+        , Element.spacing 8
         ]
         [ text ""
         , h5
