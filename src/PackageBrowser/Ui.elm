@@ -133,12 +133,16 @@ dark =
     gray900
 
 
-muted =
-    Font.color gray600
-
-
 border =
     Border.color gray300
+
+
+inputBorder =
+    Border.color gray400
+
+
+muted =
+    Font.color gray600
 
 
 
@@ -189,7 +193,7 @@ inputStyle a =
     padding 8
         :: spacing 8
         :: Background.color white
-        :: Border.color gray400
+        :: inputBorder
         :: Border.width 1
         :: Border.rounded 4
         :: a
