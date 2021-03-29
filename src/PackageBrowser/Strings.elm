@@ -20,6 +20,10 @@ infoText2 =
 
 
 infoText3 =
+    "Showing only package latest version."
+
+
+infoText4 =
     "Use prefix search, for \"mdgriffith/elm-ui\" type \"e ui md\"."
 
 
