@@ -2,10 +2,10 @@ module PackageBrowser.Element.Readme exposing (..)
 
 import Database.Package.Readme as Readme
 import Database.Package.Readme.Decode
-import Dict
 import Element
 import Elm.Docs as Docs
 import Elm.Module
+import Elm.Module.NameDict as ModuleNameDict
 import Elm.Package
 import Elm.Package.NameDict as PackageNameDict
 import Http
@@ -212,7 +212,7 @@ viewPackageReadme a =
 
 viewModuleReadme : Elm.Module.Name -> Readme.Readme -> Element msg
 viewModuleReadme b a =
-    case a.modules |> Dict.get (Elm.Module.toString b) of
+    case a.modules |> ModuleNameDict.get b of
         Just c ->
             section []
                 (c
