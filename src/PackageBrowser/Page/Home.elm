@@ -541,7 +541,7 @@ viewModuleReadme b a =
         Just c ->
             column []
                 (c
-                    |> blocksToSections
+                    |> blocksToSections (Elm.Module.toString b)
                     |> List.map
                         (\( v, vv ) ->
                             section [ Element.spacing 0 ]
@@ -561,6 +561,41 @@ viewModuleReadme b a =
             status []
                 [ text Strings.moduleNotFound
                 ]
+
+
+blocksToSections : String -> List Docs.Block -> List ( String, List Docs.Block )
+blocksToSections defaultTitle a =
+    let
+        getTitle : Docs.Block -> Maybe String
+        getTitle b =
+            case b of
+                Docs.MarkdownBlock c ->
+                    String.lines c
+                        |> List.filter (String.startsWith "#")
+                        |> List.head
+                        |> Maybe.map (String.dropLeft 2)
+
+                _ ->
+                    Nothing
+
+        fold : Docs.Block -> List ( String, List Docs.Block ) -> List ( String, List Docs.Block )
+        fold b acc =
+            case getTitle b of
+                Just c ->
+                    ( c, [] ) :: acc
+
+                Nothing ->
+                    case acc of
+                        [] ->
+                            ( defaultTitle, [ b ] ) :: acc
+
+                        ( title, c ) :: rest ->
+                            ( title, b :: c ) :: rest
+    in
+    a
+        |> List.foldl fold []
+        |> List.map (Tuple.mapSecond List.reverse)
+        |> List.reverse
 
 
 viewBlock : Docs.Block -> Element msg
