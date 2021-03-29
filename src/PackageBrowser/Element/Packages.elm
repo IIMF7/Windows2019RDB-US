@@ -352,6 +352,10 @@ filterPackages search a =
     a
         |> List.filter
             (\v ->
-                (v.name |> Elm.Package.toString |> isRelevant)
-                    || (v.exposed |> Package.exposedToList |> List.any (Elm.Module.toString >> isRelevant))
+                v.exposed
+                    |> Package.exposedToList
+                    |> List.map Elm.Module.toString
+                    |> (::) (Elm.Package.toString v.name)
+                    |> String.join " "
+                    |> isRelevant
             )
