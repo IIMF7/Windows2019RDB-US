@@ -567,22 +567,26 @@ viewBlock : Docs.Block -> Element msg
 viewBlock a =
     case a of
         Docs.MarkdownBlock b ->
-            text b
+            p []
+                [ Element.html (Markdown.toHtml [] b)
+                ]
 
-        Docs.UnionBlock _ ->
-            text "Union"
+        Docs.UnionBlock b ->
+            viewUnion b
 
-        Docs.AliasBlock _ ->
-            text "Alias"
+        Docs.AliasBlock b ->
+            viewAlias b
 
-        Docs.ValueBlock _ ->
-            text "Value"
+        Docs.ValueBlock b ->
+            viewValue b
 
-        Docs.BinopBlock _ ->
-            text "Binop"
+        Docs.BinopBlock b ->
+            viewBinop b
 
-        Docs.UnknownBlock _ ->
-            text "Unknown"
+        Docs.UnknownBlock b ->
+            p []
+                [ Element.html (Markdown.toHtml [] b)
+                ]
 
 
 
