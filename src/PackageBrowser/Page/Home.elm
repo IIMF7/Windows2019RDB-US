@@ -602,9 +602,7 @@ viewBlock : Docs.Block -> Element msg
 viewBlock a =
     case a of
         Docs.MarkdownBlock b ->
-            p []
-                [ Element.html (Markdown.toHtml [] b)
-                ]
+            viewMarkdownBlock b
 
         Docs.UnionBlock b ->
             viewUnionBlock b
@@ -619,9 +617,14 @@ viewBlock a =
             viewBinopBlock b
 
         Docs.UnknownBlock b ->
-            p []
-                [ Element.html (Markdown.toHtml [] b)
-                ]
+            viewMarkdownBlock b
+
+
+viewMarkdownBlock : String -> Element msg
+viewMarkdownBlock a =
+    p []
+        [ Element.html (Markdown.toHtml [] a)
+        ]
 
 
 viewUnionBlock : Docs.Union -> Element msg
