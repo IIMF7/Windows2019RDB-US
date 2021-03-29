@@ -5,6 +5,7 @@ module Database.Package.Readme.Decode exposing (..)
 
 import Database.Package.Readme as A
 import Elm.Docs.Decode
+import Elm.Module.NameDict.Decode
 import Json.Decode as D exposing (Decoder)
 import Utils.Json.Decode_ as D_
 
@@ -18,4 +19,4 @@ readme =
             }
         )
         (D.field "readme" D.string)
-        (D.field "modules" (D_.dict D.string (D.list Elm.Docs.Decode.block)))
+        (D.field "modules" (Elm.Module.NameDict.Decode.nameDict (D.list Elm.Docs.Decode.block)))
