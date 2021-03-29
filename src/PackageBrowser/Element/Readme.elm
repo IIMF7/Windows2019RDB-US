@@ -139,7 +139,7 @@ view view_ model =
 
             Router.PackageView b ->
                 [ viewPackageHeader b
-                , viewReadme viewPackageReadme (PackageNameDict.get b model.readmes)
+                , viewPackageReadme (PackageNameDict.get b model.readmes)
                 ]
 
             Router.ModuleView b c ->
@@ -238,11 +238,16 @@ viewModuleHeader a b =
         ]
 
 
-viewPackageReadme : Readme.Readme -> Element msg
+viewPackageReadme : Maybe (Result Error Readme.Readme) -> Element msg
 viewPackageReadme a =
-    p []
-        [ Element.html (Markdown.toHtml [] a.readme)
-        ]
+    let
+        view_ : Readme.Readme -> Element msg
+        view_ b =
+            p []
+                [ Element.html (Markdown.toHtml [] b.readme)
+                ]
+    in
+    viewReadme view_ a
 
 
 
