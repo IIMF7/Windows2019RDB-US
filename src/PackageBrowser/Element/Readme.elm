@@ -153,7 +153,7 @@ view view_ model =
                 in
                 [ viewPackageHeader b
                 , viewModuleHeader b c
-                , viewReadme (viewModuleReadme b c d) (PackageNameDict.get b model.readmes)
+                , viewModuleReadme b c d (PackageNameDict.get b model.readmes)
                 ]
         )
 
@@ -254,33 +254,38 @@ viewPackageReadme a =
 --
 
 
-viewModuleReadme : Elm.Package.Name -> Elm.Module.Name -> Dict String () -> Readme.Readme -> Element Msg
+viewModuleReadme : Elm.Package.Name -> Elm.Module.Name -> Dict String () -> Maybe (Result Error Readme.Readme) -> Element Msg
 viewModuleReadme a b expanded c =
-    case c.modules |> ModuleNameDict.get b of
-        Just d ->
-            section []
-                (d
-                    |> blocksToSections (Elm.Module.toString b)
-                    |> List.map
-                        (\( v, vv ) ->
-                            section [ Element.spacing 0 ]
-                                [ buttonLink [ mutedTextColor ]
-                                    { label = text v
-                                    , onPress = Just (ToggleSection a b v)
-                                    }
-                                , column
-                                    [ Element.spacing 0
-                                    , Element.paddingXY 24 0
-                                    ]
-                                    (vv |> List.map (viewBlock (Dict.member v expanded)))
-                                ]
+    let
+        view_ : Readme.Readme -> Element Msg
+        view_ d =
+            case d.modules |> ModuleNameDict.get b of
+                Just e ->
+                    section []
+                        (e
+                            |> blocksToSections (Elm.Module.toString b)
+                            |> List.map
+                                (\( v, vv ) ->
+                                    section [ Element.spacing 0 ]
+                                        [ buttonLink [ mutedTextColor ]
+                                            { label = text v
+                                            , onPress = Just (ToggleSection a b v)
+                                            }
+                                        , column
+                                            [ Element.spacing 0
+                                            , Element.paddingXY 24 0
+                                            ]
+                                            (vv |> List.map (viewBlock (Dict.member v expanded)))
+                                        ]
+                                )
                         )
-                )
 
-        Nothing ->
-            status []
-                [ text Strings.moduleNotFound
-                ]
+                Nothing ->
+                    status []
+                        [ text Strings.moduleNotFound
+                        ]
+    in
+    viewReadme view_ c
 
 
 blocksToSections : String -> List Docs.Block -> List ( String, List Docs.Block )
