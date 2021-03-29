@@ -256,7 +256,7 @@ viewModuleReadme b a =
                                     ]
                                 , column
                                     [ Element.spacing 0
-                                    , Element.paddingXY 16 0
+                                    , Element.paddingXY 24 0
                                     ]
                                     (vv |> List.map (viewBlock False))
                                 ]
@@ -329,7 +329,7 @@ viewBlock expand a =
 viewMarkdownBlock : Bool -> String -> Element msg
 viewMarkdownBlock expand a =
     if expand then
-        p []
+        p [ Element.paddingXY 24 0 ]
             [ Element.html (Markdown.toHtml [] a)
             ]
 
@@ -339,10 +339,10 @@ viewMarkdownBlock expand a =
 
 viewUnionBlock : Bool -> Docs.Union -> Element msg
 viewUnionBlock expand a =
-    p []
+    column [ Element.spacing 0 ]
         [ text a.name
         , if expand then
-            p []
+            p [ Element.paddingXY 24 0 ]
                 [ Element.html (Markdown.toHtml [] a.comment)
                 ]
 
@@ -353,10 +353,10 @@ viewUnionBlock expand a =
 
 viewAliasBlock : Bool -> Docs.Alias -> Element msg
 viewAliasBlock expand a =
-    p []
+    column [ Element.spacing 0 ]
         [ text a.name
         , if expand then
-            p []
+            p [ Element.paddingXY 24 0 ]
                 [ Element.html (Markdown.toHtml [] a.comment)
                 ]
 
@@ -367,10 +367,10 @@ viewAliasBlock expand a =
 
 viewValueBlock : Bool -> Docs.Value -> Element msg
 viewValueBlock expand a =
-    p []
+    column [ Element.spacing 0 ]
         [ text a.name
         , if expand then
-            p []
+            p [ Element.paddingXY 24 0 ]
                 [ Element.html (Markdown.toHtml [] a.comment)
                 ]
 
@@ -381,10 +381,10 @@ viewValueBlock expand a =
 
 viewBinopBlock : Bool -> Docs.Binop -> Element msg
 viewBinopBlock expand a =
-    p []
+    column [ Element.spacing 0 ]
         [ text ("(" ++ a.name ++ ")")
         , if expand then
-            p []
+            p [ Element.paddingXY 24 0 ]
                 [ Element.html (Markdown.toHtml [] a.comment)
                 ]
 
