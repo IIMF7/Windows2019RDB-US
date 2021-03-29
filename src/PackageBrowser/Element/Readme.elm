@@ -1,6 +1,5 @@
 module PackageBrowser.Element.Readme exposing (..)
 
-import Database.Package as Package
 import Database.Package.Readme as Readme
 import Database.Package.Readme.Decode
 import Dict
@@ -14,7 +13,6 @@ import Markdown
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
-import Regex
 
 
 type alias Context a b =
@@ -363,59 +361,3 @@ viewBinopBlock expand a =
           else
             none
         ]
-
-
-
---
-
-
-activePackageAndModule : Router.View -> Package.Package -> Maybe (Maybe Elm.Module.Name)
-activePackageAndModule view_ a =
-    case view_ of
-        Router.DefaultView ->
-            Nothing
-
-        Router.PackageView b ->
-            if a.name == b then
-                Just Nothing
-
-            else
-                Nothing
-
-        Router.ModuleView b c ->
-            if a.name == b then
-                Just (Just c)
-
-            else
-                Nothing
-
-
-filterPackages : String -> List Package.Package -> List Package.Package
-filterPackages search a =
-    let
-        keywords : List String
-        keywords =
-            search |> toKeywords
-
-        isRelevant : String -> Bool
-        isRelevant b =
-            let
-                c =
-                    b |> toKeywords
-            in
-            keywords |> List.all (\v -> c |> List.any (String.startsWith v))
-
-        keywordsRegex : Regex.Regex
-        keywordsRegex =
-            Regex.fromString "[A-Za-z0-9]+" |> Maybe.withDefault Regex.never
-
-        toKeywords : String -> List String
-        toKeywords b =
-            b |> String.toLower |> Regex.find keywordsRegex |> List.map .match
-    in
-    a
-        |> List.filter
-            (\v ->
-                (v.name |> Elm.Package.toString |> isRelevant)
-                    || (v.exposed |> Package.exposedToList |> List.any (Elm.Module.toString >> isRelevant))
-            )

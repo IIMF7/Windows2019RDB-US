@@ -13,7 +13,6 @@ import PackageBrowser.Element.Readme as Readme
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui as Ui exposing (..)
-import Task
 import Url exposing (Url)
 import Utils.Update as Update
 
