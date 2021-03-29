@@ -41,8 +41,8 @@ type Error
 
 init : ( Model, Cmd Msg )
 init =
-    ( { readmes = PackageNameDict.fromList []
-      , openSections = PackageNameDict.fromList []
+    ( { readmes = PackageNameDict.empty
+      , openSections = PackageNameDict.empty
       }
     , Cmd.none
     )

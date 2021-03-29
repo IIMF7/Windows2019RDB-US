@@ -25,7 +25,7 @@ init url key =
     ( { key = key
       , baseUrl = { url | query = Nothing, fragment = Nothing }
       , view = DefaultView
-      , recent = NameDict.fromList []
+      , recent = NameDict.empty
       }
     , Task.succeed () |> Task.perform (\_ -> UrlChanged url)
     )
