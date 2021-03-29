@@ -100,8 +100,36 @@ update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
 update ctx msg model =
     case msg of
         GotPackages a ->
+            let
+                scrollToPackage : Cmd Msg
+                scrollToPackage =
+                    a
+                        |> Result.toMaybe
+                        |> Maybe.andThen
+                            (\v ->
+                                Element.Virtualized.getScrollOffset
+                                    { data = v
+                                    , getKey = .name >> Elm.Package.toString
+                                    , getSize = \vv -> computeSize (NameDict.member vv.name ctx.router.recent) vv
+                                    , key = package
+                                    }
+                            )
+                        |> Maybe.map
+                            (\v ->
+                                Browser.Dom.setViewportOf packagesId 0 (toFloat v)
+                                    |> Task.attempt ViewportChanged
+                            )
+                        |> Maybe.withDefault Cmd.none
+
+                package : String
+                package =
+                    ctx.router.view
+                        |> Router.viewToPackageName
+                        |> Maybe.map Elm.Package.toString
+                        |> Maybe.withDefault "elm/core"
+            in
             ( { model | packages = a |> Result.mapError HttpError }
-            , Browser.Dom.setViewportOf packagesId 0 6064 |> Task.attempt ViewportChanged
+            , scrollToPackage
             )
 
         UrlChanged ->
