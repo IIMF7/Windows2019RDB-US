@@ -101,7 +101,7 @@ update ctx msg model =
     case msg of
         GotPackages a ->
             ( { model | packages = a |> Result.mapError HttpError }
-            , Browser.Dom.setViewportOf packagesId 0 6240 |> Task.attempt ViewportChanged
+            , Browser.Dom.setViewportOf packagesId 0 6064 |> Task.attempt ViewportChanged
             )
 
         UrlChanged ->
