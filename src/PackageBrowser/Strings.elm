@@ -24,7 +24,7 @@ infoText3 =
 
 
 infoText4 =
-    "Use prefix search, for \"mdgriffith/elm-ui\" type \"e ui md\"."
+    "Use prefix search for \"mdgriffith/elm-ui\" type \"e ui md\"."
 
 
 proposalLink =
