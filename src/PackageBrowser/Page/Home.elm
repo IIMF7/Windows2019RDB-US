@@ -162,6 +162,14 @@ view ctx model =
     let
         border_ =
             el [ Element.height Element.fill, defaultBorderColor, borderRight ] none
+
+        info : Element.Attribute Msg
+        info =
+            if model.showInfo then
+                Element.inFront viewInfo
+
+            else
+                noneAttribute
     in
     row
         [ Element.height Element.fill
@@ -169,12 +177,49 @@ view ctx model =
         , Element.centerX
         , Element.spacing 0
         , Background.color white
+        , info
         ]
         [ border_
         , Lazy.lazy3 viewLeftColumn ctx.router.view ctx.router.recent model
         , border_
         , Lazy.lazy2 viewRightColumn ctx.router.view model.readmes
         , border_
+        ]
+
+
+viewInfo : Element Msg
+viewInfo =
+    modal [ Element.moveDown 16, Element.moveRight 16, Element.padding 32 ]
+        [ h5 [ Font.center ]
+            [ text Strings.info
+            ]
+        , section []
+            [ p []
+                [ text Strings.infoText1
+                ]
+            , p []
+                [ text Strings.infoText2
+                ]
+            , p []
+                [ text Strings.infoText3
+                ]
+            , p []
+                [ newTabLink []
+                    { label = text Strings.source
+                    , url = "https://github.com/pravdomil/Elm-Packages"
+                    }
+                , text ". "
+                , newTabLink []
+                    { label = text Strings.proposalLink
+                    , url = "https://github.com/elm/package.elm-lang.org/issues"
+                    }
+                , text "."
+                ]
+            ]
+        , buttonLink [ Element.centerX, Element.padding 8 ]
+            { label = text Strings.ok
+            , onPress = Just ToggleInfo
+            }
         ]
 
 
@@ -195,10 +240,16 @@ viewLeftColumn view_ recent model =
             , defaultBorderColor
             , borderBottom
             ]
-            [ h5 [ Element.paddingXY 16 0 ]
-                [ link [ defaultTextColor ]
-                    { label = text Strings.title
-                    , url = Router.DefaultView |> Router.viewToUrl
+            [ row [ Element.paddingXY 16 0 ]
+                [ h5 []
+                    [ link [ defaultTextColor ]
+                        { label = text Strings.title
+                        , url = Router.DefaultView |> Router.viewToUrl
+                        }
+                    ]
+                , buttonLink []
+                    { label = text Strings.info
+                    , onPress = Just ToggleInfo
                     }
                 ]
             , row
