@@ -203,7 +203,7 @@ inputStyle a =
         :: spacing 8
         :: Background.color white
         :: inputBorderColor
-        :: Border.width 1
+        :: border
         :: Border.rounded 4
         :: a
 
@@ -334,6 +334,10 @@ id a =
 
 
 --
+
+
+border =
+    Border.width 1
 
 
 borderLeft =
