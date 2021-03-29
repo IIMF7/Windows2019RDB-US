@@ -4,12 +4,14 @@ import Browser
 import Browser.Navigation as Navigation
 import Element
 import Element.Background as Background
+import Element.Lazy as Lazy
 import Html
 import Json.Decode as Decode
-import PackageBrowser.Page.Home as Home
+import PackageBrowser.Element.Packages as Packages
+import PackageBrowser.Element.Readme as Readme
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
-import PackageBrowser.Ui as Ui
+import PackageBrowser.Ui as Ui exposing (..)
 import Task
 import Url exposing (Url)
 import Utils.Update as Update
@@ -33,7 +35,8 @@ main =
 
 type alias Model =
     { router : Router.Model
-    , home : Home.Model
+    , packages : Packages.Model
+    , readme : Readme.Model
     }
 
 
@@ -43,15 +46,20 @@ init _ url key =
         ( router, routerCmd ) =
             Router.init url key
 
-        ( home, homeCmd ) =
-            Home.init
+        ( packages, packagesCmd ) =
+            Packages.init
+
+        ( readme, readmeCmd ) =
+            Readme.init
     in
     ( { router = router
-      , home = home
+      , packages = packages
+      , readme = readme
       }
     , Cmd.batch
         [ routerCmd |> Cmd.map RouterMsg
-        , homeCmd |> Cmd.map HomeMsg
+        , packagesCmd |> Cmd.map PackagesMsg
+        , readmeCmd |> Cmd.map ReadmeMsg
         ]
     )
 
@@ -62,7 +70,8 @@ init _ url key =
 
 type Msg
     = RouterMsg Router.Msg
-    | HomeMsg Home.Msg
+    | PackagesMsg Packages.Msg
+    | ReadmeMsg Readme.Msg
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -72,16 +81,20 @@ update msg model =
             Router.update a model.router
                 |> Tuple.mapBoth (\v -> { model | router = v }) (Cmd.map RouterMsg)
 
-        HomeMsg a ->
-            Home.update model a model.home
-                |> Tuple.mapBoth (\v -> { model | home = v }) (Cmd.map HomeMsg)
+        PackagesMsg a ->
+            Packages.update model a model.packages
+                |> Tuple.mapBoth (\v -> { model | packages = v }) (Cmd.map PackagesMsg)
+
+        ReadmeMsg a ->
+            Readme.update model a model.readme
+                |> Tuple.mapBoth (\v -> { model | readme = v }) (Cmd.map ReadmeMsg)
     )
         |> Update.andThen
             (\v ->
                 case msg of
                     RouterMsg (Router.UrlChanged _) ->
-                        Home.update v Home.UrlChanged v.home
-                            |> Tuple.mapBoth (\vv -> { v | home = vv }) (Cmd.map HomeMsg)
+                        Readme.update v Readme.UrlChanged v.readme
+                            |> Tuple.mapBoth (\vv -> { v | readme = vv }) (Cmd.map ReadmeMsg)
 
                     _ ->
                         ( v
@@ -107,13 +120,33 @@ view : Model -> Browser.Document Msg
 view model =
     { title = Strings.title
     , body =
-        [ Element.layout (Ui.rootStyle [])
-            (Home.view model model.home
-                |> Element.map HomeMsg
-            )
+        [ Element.layout (Ui.rootStyle []) (viewBody model)
         , scaleUi
         ]
     }
+
+
+viewBody : Model -> Element Msg
+viewBody model =
+    let
+        border_ =
+            el [ Element.height Element.fill, defaultBorderColor, borderRight ] none
+    in
+    row
+        [ Element.height Element.fill
+        , Element.width Element.shrink
+        , Element.centerX
+        , Element.spacing 0
+        , Background.color white
+        ]
+        [ border_
+        , Lazy.lazy3 Packages.view model.router.view model.router.recent model.packages
+            |> Element.map PackagesMsg
+        , border_
+        , Lazy.lazy2 Readme.view model.router.view model.readme
+            |> Element.map ReadmeMsg
+        , border_
+        ]
 
 
 scaleUi : Html.Html msg
