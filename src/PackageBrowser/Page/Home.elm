@@ -539,7 +539,23 @@ viewModuleReadme : Elm.Module.Name -> Readme.Readme -> Element msg
 viewModuleReadme b a =
     case a.modules |> Dict.get (Elm.Module.toString b) of
         Just c ->
-            column [] (c |> List.map viewBlock)
+            column []
+                (c
+                    |> blocksToSections
+                    |> List.map
+                        (\( v, vv ) ->
+                            section [ Element.spacing 0 ]
+                                [ p [ mutedTextColor ]
+                                    [ text v
+                                    ]
+                                , column
+                                    [ Element.spacing 0
+                                    , Element.paddingXY 16 0
+                                    ]
+                                    (vv |> List.map viewBlock)
+                                ]
+                        )
+                )
 
         Nothing ->
             status []
