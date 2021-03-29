@@ -43,6 +43,7 @@ type alias Context a b =
 type alias Model =
     { packages : Result Error (List Package.Package)
     , readmes : NameDict.NameDict (Result Error Readme.Readme)
+    , showInfo : Bool
     , search : String
     , scrollOffset : Float
     }
@@ -57,6 +58,7 @@ init : ( Model, Cmd Msg )
 init =
     ( { packages = Err Loading
       , readmes = NameDict.fromList []
+      , showInfo = False
       , search = ""
       , scrollOffset = 0
       }
@@ -88,6 +90,7 @@ type Msg
     = GotPackages (Result Http.Error (List Package.Package))
     | UrlChanged
     | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
+    | ToggleInfo
     | ViewportChanged (Result Browser.Dom.Error ())
     | SearchChanged String
     | ScrollOffsetChanged Float
@@ -122,6 +125,11 @@ update ctx msg model =
 
         GotReadme a b ->
             ( { model | readmes = model.readmes |> NameDict.insert a (b |> Result.mapError HttpError) }
+            , Cmd.none
+            )
+
+        ToggleInfo ->
+            ( { model | showInfo = not model.showInfo }
             , Cmd.none
             )
 
