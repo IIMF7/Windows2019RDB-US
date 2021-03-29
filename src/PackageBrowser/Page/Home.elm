@@ -19,6 +19,7 @@ import Elm.Package
 import Elm.Package.NameDict as NameDict
 import Http
 import Json.Decode as Decode
+import Markdown
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
@@ -522,7 +523,9 @@ viewModuleHeader a b =
 
 viewPackageReadme : Readme.Readme -> Element msg
 viewPackageReadme a =
-    text a.readme
+    p []
+        [ Element.html (Markdown.toHtml [] a.readme)
+        ]
 
 
 viewModuleReadme : Elm.Module.Name -> Readme.Readme -> Element msg
