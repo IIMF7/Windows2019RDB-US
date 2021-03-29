@@ -116,7 +116,7 @@ update ctx msg model =
                             )
                         |> Maybe.map
                             (\v ->
-                                Browser.Dom.setViewportOf packagesId 0 (toFloat v)
+                                Browser.Dom.setViewportOf packagesId 0 (toFloat v + 1)
                                     |> Task.attempt ViewportChanged
                             )
                         |> Maybe.withDefault Cmd.none
