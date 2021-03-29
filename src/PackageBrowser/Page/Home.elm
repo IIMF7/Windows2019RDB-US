@@ -552,7 +552,7 @@ viewModuleReadme b a =
                                     [ Element.spacing 0
                                     , Element.paddingXY 16 0
                                     ]
-                                    (vv |> List.map viewBlock)
+                                    (vv |> List.map (viewBlock False))
                                 ]
                         )
                 )
@@ -598,58 +598,58 @@ blocksToSections defaultTitle a =
         |> List.reverse
 
 
-viewBlock : Docs.Block -> Element msg
-viewBlock a =
+viewBlock : Bool -> Docs.Block -> Element msg
+viewBlock expand a =
     case a of
         Docs.MarkdownBlock b ->
-            viewMarkdownBlock b
+            viewMarkdownBlock expand b
 
         Docs.UnionBlock b ->
-            viewUnionBlock b
+            viewUnionBlock expand b
 
         Docs.AliasBlock b ->
-            viewAliasBlock b
+            viewAliasBlock expand b
 
         Docs.ValueBlock b ->
-            viewValueBlock b
+            viewValueBlock expand b
 
         Docs.BinopBlock b ->
-            viewBinopBlock b
+            viewBinopBlock expand b
 
         Docs.UnknownBlock b ->
-            viewMarkdownBlock b
+            viewMarkdownBlock expand b
 
 
-viewMarkdownBlock : String -> Element msg
-viewMarkdownBlock a =
+viewMarkdownBlock : Bool -> String -> Element msg
+viewMarkdownBlock expand a =
     p []
         [ Element.html (Markdown.toHtml [] a)
         ]
 
 
-viewUnionBlock : Docs.Union -> Element msg
-viewUnionBlock a =
+viewUnionBlock : Bool -> Docs.Union -> Element msg
+viewUnionBlock expand a =
     p []
         [ text a.name
         ]
 
 
-viewAliasBlock : Docs.Alias -> Element msg
-viewAliasBlock a =
+viewAliasBlock : Bool -> Docs.Alias -> Element msg
+viewAliasBlock expand a =
     p []
         [ text a.name
         ]
 
 
-viewValueBlock : Docs.Value -> Element msg
-viewValueBlock a =
+viewValueBlock : Bool -> Docs.Value -> Element msg
+viewValueBlock expand a =
     p []
         [ text a.name
         ]
 
 
-viewBinopBlock : Docs.Binop -> Element msg
-viewBinopBlock a =
+viewBinopBlock : Bool -> Docs.Binop -> Element msg
+viewBinopBlock expand a =
     p []
         [ text ("(" ++ a.name ++ ")")
         ]
