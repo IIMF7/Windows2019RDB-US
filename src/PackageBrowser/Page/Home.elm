@@ -320,7 +320,7 @@ viewPackage expand active a =
             )
         , if shortened then
             link [ Element.width Element.fill, Element.paddingXY 40 0, defaultTextColor ]
-                { label = text "..."
+                { label = text Strings.ellipsis
                 , url = Router.viewToUrl (Router.PackageView a.name)
                 }
 

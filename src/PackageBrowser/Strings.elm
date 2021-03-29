@@ -7,6 +7,10 @@ title =
     "Pravdomil's Elm Packages Browser"
 
 
+ellipsis =
+    "…"
+
+
 searchInput =
     "Search in package and module names"
 
