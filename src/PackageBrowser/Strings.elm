@@ -70,13 +70,13 @@ officialDocs =
 httpError a =
     case a of
         Http.BadUrl _ ->
-            "Connection failed."
+            "Failed to connect to server."
 
         Http.Timeout ->
-            "Connection failed."
+            "Failed to connect to server."
 
         Http.NetworkError ->
-            "Connection failed."
+            "Failed to connect to server."
 
         Http.BadStatus _ ->
             "Server seems to be broken."
