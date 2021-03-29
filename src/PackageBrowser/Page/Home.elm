@@ -232,9 +232,6 @@ viewInfo =
                 [ text Strings.infoText3
                 ]
             , p []
-                [ text Strings.infoText4
-                ]
-            , p []
                 [ newTabLink []
                     { label = text Strings.source
                     , url = "https://github.com/pravdomil/Elm-Packages"

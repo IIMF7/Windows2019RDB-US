@@ -12,7 +12,7 @@ info =
 
 
 infoText1 =
-    "Data is from 27 Mar 2021."
+    "Showing package latest version from 27 Mar 2021."
 
 
 infoText2 =
@@ -20,10 +20,6 @@ infoText2 =
 
 
 infoText3 =
-    "Showing only package latest version."
-
-
-infoText4 =
     "Use prefix search for \"mdgriffith/elm-ui\" type \"e ui md\"."
 
 
