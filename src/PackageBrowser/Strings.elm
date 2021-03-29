@@ -12,7 +12,7 @@ info =
 
 
 infoText1 =
-    "Database is from 27 Mar 2021."
+    "Data is from 27 Mar 2021."
 
 
 infoText2 =
