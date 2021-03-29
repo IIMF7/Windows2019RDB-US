@@ -53,7 +53,7 @@ viewFromUrl a =
                     (Query.map (Maybe.andThen Elm.Module.fromString) (Query.string "module"))
                 )
     in
-    case a |> Parser.parse parser of
+    case a |> (\v -> { v | path = "/" }) |> Parser.parse parser of
         Just ( Just b, Just c ) ->
             ModuleView b c
 
