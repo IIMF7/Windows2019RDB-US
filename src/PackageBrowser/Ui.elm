@@ -245,16 +245,16 @@ column a =
         )
 
 
-
---
-
-
 section a =
     Element.column
         (spacing 16
             :: width fill
             :: a
         )
+
+
+
+--
 
 
 h1 a =
