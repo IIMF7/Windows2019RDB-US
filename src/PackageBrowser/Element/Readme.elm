@@ -31,7 +31,7 @@ type alias Context a b =
 
 type alias Model =
     { readmes : PackageNameDict.NameDict (Result Error Readme.Readme)
-    , openSections : PackageNameDict.NameDict (ModuleNameDict.NameDict (Dict String ()))
+    , expandedSections : PackageNameDict.NameDict (ModuleNameDict.NameDict (Dict String ()))
     }
 
 
@@ -43,7 +43,7 @@ type Error
 init : ( Model, Cmd Msg )
 init =
     ( { readmes = PackageNameDict.empty
-      , openSections = PackageNameDict.empty
+      , expandedSections = PackageNameDict.empty
       }
     , Cmd.none
     )
@@ -96,8 +96,8 @@ update ctx msg model =
 
         ExpandSection a b c ->
             ( { model
-                | openSections =
-                    model.openSections
+                | expandedSections =
+                    model.expandedSections
                         |> PackageNameDict.update a
                             (\v ->
                                 v
