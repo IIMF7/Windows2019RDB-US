@@ -16,6 +16,11 @@ fromList a =
         |> NameDict
 
 
+empty : NameDict v
+empty =
+    fromList []
+
+
 toList : NameDict v -> List ( Elm.Module.Name, v )
 toList (NameDict a) =
     a
@@ -36,3 +41,8 @@ get k (NameDict a) =
 insert : Elm.Module.Name -> v -> NameDict v -> NameDict v
 insert k v (NameDict a) =
     a |> Dict.insert (Elm.Module.toString k) v |> NameDict
+
+
+update : Elm.Module.Name -> (Maybe v -> Maybe v) -> NameDict v -> NameDict v
+update k fn (NameDict a) =
+    a |> Dict.update (Elm.Module.toString k) fn |> NameDict
