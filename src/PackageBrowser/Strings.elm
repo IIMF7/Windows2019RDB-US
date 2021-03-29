@@ -4,7 +4,7 @@ import Http
 
 
 title =
-    "Pravdomil's Elm Packages Browser"
+    "Elm Packages Browser"
 
 
 info =
