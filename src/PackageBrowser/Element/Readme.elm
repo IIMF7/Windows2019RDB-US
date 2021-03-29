@@ -64,7 +64,7 @@ getPackage a =
 type Msg
     = UrlChanged
     | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
-    | ExpandSection Elm.Package.Name Elm.Module.Name String
+    | ToggleSection Elm.Package.Name Elm.Module.Name String
 
 
 update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
@@ -94,7 +94,7 @@ update ctx msg model =
             , Cmd.none
             )
 
-        ExpandSection a b c ->
+        ToggleSection a b c ->
             ( { model
                 | expandedSections =
                     model.expandedSections
@@ -106,7 +106,14 @@ update ctx msg model =
                                         (\vv ->
                                             vv
                                                 |> Maybe.withDefault Dict.empty
-                                                |> Dict.insert c ()
+                                                |> Dict.update c
+                                                    (\vvv ->
+                                                        if vvv == Nothing then
+                                                            Just ()
+
+                                                        else
+                                                            Nothing
+                                                    )
                                                 |> Just
                                         )
                                     |> Just
