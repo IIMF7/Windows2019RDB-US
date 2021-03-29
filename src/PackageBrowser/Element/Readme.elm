@@ -20,7 +20,6 @@ type alias Context a b =
         | router :
             { b
                 | view : Router.View
-                , recent : NameDict.NameDict ()
             }
     }
 
