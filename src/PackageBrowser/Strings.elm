@@ -7,6 +7,30 @@ title =
     "Pravdomil's Elm Packages Browser"
 
 
+info =
+    "Info"
+
+
+infoText1 =
+    "Database is from 27 Mar 2021."
+
+
+infoText2 =
+    "Showing packages compatible with Elm 19.1."
+
+
+infoText3 =
+    "Search is done using prefix search, for example for \"mdgriffith/elm-ui\" type \"e ui md\"."
+
+
+proposalLink =
+    "Official proposal"
+
+
+ok =
+    "OK"
+
+
 ellipsis =
     "…"
 
