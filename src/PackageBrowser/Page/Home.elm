@@ -515,7 +515,7 @@ viewModuleHeader a b =
             ]
         , newTabLink []
             { label = text Strings.source
-            , url = "https://github.com/" ++ Elm.Package.toString a ++ "/tree/master/src/" ++ (Elm.Module.toString b |> String.replace "." "/") ++ ".elm"
+            , url = "https://github.com/" ++ Elm.Package.toString a ++ "/blob/master/src/" ++ (Elm.Module.toString b |> String.replace "." "/") ++ ".elm"
             }
         , newTabLink []
             { label = text Strings.officialDocs
