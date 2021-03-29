@@ -116,7 +116,7 @@ update ctx msg model =
                             )
                         |> Maybe.map
                             (\v ->
-                                Browser.Dom.setViewportOf packagesId 0 (toFloat v + 1)
+                                Browser.Dom.setViewportOf packagesId 0 (toFloat v)
                                     |> Task.attempt ViewportChanged
                             )
                         |> Maybe.withDefault Cmd.none
@@ -387,7 +387,6 @@ viewPackage expand active a =
         [ Element.height Element.fill
         , Element.spacing 0
         , defaultBorderColor
-        , borderBottom
         ]
         [ link [ Element.width Element.fill, Element.paddingXY 16 8, packageColor ]
             { label = text (Elm.Package.toString a.name)
