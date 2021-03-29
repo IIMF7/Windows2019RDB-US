@@ -16,11 +16,11 @@ infoText1 =
 
 
 infoText2 =
-    "Showing packages compatible with Elm 19.1."
+    "Packages compatible with Elm 0.19.1."
 
 
 infoText3 =
-    "Search is done using prefix search, for example for \"mdgriffith/elm-ui\" type \"e ui md\"."
+    "Use prefix search, for \"mdgriffith/elm-ui\" type \"e ui md\"."
 
 
 proposalLink =
