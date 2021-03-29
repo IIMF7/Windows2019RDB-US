@@ -387,3 +387,19 @@ labelHidden =
 
 labelAbove a =
     Input.labelAbove (Font.size 12 :: a)
+
+
+
+--
+
+
+modal a =
+    column
+        (width (shrink |> Element.maximum 512)
+            :: Background.color white
+            :: shadow
+            :: border
+            :: defaultBorderColor
+            :: Border.rounded 16
+            :: a
+        )
