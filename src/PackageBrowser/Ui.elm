@@ -138,24 +138,24 @@ dark =
 --
 
 
-defaultBorderColor =
-    Border.color gray300
-
-
-inputBorderColor =
-    Border.color gray400
+defaultTextColor =
+    Font.color gray900
 
 
 mutedTextColor =
     Font.color gray600
 
 
-defaultTextColor =
-    Font.color gray900
-
-
 defaultBackgroundColor =
     Background.color gray100
+
+
+defaultBorderColor =
+    Border.color gray300
+
+
+inputBorderColor =
+    Border.color gray400
 
 
 fontSansSerif =
