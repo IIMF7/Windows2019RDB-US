@@ -80,9 +80,8 @@ update msg model =
             (\v ->
                 case msg of
                     RouterMsg (Router.UrlChanged _) ->
-                        ( v
-                        , Task.succeed () |> Task.perform (\_ -> HomeMsg Home.UrlChanged)
-                        )
+                        Home.update v Home.UrlChanged v.home
+                            |> Tuple.mapBoth (\vv -> { v | home = vv }) (Cmd.map HomeMsg)
 
                     _ ->
                         ( v
