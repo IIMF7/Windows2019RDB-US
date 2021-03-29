@@ -539,7 +539,7 @@ viewModuleReadme : Elm.Module.Name -> Readme.Readme -> Element msg
 viewModuleReadme b a =
     case a.modules |> Dict.get (Elm.Module.toString b) of
         Just c ->
-            column []
+            section []
                 (c
                     |> blocksToSections (Elm.Module.toString b)
                     |> List.map
