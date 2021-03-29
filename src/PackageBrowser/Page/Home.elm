@@ -624,6 +624,34 @@ viewBlock a =
                 ]
 
 
+viewUnionBlock : Docs.Union -> Element msg
+viewUnionBlock a =
+    p []
+        [ text a.name
+        ]
+
+
+viewAliasBlock : Docs.Alias -> Element msg
+viewAliasBlock a =
+    p []
+        [ text a.name
+        ]
+
+
+viewValueBlock : Docs.Value -> Element msg
+viewValueBlock a =
+    p []
+        [ text a.name
+        ]
+
+
+viewBinopBlock : Docs.Binop -> Element msg
+viewBinopBlock a =
+    p []
+        [ text ("(" ++ a.name ++ ")")
+        ]
+
+
 
 --
 
