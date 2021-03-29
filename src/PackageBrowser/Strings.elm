@@ -12,11 +12,11 @@ info =
 
 
 infoText1 =
-    "Showing package latest version from 27 Mar 2021."
+    "Packages compatible with Elm 0.19.1."
 
 
 infoText2 =
-    "Packages compatible with Elm 0.19.1."
+    "Showing package latest version from 27 Mar 2021."
 
 
 infoText3 =
