@@ -274,22 +274,6 @@ modulesLimit =
 
 viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element Msg
 viewPackages view_ recent model =
-    let
-        getSize : Bool -> Package.Package -> Int
-        getSize expand a =
-            let
-                len =
-                    a.exposed |> Package.exposedToList |> List.length
-            in
-            32
-                + (if not expand && len > modulesLimit then
-                    modulesLimit * 16
-
-                   else
-                    len * 16
-                  )
-                + 12
-    in
     case model.packages of
         Ok b ->
             case filterPackages model.search b of
@@ -302,7 +286,7 @@ viewPackages view_ recent model =
                     Element.Virtualized.column [ id packagesId ]
                         { data = c
                         , getKey = .name >> Elm.Package.toString
-                        , getSize = \v -> getSize (NameDict.member v.name recent) v
+                        , getSize = \v -> computeSize (NameDict.member v.name recent) v
                         , scrollOffset = model.scrollOffset
                         , view =
                             \v ->
@@ -322,6 +306,22 @@ viewPackages view_ recent model =
                     HttpError c ->
                         text (Strings.httpError c)
                 ]
+
+
+computeSize : Bool -> Package.Package -> Int
+computeSize expand a =
+    let
+        len =
+            a.exposed |> Package.exposedToList |> List.length
+    in
+    32
+        + (if not expand && len > modulesLimit then
+            modulesLimit * 16
+
+           else
+            len * 16
+          )
+        + 12
 
 
 viewPackage : Bool -> Maybe (Maybe Elm.Module.Name) -> Package.Package -> Element msg
