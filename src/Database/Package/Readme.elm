@@ -1,12 +1,13 @@
 module Database.Package.Readme exposing (..)
 
-import Dict exposing (Dict)
 import Elm.Docs
+import Elm.Module
+import Elm.Module.NameDict as PackageNameDict
 
 
 type alias Readme =
     { readme : String
-    , modules : Dict String (List Elm.Docs.Block)
+    , modules : PackageNameDict.NameDict (List Elm.Docs.Block)
     }
 
 
@@ -15,6 +16,11 @@ fromReadmeAndDocs a b =
     { readme = a
     , modules =
         b
-            |> List.map (\v -> ( v.name, Elm.Docs.toBlocks v ))
-            |> Dict.fromList
+            |> List.filterMap
+                (\v ->
+                    v.name
+                        |> Elm.Module.fromString
+                        |> Maybe.map (\vv -> ( vv, Elm.Docs.toBlocks v ))
+                )
+            |> PackageNameDict.fromList
     }
