@@ -2,6 +2,7 @@ module PackageBrowser.Element.Readme exposing (..)
 
 import Database.Package.Readme as Readme
 import Database.Package.Readme.Decode
+import Dict exposing (Dict)
 import Element
 import Elm.Docs as Docs
 import Elm.Module
@@ -30,7 +31,7 @@ type alias Context a b =
 
 type alias Model =
     { readmes : PackageNameDict.NameDict (Result Error Readme.Readme)
-    , openSections : PackageNameDict.NameDict (ModuleNameDict.NameDict String)
+    , openSections : PackageNameDict.NameDict (ModuleNameDict.NameDict (Dict String ()))
     }
 
 
@@ -63,6 +64,7 @@ getPackage a =
 type Msg
     = UrlChanged
     | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
+    | ExpandSection Elm.Package.Name Elm.Module.Name String
 
 
 update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
@@ -89,6 +91,27 @@ update ctx msg model =
 
         GotReadme a b ->
             ( { model | readmes = model.readmes |> PackageNameDict.insert a (b |> Result.mapError HttpError) }
+            , Cmd.none
+            )
+
+        ExpandSection a b c ->
+            ( { model
+                | openSections =
+                    model.openSections
+                        |> PackageNameDict.update a
+                            (\v ->
+                                v
+                                    |> Maybe.withDefault ModuleNameDict.empty
+                                    |> ModuleNameDict.update b
+                                        (\vv ->
+                                            vv
+                                                |> Maybe.withDefault Dict.empty
+                                                |> Dict.insert c ()
+                                                |> Just
+                                        )
+                                    |> Just
+                            )
+              }
             , Cmd.none
             )
 
