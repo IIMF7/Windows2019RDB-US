@@ -141,7 +141,7 @@ view : Router.View -> NameDict.NameDict () -> Model -> Element Msg
 view view_ recent model =
     column
         [ Element.height Element.fill
-        , Element.width (Element.px 400)
+        , Element.width (Element.px 320)
         , Element.spacing 0
         ]
         [ column

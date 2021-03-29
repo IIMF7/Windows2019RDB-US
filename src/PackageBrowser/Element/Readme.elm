@@ -123,7 +123,7 @@ update ctx msg model =
 view : Router.View -> Model -> Element msg
 view view_ model =
     column
-        [ Element.width (Element.px 800)
+        [ Element.width (Element.px 880)
         , Element.height Element.fill
         , Element.spacing 0
         ]
