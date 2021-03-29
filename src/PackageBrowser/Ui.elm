@@ -158,6 +158,15 @@ inputBorderColor =
     Border.color gray400
 
 
+shadow =
+    Border.shadow
+        { offset = ( 0, 16 )
+        , size = 0
+        , blur = 48
+        , color = black |> toRgb |> (\v -> { v | alpha = 0.2 }) |> fromRgb
+        }
+
+
 fontSansSerif =
     [ Font.typeface "system-ui"
     , Font.typeface "-apple-system"
