@@ -54,6 +54,25 @@ column attrs { data, getKey, getSize, scrollOffset, view, onScroll } =
         )
 
 
+getScrollOffset : { data : List a, getKey : a -> String, getSize : a -> Int, key : String } -> Maybe Int
+getScrollOffset { data, getKey, getSize, key } =
+    let
+        fold : Int -> List a -> Maybe Int
+        fold acc b =
+            case b of
+                [] ->
+                    Nothing
+
+                c :: rest ->
+                    if getKey c == key then
+                        Just acc
+
+                    else
+                        fold (acc + getSize c) rest
+    in
+    data |> fold 0
+
+
 
 --
 
