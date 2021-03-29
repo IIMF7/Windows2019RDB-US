@@ -127,7 +127,7 @@ update ctx msg model =
 --
 
 
-view : Router.View -> Model -> Element msg
+view : Router.View -> Model -> Element Msg
 view view_ model =
     column
         [ Element.height Element.fill
@@ -143,9 +143,17 @@ view view_ model =
                 ]
 
             Router.ModuleView b c ->
+                let
+                    d : Dict String ()
+                    d =
+                        model.expandedSections
+                            |> PackageNameDict.get b
+                            |> Maybe.andThen (ModuleNameDict.get c)
+                            |> Maybe.withDefault Dict.empty
+                in
                 [ viewPackageHeader b
                 , viewModuleHeader b c
-                , viewReadme (viewModuleReadme c) (PackageNameDict.get b model.readmes)
+                , viewReadme (viewModuleReadme b c d) (PackageNameDict.get b model.readmes)
                 ]
         )
 
@@ -241,24 +249,25 @@ viewPackageReadme a =
 --
 
 
-viewModuleReadme : Elm.Module.Name -> Readme.Readme -> Element msg
-viewModuleReadme b a =
-    case a.modules |> ModuleNameDict.get b of
-        Just c ->
+viewModuleReadme : Elm.Package.Name -> Elm.Module.Name -> Dict String () -> Readme.Readme -> Element Msg
+viewModuleReadme a b expanded c =
+    case c.modules |> ModuleNameDict.get b of
+        Just d ->
             section []
-                (c
+                (d
                     |> blocksToSections (Elm.Module.toString b)
                     |> List.map
                         (\( v, vv ) ->
                             section [ Element.spacing 0 ]
-                                [ p [ mutedTextColor ]
-                                    [ text v
-                                    ]
+                                [ buttonLink [ mutedTextColor ]
+                                    { label = text v
+                                    , onPress = Just (ToggleSection a b v)
+                                    }
                                 , column
                                     [ Element.spacing 0
                                     , Element.paddingXY 24 0
                                     ]
-                                    (vv |> List.map (viewBlock False))
+                                    (vv |> List.map (viewBlock (Dict.member v expanded)))
                                 ]
                         )
                 )
