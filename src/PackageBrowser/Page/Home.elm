@@ -224,7 +224,7 @@ viewPackages view_ recent model =
             in
             32
                 + (if not expand && len > modulesLimit then
-                    (modulesLimit + 1) * 16
+                    modulesLimit * 16
 
                    else
                     len * 16
@@ -275,7 +275,7 @@ viewPackage expand active a =
                     a.exposed |> Package.exposedToList
             in
             if expand == False && List.length modules_ > modulesLimit then
-                ( True, modules_ |> List.take modulesLimit )
+                ( True, modules_ |> List.take (modulesLimit - 1) )
 
             else
                 ( False, modules_ )
