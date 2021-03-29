@@ -7,7 +7,7 @@ import Element
 import Elm.Docs as Docs
 import Elm.Module
 import Elm.Package
-import Elm.Package.NameDict as NameDict
+import Elm.Package.NameDict as PackageNameDict
 import Http
 import Markdown
 import PackageBrowser.Router as Router
@@ -29,7 +29,7 @@ type alias Context a b =
 
 
 type alias Model =
-    { readmes : NameDict.NameDict (Result Error Readme.Readme)
+    { readmes : PackageNameDict.NameDict (Result Error Readme.Readme)
     }
 
 
@@ -40,7 +40,7 @@ type Error
 
 init : ( Model, Cmd Msg )
 init =
-    ( { readmes = NameDict.fromList []
+    ( { readmes = PackageNameDict.fromList []
       }
     , Cmd.none
     )
@@ -69,14 +69,14 @@ update ctx msg model =
         UrlChanged ->
             case ctx.router.view |> Router.viewToPackageName of
                 Just b ->
-                    case model.readmes |> NameDict.get b of
+                    case model.readmes |> PackageNameDict.get b of
                         Just _ ->
                             ( model
                             , Cmd.none
                             )
 
                         Nothing ->
-                            ( { model | readmes = model.readmes |> NameDict.insert b (Err Loading) }
+                            ( { model | readmes = model.readmes |> PackageNameDict.insert b (Err Loading) }
                             , getPackage b
                             )
 
@@ -86,7 +86,7 @@ update ctx msg model =
                     )
 
         GotReadme a b ->
-            ( { model | readmes = model.readmes |> NameDict.insert a (b |> Result.mapError HttpError) }
+            ( { model | readmes = model.readmes |> PackageNameDict.insert a (b |> Result.mapError HttpError) }
             , Cmd.none
             )
 
@@ -108,13 +108,13 @@ view view_ model =
 
             Router.PackageView b ->
                 [ viewPackageHeader b
-                , viewReadme viewPackageReadme (NameDict.get b model.readmes)
+                , viewReadme viewPackageReadme (PackageNameDict.get b model.readmes)
                 ]
 
             Router.ModuleView b c ->
                 [ viewPackageHeader b
                 , viewModuleHeader b c
-                , viewReadme (viewModuleReadme c) (NameDict.get b model.readmes)
+                , viewReadme (viewModuleReadme c) (PackageNameDict.get b model.readmes)
                 ]
         )
 
