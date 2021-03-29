@@ -7,6 +7,7 @@ import Element.Background as Background
 import Element.Lazy as Lazy
 import Html
 import Json.Decode as Decode
+import PackageBrowser.Element.Info as Info
 import PackageBrowser.Element.Packages as Packages
 import PackageBrowser.Element.Readme as Readme
 import PackageBrowser.Router as Router
@@ -35,6 +36,7 @@ main =
 
 type alias Model =
     { router : Router.Model
+    , info : Info.Model
     , packages : Packages.Model
     , readme : Readme.Model
     }
@@ -53,6 +55,7 @@ init _ url key =
             Readme.init
     in
     ( { router = router
+      , info = Info.init
       , packages = packages
       , readme = readme
       }
@@ -70,6 +73,7 @@ init _ url key =
 
 type Msg
     = RouterMsg Router.Msg
+    | InfoMsg Info.Msg
     | PackagesMsg Packages.Msg
     | ReadmeMsg Readme.Msg
 
@@ -80,6 +84,10 @@ update msg model =
         RouterMsg a ->
             Router.update a model.router
                 |> Tuple.mapBoth (\v -> { model | router = v }) (Cmd.map RouterMsg)
+
+        InfoMsg a ->
+            Info.update a model.info
+                |> Tuple.mapBoth (\v -> { model | info = v }) (Cmd.map InfoMsg)
 
         PackagesMsg a ->
             Packages.update model a model.packages
@@ -95,6 +103,10 @@ update msg model =
                     RouterMsg (Router.UrlChanged _) ->
                         Readme.update v Readme.UrlChanged v.readme
                             |> Tuple.mapBoth (\vv -> { v | readme = vv }) (Cmd.map ReadmeMsg)
+
+                    PackagesMsg Packages.ToggleInfo ->
+                        Info.update Info.ToggleInfo v.info
+                            |> Tuple.mapBoth (\vv -> { v | info = vv }) (Cmd.map InfoMsg)
 
                     _ ->
                         ( v
@@ -138,6 +150,7 @@ viewBody model =
         , Element.centerX
         , Element.spacing 0
         , Background.color white
+        , Element.inFront (Info.view model.info |> Element.map InfoMsg)
         ]
         [ border_
         , Lazy.lazy3 Packages.view model.router.view model.router.recent model.packages

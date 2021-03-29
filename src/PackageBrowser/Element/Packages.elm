@@ -4,7 +4,6 @@ import Browser.Dom
 import Database.Package as Package
 import Database.Package.Decode
 import Element
-import Element.Font as Font
 import Element.Input as Input
 import Element.Keyed
 import Element.Lazy as Lazy
@@ -37,7 +36,6 @@ type alias Context a b =
 
 type alias Model =
     { packages : Result Error (List Package.Package)
-    , showInfo : Bool
     , search : String
     , scrollOffset : Float
     }
@@ -51,7 +49,6 @@ type Error
 init : ( Model, Cmd Msg )
 init =
     ( { packages = Err Loading
-      , showInfo = False
       , search = ""
       , scrollOffset = 0
       }
@@ -116,7 +113,7 @@ update ctx msg model =
             )
 
         ToggleInfo ->
-            ( { model | showInfo = not model.showInfo }
+            ( model
             , Cmd.none
             )
 
@@ -142,20 +139,10 @@ update ctx msg model =
 
 view : Router.View -> NameDict.NameDict () -> Model -> Element Msg
 view view_ recent model =
-    let
-        info : Element.Attribute Msg
-        info =
-            if model.showInfo then
-                Element.inFront viewInfo
-
-            else
-                noneAttribute
-    in
     column
         [ Element.height Element.fill
         , Element.width (Element.px 400)
         , Element.spacing 0
-        , info
         ]
         [ column
             [ Element.spacing 8
@@ -187,42 +174,6 @@ view view_ recent model =
                 ]
             ]
         , viewPackages view_ recent model
-        ]
-
-
-viewInfo : Element Msg
-viewInfo =
-    modal [ Element.moveDown 16, Element.moveRight 16, Element.padding 32 ]
-        [ h5 [ Font.center ]
-            [ text Strings.info
-            ]
-        , section []
-            [ p []
-                [ text Strings.infoText1
-                ]
-            , p []
-                [ text Strings.infoText2
-                ]
-            , p []
-                [ text Strings.infoText3
-                ]
-            , p []
-                [ newTabLink []
-                    { label = text Strings.source
-                    , url = "https://github.com/pravdomil/Elm-Packages"
-                    }
-                , text ". "
-                , newTabLink []
-                    { label = text Strings.proposalLink
-                    , url = "https://github.com/elm/package.elm-lang.org/issues"
-                    }
-                , text "."
-                ]
-            ]
-        , buttonLink [ Element.centerX, Element.padding 8 ]
-            { label = text Strings.ok
-            , onPress = Just ToggleInfo
-            }
         ]
 
 
