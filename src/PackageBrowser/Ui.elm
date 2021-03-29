@@ -154,6 +154,10 @@ defaultTextColor =
     Font.color gray900
 
 
+defaultBackgroundColor =
+    Background.color gray100
+
+
 fontSansSerif =
     [ Font.typeface "system-ui"
     , Font.typeface "-apple-system"
@@ -187,7 +191,7 @@ fontMonospace =
 
 
 rootStyle a =
-    Background.color white
+    defaultBackgroundColor
         :: defaultTextColor
         :: Font.size 16
         :: Font.family fontSansSerif

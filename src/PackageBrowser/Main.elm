@@ -108,7 +108,7 @@ view : Model -> Browser.Document Msg
 view model =
     { title = Strings.title
     , body =
-        [ Element.layout (Ui.rootStyle [ Background.color Ui.gray100 ])
+        [ Element.layout (Ui.rootStyle [])
             (Home.view model model.home
                 |> Element.map HomeMsg
             )
