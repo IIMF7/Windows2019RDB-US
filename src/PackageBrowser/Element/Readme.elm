@@ -30,6 +30,7 @@ type alias Context a b =
 
 type alias Model =
     { readmes : PackageNameDict.NameDict (Result Error Readme.Readme)
+    , openSections : PackageNameDict.NameDict (ModuleNameDict.NameDict String)
     }
 
 
@@ -41,6 +42,7 @@ type Error
 init : ( Model, Cmd Msg )
 init =
     ( { readmes = PackageNameDict.fromList []
+      , openSections = PackageNameDict.fromList []
       }
     , Cmd.none
     )
