@@ -508,7 +508,10 @@ viewModuleHeader a b =
         , borderBottom
         ]
         [ h5 []
-            [ text (Elm.Module.toString b)
+            [ link [ defaultTextColor ]
+                { label = text (Elm.Module.toString b)
+                , url = Router.ModuleView a b |> Router.viewToUrl
+                }
             ]
         , newTabLink []
             { label = text Strings.source
