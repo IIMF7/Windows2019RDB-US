@@ -622,15 +622,26 @@ viewBlock expand a =
 
 viewMarkdownBlock : Bool -> String -> Element msg
 viewMarkdownBlock expand a =
-    p []
-        [ Element.html (Markdown.toHtml [] a)
-        ]
+    if expand then
+        p []
+            [ Element.html (Markdown.toHtml [] a)
+            ]
+
+    else
+        none
 
 
 viewUnionBlock : Bool -> Docs.Union -> Element msg
 viewUnionBlock expand a =
     p []
         [ text a.name
+        , if expand then
+            p []
+                [ Element.html (Markdown.toHtml [] a.comment)
+                ]
+
+          else
+            none
         ]
 
 
@@ -638,6 +649,13 @@ viewAliasBlock : Bool -> Docs.Alias -> Element msg
 viewAliasBlock expand a =
     p []
         [ text a.name
+        , if expand then
+            p []
+                [ Element.html (Markdown.toHtml [] a.comment)
+                ]
+
+          else
+            none
         ]
 
 
@@ -645,6 +663,13 @@ viewValueBlock : Bool -> Docs.Value -> Element msg
 viewValueBlock expand a =
     p []
         [ text a.name
+        , if expand then
+            p []
+                [ Element.html (Markdown.toHtml [] a.comment)
+                ]
+
+          else
+            none
         ]
 
 
@@ -652,6 +677,13 @@ viewBinopBlock : Bool -> Docs.Binop -> Element msg
 viewBinopBlock expand a =
     p []
         [ text ("(" ++ a.name ++ ")")
+        , if expand then
+            p []
+                [ Element.html (Markdown.toHtml [] a.comment)
+                ]
+
+          else
+            none
         ]
 
 
