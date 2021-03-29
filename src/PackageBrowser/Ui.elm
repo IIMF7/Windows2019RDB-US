@@ -239,7 +239,7 @@ row a =
 
 column a =
     Element.column
-        (spacing 16
+        (spacing 32
             :: width fill
             :: a
         )
