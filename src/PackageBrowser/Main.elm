@@ -152,11 +152,15 @@ viewBody model =
         , Element.inFront (Info.view model.info |> Element.map InfoMsg)
         ]
         [ border_
-        , Lazy.lazy3 Packages.view model.router.view model.router.recent model.packages
-            |> Element.map PackagesMsg
+        , el [ Element.width (Element.px 320), Element.height Element.fill ]
+            (Lazy.lazy3 Packages.view model.router.view model.router.recent model.packages
+                |> Element.map PackagesMsg
+            )
         , border_
-        , Lazy.lazy2 Readme.view model.router.view model.readme
-            |> Element.map ReadmeMsg
+        , el [ Element.width (Element.px 880), Element.height Element.fill ]
+            (Lazy.lazy2 Readme.view model.router.view model.readme
+                |> Element.map ReadmeMsg
+            )
         , border_
         ]
 
