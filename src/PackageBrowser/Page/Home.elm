@@ -483,7 +483,7 @@ viewPackageHeader a =
         , defaultBorderColor
         , borderBottom
         ]
-        [ h5 []
+        [ h4 []
             [ link [ defaultTextColor ]
                 { label = text (Elm.Package.toString a)
                 , url = Router.PackageView a |> Router.viewToUrl
@@ -507,7 +507,7 @@ viewModuleHeader a b =
         , defaultBorderColor
         , borderBottom
         ]
-        [ h6 []
+        [ h5 []
             [ text (Elm.Module.toString b)
             ]
         , newTabLink []
