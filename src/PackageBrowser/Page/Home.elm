@@ -607,16 +607,16 @@ viewBlock a =
                 ]
 
         Docs.UnionBlock b ->
-            viewUnion b
+            viewUnionBlock b
 
         Docs.AliasBlock b ->
-            viewAlias b
+            viewAliasBlock b
 
         Docs.ValueBlock b ->
-            viewValue b
+            viewValueBlock b
 
         Docs.BinopBlock b ->
-            viewBinop b
+            viewBinopBlock b
 
         Docs.UnknownBlock b ->
             p []
