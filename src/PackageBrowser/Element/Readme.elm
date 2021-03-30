@@ -62,7 +62,7 @@ getPackage a =
 
 
 type Msg
-    = UrlChanged
+    = ViewChanged
     | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
     | ToggleSection Elm.Package.Name Elm.Module.Name String
 
@@ -70,7 +70,7 @@ type Msg
 update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
 update ctx msg model =
     case msg of
-        UrlChanged ->
+        ViewChanged ->
             case ctx.router.view |> Router.viewToPackageName of
                 Just b ->
                     case model.readmes |> PackageNameDict.get b of

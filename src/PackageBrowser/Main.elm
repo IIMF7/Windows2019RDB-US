@@ -100,7 +100,7 @@ update msg model =
             (\v ->
                 case msg of
                     RouterMsg (Router.UrlChanged _) ->
-                        Readme.update v Readme.UrlChanged v.readme
+                        Readme.update v Readme.ViewChanged v.readme
                             |> Tuple.mapBoth (\vv -> { v | readme = vv }) (Cmd.map ReadmeMsg)
 
                     PackagesMsg Packages.ToggleInfo ->
