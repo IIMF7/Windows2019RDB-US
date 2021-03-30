@@ -64,6 +64,7 @@ getPackage a =
 type Msg
     = ViewChanged
     | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
+    | Reveal Elm.Package.Name
     | ToggleSection Elm.Package.Name Elm.Module.Name String
 
 
@@ -88,6 +89,11 @@ update ctx msg model =
                     ( model
                     , Cmd.none
                     )
+
+        Reveal _ ->
+            ( model
+            , Cmd.none
+            )
 
         GotReadme a b ->
             ( { model | readmes = model.readmes |> PackageNameDict.insert a (b |> Result.mapError HttpError) }
@@ -190,7 +196,7 @@ viewReadme fn a =
         ]
 
 
-viewPackageHeader : Elm.Package.Name -> Element msg
+viewPackageHeader : Elm.Package.Name -> Element Msg
 viewPackageHeader a =
     row
         [ Element.paddingXY 16 12
@@ -203,6 +209,10 @@ viewPackageHeader a =
                 , url = Router.PackageView a |> Router.viewToUrl
                 }
             ]
+        , buttonLink []
+            { label = text Strings.reveal
+            , onPress = Just (Reveal a)
+            }
         , newTabLink []
             { label = text Strings.source
             , url = "https://github.com/" ++ Elm.Package.toString a
