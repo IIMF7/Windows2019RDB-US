@@ -10,6 +10,7 @@ import Elm.Module
 import Elm.Module.NameDict as ModuleNameDict
 import Elm.Package
 import Elm.Package.NameDict as PackageNameDict
+import Elm.Type
 import Http
 import Markdown
 import PackageBrowser.Router as Router
@@ -403,3 +404,75 @@ viewItem expand a =
           else
             none
         ]
+
+
+typeToString : Elm.Type.Type -> List String
+typeToString a =
+    case a of
+        Elm.Type.Var b ->
+            [ b
+            ]
+
+        Elm.Type.Lambda b c ->
+            [ b |> typeToString |> String.join " "
+            , "->"
+            , c |> typeToString |> String.join " "
+            ]
+
+        Elm.Type.Tuple b ->
+            if b == [] then
+                [ "()"
+                ]
+
+            else
+                [ "("
+                , b |> List.map (typeToString >> String.join " ") |> String.join ", "
+                , ")"
+                ]
+                    |> String.join " "
+                    |> List.singleton
+
+        Elm.Type.Type b c ->
+            let
+                name : String
+                name =
+                    b |> String.split "." |> List.reverse |> List.head |> Maybe.withDefault ""
+            in
+            if c == [] then
+                [ name
+                ]
+
+            else
+                [ name
+                , c
+                    |> List.map typeToString
+                    |> List.map
+                        (\v ->
+                            if List.length v > 1 then
+                                "(" ++ String.join " " v ++ ")"
+
+                            else
+                                v |> String.join " "
+                        )
+                    |> String.join " "
+                ]
+
+        Elm.Type.Record b c ->
+            let
+                open : String
+                open =
+                    case c of
+                        Just d ->
+                            "{ " ++ d ++ " |"
+
+                        Nothing ->
+                            "{"
+            in
+            [ open
+            , b
+                |> List.map (\( v, vv ) -> v :: ":" :: typeToString vv |> String.join " ")
+                |> String.join ", "
+            , "}"
+            ]
+                |> String.join " "
+                |> List.singleton
