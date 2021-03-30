@@ -348,35 +348,35 @@ viewBlock expand a =
         Docs.MarkdownBlock b ->
             viewItem expand
                 { annotation = Nothing
-                , readme = b
+                , docs = b
                 }
 
         Docs.UnionBlock b ->
             viewItem expand
                 { annotation = Nothing
-                , readme = b.comment
+                , docs = b.comment
                 }
 
         Docs.AliasBlock b ->
             viewItem expand
                 { annotation = Nothing
-                , readme = b.comment
+                , docs = b.comment
                 }
 
         Docs.ValueBlock b ->
             viewItem expand
                 { annotation = Nothing
-                , readme = b.comment
+                , docs = b.comment
                 }
 
         Docs.BinopBlock b ->
             viewItem expand
                 { annotation = Nothing
-                , readme = b.comment
+                , docs = b.comment
                 }
 
         Docs.UnknownBlock b ->
             viewItem expand
                 { annotation = Nothing
-                , readme = b
+                , docs = b
                 }
