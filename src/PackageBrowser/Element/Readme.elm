@@ -396,7 +396,7 @@ viewItem expand a =
 
             Nothing ->
                 none
-        , if expand then
+        , if expand && (a.docs |> String.trim |> String.isEmpty |> not) then
             p [ Element.paddingXY 24 0 ]
                 [ Element.html (Markdown.toHtml [] a.docs)
                 ]
