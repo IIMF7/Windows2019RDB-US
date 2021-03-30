@@ -169,7 +169,7 @@ viewReadme fn a =
     column
         [ Element.height Element.fill
         , Element.scrollbars
-        , Element.paddingEach { left = 16, right = 16, top = 16, bottom = 32 }
+        , Element.paddingEach { left = 16, right = 16, top = 16, bottom = 128 }
         ]
         [ case a of
             Just b ->

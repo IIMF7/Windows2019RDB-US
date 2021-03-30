@@ -202,7 +202,7 @@ viewPackages view_ recent model =
                         ]
 
                 c ->
-                    Element.Virtualized.column [ id packagesId ]
+                    Element.Virtualized.column [ Element.paddingXY 0 64, id packagesId ]
                         { data = c
                         , getKey = .name >> Elm.Package.toString
                         , getSize = \v -> computeSize (NameDict.member v.name recent) v
