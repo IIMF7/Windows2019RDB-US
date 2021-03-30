@@ -355,7 +355,7 @@ viewBlock expand a =
 
         Docs.UnionBlock b ->
             viewItem expand
-                { annotation = Nothing
+                { annotation = Just { name = b.name, type_ = "" }
                 , docs = b.comment
                 }
 
