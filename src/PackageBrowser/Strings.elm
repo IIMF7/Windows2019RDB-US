@@ -60,7 +60,7 @@ source =
 
 
 officialDocs =
-    "Official Docs"
+    "Docs"
 
 
 httpError a =
