@@ -271,9 +271,18 @@ viewModuleReadme a b expanded c =
         view_ d =
             case d.modules |> ModuleNameDict.get b of
                 Just e ->
+                    let
+                        defaultTitle : String
+                        defaultTitle =
+                            Elm.Module.toString b
+                                |> String.split "."
+                                |> List.reverse
+                                |> List.head
+                                |> Maybe.withDefault ""
+                    in
                     section []
                         (e
-                            |> blocksToSections (Elm.Module.toString b)
+                            |> blocksToSections defaultTitle
                             |> List.map
                                 (\( v, vv ) ->
                                     section [ Element.spacing 0 ]
