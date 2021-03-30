@@ -214,12 +214,12 @@ viewPackageHeader a =
             , onPress = Just (Reveal a)
             }
         , newTabLink []
-            { label = text Strings.source
-            , url = "https://github.com/" ++ Elm.Package.toString a
-            }
-        , newTabLink []
             { label = text Strings.officialDocs
             , url = "https://package.elm-lang.org/packages/" ++ Elm.Package.toString a ++ "/latest/"
+            }
+        , newTabLink []
+            { label = text Strings.source
+            , url = "https://github.com/" ++ Elm.Package.toString a
             }
         ]
 
@@ -238,12 +238,12 @@ viewModuleHeader a b =
                 }
             ]
         , newTabLink []
-            { label = text Strings.source
-            , url = "https://github.com/" ++ Elm.Package.toString a ++ "/blob/master/src/" ++ (Elm.Module.toString b |> String.replace "." "/") ++ ".elm"
-            }
-        , newTabLink []
             { label = text Strings.officialDocs
             , url = "https://package.elm-lang.org/packages/" ++ Elm.Package.toString a ++ "/latest/" ++ (Elm.Module.toString b |> String.replace "." "-")
+            }
+        , newTabLink []
+            { label = text Strings.source
+            , url = "https://github.com/" ++ Elm.Package.toString a ++ "/blob/master/src/" ++ (Elm.Module.toString b |> String.replace "." "/") ++ ".elm"
             }
         ]
 
