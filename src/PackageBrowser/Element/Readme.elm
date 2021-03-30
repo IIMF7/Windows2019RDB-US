@@ -360,19 +360,19 @@ viewBlock expand a =
 
         Docs.AliasBlock b ->
             viewItem expand
-                { annotation = Nothing
+                { annotation = Just { name = b.name, type_ = "" :: b.args ++ [ "=" ] ++ typeToString b.tipe |> String.join " " }
                 , docs = b.comment
                 }
 
         Docs.ValueBlock b ->
             viewItem expand
-                { annotation = Nothing
+                { annotation = Just { name = b.name, type_ = "" :: ":" :: typeToString b.tipe |> String.join " " }
                 , docs = b.comment
                 }
 
         Docs.BinopBlock b ->
             viewItem expand
-                { annotation = Nothing
+                { annotation = Just { name = b.name, type_ = "" :: ":" :: typeToString b.tipe |> String.join " " }
                 , docs = b.comment
                 }
 
