@@ -337,86 +337,37 @@ viewBlock : Bool -> Docs.Block -> Element msg
 viewBlock expand a =
     case a of
         Docs.MarkdownBlock b ->
-            viewMarkdownBlock expand b
+            viewItem expand
+                { annotation = Nothing
+                , readme = b
+                }
 
         Docs.UnionBlock b ->
-            viewUnionBlock expand b
+            viewItem expand
+                { annotation = Nothing
+                , readme = b.comment
+                }
 
         Docs.AliasBlock b ->
-            viewAliasBlock expand b
+            viewItem expand
+                { annotation = Nothing
+                , readme = b.comment
+                }
 
         Docs.ValueBlock b ->
-            viewValueBlock expand b
+            viewItem expand
+                { annotation = Nothing
+                , readme = b.comment
+                }
 
         Docs.BinopBlock b ->
-            viewBinopBlock expand b
+            viewItem expand
+                { annotation = Nothing
+                , readme = b.comment
+                }
 
         Docs.UnknownBlock b ->
-            viewMarkdownBlock expand b
-
-
-viewMarkdownBlock : Bool -> String -> Element msg
-viewMarkdownBlock expand a =
-    if expand then
-        p [ Element.paddingXY 24 0 ]
-            [ Element.html (Markdown.toHtml [] a)
-            ]
-
-    else
-        none
-
-
-viewUnionBlock : Bool -> Docs.Union -> Element msg
-viewUnionBlock expand a =
-    column [ Element.spacing 0 ]
-        [ text a.name
-        , if expand then
-            p [ Element.paddingXY 24 0 ]
-                [ Element.html (Markdown.toHtml [] a.comment)
-                ]
-
-          else
-            none
-        ]
-
-
-viewAliasBlock : Bool -> Docs.Alias -> Element msg
-viewAliasBlock expand a =
-    column [ Element.spacing 0 ]
-        [ text a.name
-        , if expand then
-            p [ Element.paddingXY 24 0 ]
-                [ Element.html (Markdown.toHtml [] a.comment)
-                ]
-
-          else
-            none
-        ]
-
-
-viewValueBlock : Bool -> Docs.Value -> Element msg
-viewValueBlock expand a =
-    column [ Element.spacing 0 ]
-        [ text a.name
-        , if expand then
-            p [ Element.paddingXY 24 0 ]
-                [ Element.html (Markdown.toHtml [] a.comment)
-                ]
-
-          else
-            none
-        ]
-
-
-viewBinopBlock : Bool -> Docs.Binop -> Element msg
-viewBinopBlock expand a =
-    column [ Element.spacing 0 ]
-        [ text ("(" ++ a.name ++ ")")
-        , if expand then
-            p [ Element.paddingXY 24 0 ]
-                [ Element.html (Markdown.toHtml [] a.comment)
-                ]
-
-          else
-            none
-        ]
+            viewItem expand
+                { annotation = Nothing
+                , readme = b
+                }
