@@ -4,6 +4,7 @@ import Database.Package.Readme as Readme
 import Database.Package.Readme.Decode
 import Dict exposing (Dict)
 import Element
+import Element.Font as Font
 import Elm.Docs as Docs
 import Elm.Module
 import Elm.Module.NameDict as ModuleNameDict
@@ -380,3 +381,25 @@ viewBlock expand a =
                 { annotation = Nothing
                 , docs = b
                 }
+
+
+viewItem : Bool -> { annotation : Maybe { name : String, type_ : String }, docs : String } -> Element msg
+viewItem expand a =
+    column []
+        [ case a.annotation of
+            Just { name, type_ } ->
+                row [ Element.spacing 0 ]
+                    [ text name
+                    , el [ Font.color gray500 ] (text type_)
+                    ]
+
+            Nothing ->
+                none
+        , if expand then
+            p [ Element.paddingXY 24 0 ]
+                [ Element.html (Markdown.toHtml [] a.docs)
+                ]
+
+          else
+            none
+        ]
