@@ -71,6 +71,7 @@ getPackages =
 type Msg
     = GotPackages (Result Http.Error (List Package.Package))
     | ToggleInfo
+    | Reveal Elm.Package.Name
     | ViewportSet (Result Browser.Dom.Error ())
     | SearchChanged String
     | ScrollOffsetChanged Float
@@ -81,40 +82,34 @@ update ctx msg model =
     case msg of
         GotPackages a ->
             let
-                scrollToPackage : Cmd Msg
-                scrollToPackage =
-                    a
-                        |> Result.toMaybe
-                        |> Maybe.andThen
-                            (\v ->
-                                Element.Virtualized.getScrollOffset
-                                    { data = v
-                                    , getKey = .name >> Elm.Package.toString
-                                    , getSize = \vv -> computeSize (NameDict.member vv.name ctx.router.recent) vv
-                                    , key = package
-                                    }
-                            )
-                        |> Maybe.map
-                            (\v ->
-                                Browser.Dom.setViewportOf packagesId 0 (toFloat v)
-                                    |> Task.attempt ViewportSet
-                            )
-                        |> Maybe.withDefault Cmd.none
-
-                package : String
+                package : Maybe Elm.Package.Name
                 package =
-                    ctx.router.view
-                        |> Router.viewToPackageName
-                        |> Maybe.map Elm.Package.toString
-                        |> Maybe.withDefault "elm/core"
+                    case ctx.router.view |> Router.viewToPackageName of
+                        Just b ->
+                            Just b
+
+                        Nothing ->
+                            Elm.Package.fromString "elm/core"
             in
             ( { model | packages = a |> Result.mapError HttpError }
-            , scrollToPackage
+            , Maybe.map2 (scrollToPackage ctx)
+                (a |> Result.toMaybe)
+                package
+                |> Maybe.andThen identity
+                |> Maybe.withDefault Cmd.none
             )
 
         ToggleInfo ->
             ( model
             , Cmd.none
+            )
+
+        Reveal a ->
+            ( model
+            , model.packages
+                |> Result.toMaybe
+                |> Maybe.andThen (\v -> scrollToPackage ctx v a)
+                |> Maybe.withDefault Cmd.none
             )
 
         ViewportSet _ ->
@@ -130,6 +125,21 @@ update ctx msg model =
         ScrollOffsetChanged a ->
             ( { model | scrollOffset = a }
             , Cmd.none
+            )
+
+
+scrollToPackage : Context a b -> List Package.Package -> Elm.Package.Name -> Maybe (Cmd Msg)
+scrollToPackage ctx data a =
+    Element.Virtualized.getScrollOffset
+        { data = data
+        , getKey = .name >> Elm.Package.toString
+        , getSize = \v -> computeSize (NameDict.member v.name ctx.router.recent) v
+        , key = Elm.Package.toString a
+        }
+        |> Maybe.map
+            (\v ->
+                Browser.Dom.setViewportOf packagesId 0 (toFloat v)
+                    |> Task.attempt ViewportSet
             )
 
 

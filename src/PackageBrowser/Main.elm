@@ -107,6 +107,10 @@ update msg model =
                         Info.update Info.ToggleInfo v.info
                             |> Tuple.mapBoth (\vv -> { v | info = vv }) (Cmd.map InfoMsg)
 
+                    ReadmeMsg (Readme.Reveal a) ->
+                        Packages.update v (Packages.Reveal a) v.packages
+                            |> Tuple.mapBoth (\vv -> { v | packages = vv }) (Cmd.map PackagesMsg)
+
                     _ ->
                         ( v
                         , Cmd.none
