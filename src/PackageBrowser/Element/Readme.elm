@@ -373,7 +373,7 @@ viewBlock expand a =
 
         Docs.BinopBlock b ->
             viewItem expand
-                { annotation = Just { name = b.name, type_ = "" :: ":" :: typeToString b.tipe |> String.join " " }
+                { annotation = Just { name = "(" ++ b.name ++ ")", type_ = "" :: ":" :: typeToString b.tipe |> String.join " " }
                 , docs = b.comment
                 }
 
