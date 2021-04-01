@@ -55,10 +55,6 @@ moduleNotFound =
     "Module not found."
 
 
-reveal =
-    "Reveal"
-
-
 source =
     "Source"
 

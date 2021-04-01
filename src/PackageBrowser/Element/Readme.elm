@@ -6,6 +6,7 @@ import Dict exposing (Dict)
 import Element
 import Element.Background
 import Element.Border
+import Element.Events exposing (onClick)
 import Element.Font as Font
 import Elm.Docs as Docs
 import Elm.Module
@@ -208,15 +209,11 @@ viewPackageHeader a =
         , borderBottom
         ]
         [ h4 []
-            [ link [ defaultTextColor ]
+            [ link [ defaultTextColor, onClick (Reveal a) ]
                 { label = text (Elm.Package.toString a)
                 , url = Router.PackageView a |> Router.viewToUrl
                 }
             ]
-        , buttonLink []
-            { label = text Strings.reveal
-            , onPress = Just (Reveal a)
-            }
         , newTabLink []
             { label = text Strings.officialDocs
             , url = "https://package.elm-lang.org/packages/" ++ Elm.Package.toString a ++ "/latest/"
