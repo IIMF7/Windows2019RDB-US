@@ -16,6 +16,7 @@ import Elm.Package.NameDict as PackageNameDict
 import Elm.Type
 import Http
 import Markdown.Block
+import Markdown.Parser
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
@@ -281,10 +282,10 @@ viewModuleReadme a b expanded c =
                                 |> List.head
                                 |> Maybe.withDefault ""
                     in
-                    section []
-                        (case e.readme |> replaceDocs |> Markdown.Parser.parse of
-                            Ok f ->
-                                f
+                    case e.readme |> replaceDocs |> Markdown.Parser.parse of
+                        Ok f ->
+                            section []
+                                (f
                                     |> blocksToSections defaultTitle
                                     |> List.map
                                         (\( v, vv ) ->
@@ -300,12 +301,12 @@ viewModuleReadme a b expanded c =
                                                     [ viewBlocks e (Dict.member v expanded) vv ]
                                                 ]
                                         )
+                                )
 
-                            Err _ ->
-                                status []
-                                    [ text Strings.readmeIsNotAvailable
-                                    ]
-                        )
+                        Err _ ->
+                            status []
+                                [ text Strings.readmeIsNotAvailable
+                                ]
 
                 Nothing ->
                     status []
