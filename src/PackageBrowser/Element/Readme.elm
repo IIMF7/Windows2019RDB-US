@@ -316,7 +316,7 @@ blocksToSections defaultTitle a =
                     String.lines c
                         |> List.filter (String.startsWith "#")
                         |> List.head
-                        |> Maybe.map (\v -> v |> String.split " " |> List.drop 1 |> List.head |> Maybe.withDefault "")
+                        |> Maybe.map (\v -> v |> String.split " " |> List.drop 1 |> String.join " ")
 
                 _ ->
                     Nothing
