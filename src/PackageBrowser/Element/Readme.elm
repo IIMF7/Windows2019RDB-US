@@ -313,8 +313,8 @@ viewModuleReadme a b expanded c =
     viewReadme view_ c
 
 
-viewBlocks : Bool -> Docs.Block -> Element msg
-viewBlocks expand a =
+viewBlocks : Readme.ModuleReadme -> Bool -> Docs.Block -> Element msg
+viewBlocks module_ expand a =
     case a of
         Docs.MarkdownBlock b ->
             viewBlockItem expand
