@@ -345,6 +345,29 @@ replaceDocs a =
             )
 
 
+blocksToSections : String -> List Markdown.Block.Block -> List ( String, List Markdown.Block.Block )
+blocksToSections defaultTitle a =
+    let
+        fold : Markdown.Block.Block -> List ( String, List Markdown.Block.Block ) -> List ( String, List Markdown.Block.Block )
+        fold b acc =
+            case b of
+                Markdown.Block.Heading _ c ->
+                    ( Markdown.Block.extractInlineText c, [] ) :: acc
+
+                _ ->
+                    case acc of
+                        [] ->
+                            ( defaultTitle, [ b ] ) :: acc
+
+                        ( title, c ) :: rest ->
+                            ( title, b :: c ) :: rest
+    in
+    a
+        |> List.foldl fold []
+        |> List.map (Tuple.mapSecond List.reverse)
+        |> List.reverse
+
+
 viewBlocks : Readme.ModuleReadme -> Bool -> List Markdown.Block.Block -> Element msg
 viewBlocks module_ expand a =
     case a of
