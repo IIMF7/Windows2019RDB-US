@@ -42,6 +42,7 @@ renderer =
                     )
                 , Font.bold
                 , spacing 8
+                , paddingEach { left = 0, right = 0, top = 16, bottom = 0 }
                 , Region.heading (Block.headingLevelToInt level)
                 , htmlAttribute (Html.Attributes.attribute "name" (textToId rawText))
                 , htmlAttribute (Html.Attributes.id (textToId rawText))
