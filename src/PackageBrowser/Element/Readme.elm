@@ -280,22 +280,29 @@ viewModuleReadme a b expanded c =
                                 |> Maybe.withDefault ""
                     in
                     section []
-                        (e
-                            |> blocksToSections defaultTitle
-                            |> List.map
-                                (\( v, vv ) ->
-                                    section [ Element.spacing 0 ]
-                                        [ buttonLink [ mutedTextColor, Element.paddingXY 0 4 ]
-                                            { label = text v
-                                            , onPress = Just (ToggleSection a b v)
-                                            }
-                                        , column
-                                            [ Element.spacing 0
-                                            , Element.paddingXY 24 0
-                                            ]
-                                            (vv |> List.map (viewBlock (Dict.member v expanded)))
-                                        ]
-                                )
+                        (case e.readme |> replaceDocs |> Markdown.Parser.parse of
+                            Ok f ->
+                                f
+                                    |> blocksToSections defaultTitle
+                                    |> List.map
+                                        (\( v, vv ) ->
+                                            section [ Element.spacing 0 ]
+                                                [ buttonLink [ mutedTextColor, Element.paddingXY 0 4 ]
+                                                    { label = text v
+                                                    , onPress = Just (ToggleSection a b v)
+                                                    }
+                                                , column
+                                                    [ Element.spacing 0
+                                                    , Element.paddingXY 24 0
+                                                    ]
+                                                    [ viewBlocks e (Dict.member v expanded) vv ]
+                                                ]
+                                        )
+
+                            Err _ ->
+                                status []
+                                    [ text Strings.readmeIsNotAvailable
+                                    ]
                         )
 
                 Nothing ->
