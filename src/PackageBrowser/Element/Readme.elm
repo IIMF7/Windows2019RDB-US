@@ -12,10 +12,10 @@ import Elm.Package
 import Elm.Package.NameDict as PackageNameDict
 import Elm.Type
 import Http
-import Markdown
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Markdown as Markdown
 
 
 type alias Context a b =
@@ -255,9 +255,7 @@ viewPackageReadme a =
     let
         view_ : Readme.Readme -> Element msg
         view_ b =
-            p []
-                [ Element.html (Markdown.toHtml [] b.readme)
-                ]
+            Markdown.view [ Element.padding 24 ] b.readme
     in
     viewReadme view_ a
 
