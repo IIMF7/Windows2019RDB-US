@@ -355,7 +355,27 @@ viewBlock expand a =
                 { annotation =
                     Just
                         { name = b.name
-                        , type_ = ""
+                        , type_ =
+                            (if b.args == [] then
+                                []
+
+                             else
+                                ("" :: b.args)
+                                    ++ (if b.tags == [] then
+                                            []
+
+                                        else
+                                            "="
+                                                :: [ b.tags
+                                                        |> List.map
+                                                            (\( v, vv ) ->
+                                                                (v :: List.concatMap typeToString vv) |> String.join " "
+                                                            )
+                                                        |> String.join " | "
+                                                   ]
+                                       )
+                            )
+                                |> String.join " "
                         }
                 , docs = b.comment
                 }
