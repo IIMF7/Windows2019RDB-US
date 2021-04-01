@@ -27,25 +27,28 @@ fromReadmeAndDocs a b =
         toDict : List { a | name : String } -> Dict String { a | name : String }
         toDict c =
             c |> List.map (\v -> ( v.name, v )) |> Dict.fromList
+
+        modules : PackageNameDict.NameDict ModuleReadme
+        modules =
+            b
+                |> List.filterMap
+                    (\v ->
+                        v.name
+                            |> Elm.Module.fromString
+                            |> Maybe.map
+                                (\vv ->
+                                    ( vv
+                                    , { readme = v.comment
+                                      , unions = v.unions |> toDict
+                                      , aliases = v.aliases |> toDict
+                                      , values = v.values |> toDict
+                                      , binops = v.binops |> toDict
+                                      }
+                                    )
+                                )
+                    )
+                |> PackageNameDict.fromList
     in
     { readme = a
-    , modules =
-        b
-            |> List.filterMap
-                (\v ->
-                    v.name
-                        |> Elm.Module.fromString
-                        |> Maybe.map
-                            (\vv ->
-                                ( vv
-                                , { readme = v.comment
-                                  , unions = v.unions |> toDict
-                                  , aliases = v.aliases |> toDict
-                                  , values = v.values |> toDict
-                                  , binops = v.binops |> toDict
-                                  }
-                                )
-                            )
-                )
-            |> PackageNameDict.fromList
+    , modules = modules
     }
