@@ -55,6 +55,10 @@ moduleNotFound =
     "Module not found."
 
 
+readmeIsNotAvailable =
+    "Readme is not available."
+
+
 source =
     "Source"
 
