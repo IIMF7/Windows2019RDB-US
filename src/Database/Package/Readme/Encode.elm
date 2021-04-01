@@ -18,6 +18,6 @@ readme =
               , E.string v1.readme
               )
             , ( "modules"
-              , Elm.Module.NameDict.Encode.nameDict (E.list Elm.Docs.Encode.block) v1.modules
+              , Elm.Module.NameDict.Encode.nameDict Elm.Docs.Encode.module_ v1.modules
               )
             ]

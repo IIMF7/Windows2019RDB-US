@@ -7,7 +7,7 @@ import Elm.Module.NameDict as PackageNameDict
 
 type alias Readme =
     { readme : String
-    , modules : PackageNameDict.NameDict (List Elm.Docs.Block)
+    , modules : PackageNameDict.NameDict Elm.Docs.Module
     }
 
 
@@ -20,7 +20,7 @@ fromReadmeAndDocs a b =
                 (\v ->
                     v.name
                         |> Elm.Module.fromString
-                        |> Maybe.map (\vv -> ( vv, Elm.Docs.toBlocks v ))
+                        |> Maybe.map (\vv -> ( vv, v ))
                 )
             |> PackageNameDict.fromList
     }

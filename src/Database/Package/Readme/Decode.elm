@@ -19,4 +19,4 @@ readme =
             }
         )
         (D.field "readme" D.string)
-        (D.field "modules" (Elm.Module.NameDict.Decode.nameDict (D.list Elm.Docs.Decode.block)))
+        (D.field "modules" (Elm.Module.NameDict.Decode.nameDict Elm.Docs.Decode.module_))
