@@ -108,7 +108,7 @@ update ctx msg model =
             ( model
             , model.packages
                 |> Result.toMaybe
-                |> Maybe.andThen (\v -> scrollToPackage ctx v a)
+                |> Maybe.andThen (\v -> scrollToPackage ctx (filterPackages model.search v) a)
                 |> Maybe.withDefault Cmd.none
             )
 
