@@ -19,4 +19,22 @@ readme =
             }
         )
         (D.field "readme" D.string)
-        (D.field "modules" (Elm.Module.NameDict.Decode.nameDict Elm.Docs.Decode.module_))
+        (D.field "modules" (Elm.Module.NameDict.Decode.nameDict moduleReadme))
+
+
+moduleReadme : Decoder A.ModuleReadme
+moduleReadme =
+    D.map5
+        (\v1 v2 v3 v4 v5 ->
+            { readme = v1
+            , unions = v2
+            , aliases = v3
+            , values = v4
+            , binops = v5
+            }
+        )
+        (D.field "readme" D.string)
+        (D.field "unions" (D_.dict D.string Elm.Docs.Decode.union))
+        (D.field "aliases" (D_.dict D.string Elm.Docs.Decode.alias))
+        (D.field "values" (D_.dict D.string Elm.Docs.Decode.value))
+        (D.field "binops" (D_.dict D.string Elm.Docs.Decode.binop))

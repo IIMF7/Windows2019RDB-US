@@ -18,6 +18,28 @@ readme =
               , E.string v1.readme
               )
             , ( "modules"
-              , Elm.Module.NameDict.Encode.nameDict Elm.Docs.Encode.module_ v1.modules
+              , Elm.Module.NameDict.Encode.nameDict moduleReadme v1.modules
+              )
+            ]
+
+
+moduleReadme : Encoder A.ModuleReadme
+moduleReadme =
+    \v1 ->
+        E.object
+            [ ( "readme"
+              , E.string v1.readme
+              )
+            , ( "unions"
+              , E_.dict E.string Elm.Docs.Encode.union v1.unions
+              )
+            , ( "aliases"
+              , E_.dict E.string Elm.Docs.Encode.alias v1.aliases
+              )
+            , ( "values"
+              , E_.dict E.string Elm.Docs.Encode.value v1.values
+              )
+            , ( "binops"
+              , E_.dict E.string Elm.Docs.Encode.binop v1.binops
               )
             ]
