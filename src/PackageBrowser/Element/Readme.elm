@@ -4,6 +4,8 @@ import Database.Package.Readme as Readme
 import Database.Package.Readme.Decode
 import Dict exposing (Dict)
 import Element
+import Element.Background
+import Element.Border
 import Element.Font as Font
 import Elm.Docs as Docs
 import Elm.Module
@@ -394,9 +396,15 @@ viewBlockItem expand a =
 
             Nothing ->
                 none
-        , if expand && (a.docs |> String.trim |> String.isEmpty |> not) then
-            p [ Element.paddingXY 24 0 ]
-                [ Element.html (Markdown.toHtml [] a.docs)
+        , if expand then
+            column [ Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
+                [ Markdown.view
+                    [ Element.padding 16
+                    , Element.Background.color gray100
+                    , Element.Border.rounded 4
+                    , Font.size 15
+                    ]
+                    a.docs
                 ]
 
           else
