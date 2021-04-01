@@ -225,7 +225,7 @@ viewPackageHeader a =
         ]
 
 
-viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element msg
+viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element Msg
 viewModuleHeader a b =
     row
         [ Element.paddingXY 16 12
@@ -233,7 +233,7 @@ viewModuleHeader a b =
         , borderBottom
         ]
         [ h5 []
-            [ link [ defaultTextColor ]
+            [ link [ defaultTextColor, onClick (Reveal a) ]
                 { label = text (Elm.Module.toString b)
                 , url = Router.ModuleView a b |> Router.viewToUrl
                 }
