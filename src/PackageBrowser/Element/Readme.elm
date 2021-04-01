@@ -313,41 +313,6 @@ viewModuleReadme a b expanded c =
     viewReadme view_ c
 
 
-blocksToSections : String -> List Docs.Block -> List ( String, List Docs.Block )
-blocksToSections defaultTitle a =
-    let
-        getTitle : Docs.Block -> Maybe String
-        getTitle b =
-            case b of
-                Docs.MarkdownBlock c ->
-                    String.lines c
-                        |> List.filter (String.startsWith "#")
-                        |> List.head
-                        |> Maybe.map (\v -> v |> String.split " " |> List.drop 1 |> String.join " ")
-
-                _ ->
-                    Nothing
-
-        fold : Docs.Block -> List ( String, List Docs.Block ) -> List ( String, List Docs.Block )
-        fold b acc =
-            case getTitle b of
-                Just c ->
-                    ( c, [] ) :: acc
-
-                Nothing ->
-                    case acc of
-                        [] ->
-                            ( defaultTitle, [ b ] ) :: acc
-
-                        ( title, c ) :: rest ->
-                            ( title, b :: c ) :: rest
-    in
-    a
-        |> List.foldl fold []
-        |> List.map (Tuple.mapSecond List.reverse)
-        |> List.reverse
-
-
 viewBlock : Bool -> Docs.Block -> Element msg
 viewBlock expand a =
     case a of
