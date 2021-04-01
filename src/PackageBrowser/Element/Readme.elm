@@ -20,6 +20,7 @@ import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Markdown as Markdown
+import Regex
 
 
 type alias Context a b =
@@ -312,6 +313,35 @@ viewModuleReadme a b expanded c =
                         ]
     in
     viewReadme view_ c
+
+
+replaceDocs : String -> String
+replaceDocs a =
+    let
+        regex : Regex.Regex
+        regex =
+            "\n@docs (.*)"
+                |> Regex.fromString
+                |> Maybe.withDefault Regex.never
+
+        escape : String -> String
+        escape b =
+            b
+                |> String.replace "&" "&amp;"
+                |> String.replace "'" "&apos;"
+                |> String.replace "\"" "&quot;"
+                |> String.replace "<" "&lt;"
+                |> String.replace ">" "&gt;"
+    in
+    a
+        |> Regex.replace regex
+            (\v ->
+                v.submatches
+                    |> List.head
+                    |> Maybe.andThen identity
+                    |> Maybe.withDefault ""
+                    |> (\vv -> "\n<docs value=\"" ++ escape vv ++ "\"></docs>")
+            )
 
 
 viewBlocks : Readme.ModuleReadme -> Bool -> List Markdown.Block.Block -> Element msg
