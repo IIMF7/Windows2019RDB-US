@@ -386,7 +386,7 @@ viewBlock expand a =
 
 viewBlockItem : Bool -> { annotation : Maybe { name : String, type_ : String }, docs : String } -> Element msg
 viewBlockItem expand a =
-    column []
+    column [ Element.spacing 0 ]
         [ case a.annotation of
             Just { name, type_ } ->
                 row [ Element.spacing 0 ]
