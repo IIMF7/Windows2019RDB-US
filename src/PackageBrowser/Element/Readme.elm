@@ -348,44 +348,44 @@ viewBlock : Bool -> Docs.Block -> Element msg
 viewBlock expand a =
     case a of
         Docs.MarkdownBlock b ->
-            viewItem expand
+            viewBlockItem expand
                 { annotation = Nothing
                 , docs = b
                 }
 
         Docs.UnionBlock b ->
-            viewItem expand
+            viewBlockItem expand
                 { annotation = Just { name = b.name, type_ = "" }
                 , docs = b.comment
                 }
 
         Docs.AliasBlock b ->
-            viewItem expand
+            viewBlockItem expand
                 { annotation = Just { name = b.name, type_ = "" :: b.args ++ [ "=" ] ++ typeToString b.tipe |> String.join " " }
                 , docs = b.comment
                 }
 
         Docs.ValueBlock b ->
-            viewItem expand
+            viewBlockItem expand
                 { annotation = Just { name = b.name, type_ = "" :: ":" :: typeToString b.tipe |> String.join " " }
                 , docs = b.comment
                 }
 
         Docs.BinopBlock b ->
-            viewItem expand
+            viewBlockItem expand
                 { annotation = Just { name = "(" ++ b.name ++ ")", type_ = "" :: ":" :: typeToString b.tipe |> String.join " " }
                 , docs = b.comment
                 }
 
         Docs.UnknownBlock b ->
-            viewItem expand
+            viewBlockItem expand
                 { annotation = Nothing
                 , docs = b
                 }
 
 
-viewItem : Bool -> { annotation : Maybe { name : String, type_ : String }, docs : String } -> Element msg
-viewItem expand a =
+viewBlockItem : Bool -> { annotation : Maybe { name : String, type_ : String }, docs : String } -> Element msg
+viewBlockItem expand a =
     column []
         [ case a.annotation of
             Just { name, type_ } ->
