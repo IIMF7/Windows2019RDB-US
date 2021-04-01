@@ -288,7 +288,7 @@ viewModuleReadme a b expanded c =
                             |> List.map
                                 (\( v, vv ) ->
                                     section [ Element.spacing 0 ]
-                                        [ buttonLink [ mutedTextColor ]
+                                        [ buttonLink [ mutedTextColor, Element.paddingXY 0 4 ]
                                             { label = text v
                                             , onPress = Just (ToggleSection a b v)
                                             }
