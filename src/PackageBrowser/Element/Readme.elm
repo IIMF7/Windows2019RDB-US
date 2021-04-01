@@ -15,6 +15,7 @@ import Elm.Package
 import Elm.Package.NameDict as PackageNameDict
 import Elm.Type
 import Http
+import Markdown.Block
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
@@ -313,7 +314,7 @@ viewModuleReadme a b expanded c =
     viewReadme view_ c
 
 
-viewBlocks : Readme.ModuleReadme -> Bool -> Docs.Block -> Element msg
+viewBlocks : Readme.ModuleReadme -> Bool -> List Markdown.Block.Block -> Element msg
 viewBlocks module_ expand a =
     case a of
         Docs.MarkdownBlock b ->
