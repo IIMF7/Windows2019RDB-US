@@ -352,25 +352,41 @@ viewBlock expand a =
 
         Docs.UnionBlock b ->
             viewBlockItem expand
-                { annotation = Just { name = b.name, type_ = "" }
+                { annotation =
+                    Just
+                        { name = b.name
+                        , type_ = ""
+                        }
                 , docs = b.comment
                 }
 
         Docs.AliasBlock b ->
             viewBlockItem expand
-                { annotation = Just { name = b.name, type_ = "" :: b.args ++ [ "=" ] ++ typeToString b.tipe |> String.join " " }
+                { annotation =
+                    Just
+                        { name = b.name
+                        , type_ = "" :: b.args ++ [ "=" ] ++ typeToString b.tipe |> String.join " "
+                        }
                 , docs = b.comment
                 }
 
         Docs.ValueBlock b ->
             viewBlockItem expand
-                { annotation = Just { name = b.name, type_ = "" :: ":" :: typeToString b.tipe |> String.join " " }
+                { annotation =
+                    Just
+                        { name = b.name
+                        , type_ = "" :: ":" :: typeToString b.tipe |> String.join " "
+                        }
                 , docs = b.comment
                 }
 
         Docs.BinopBlock b ->
             viewBlockItem expand
-                { annotation = Just { name = "(" ++ b.name ++ ")", type_ = "" :: ":" :: typeToString b.tipe |> String.join " " }
+                { annotation =
+                    Just
+                        { name = "(" ++ b.name ++ ")"
+                        , type_ = "" :: ":" :: typeToString b.tipe |> String.join " "
+                        }
                 , docs = b.comment
                 }
 
