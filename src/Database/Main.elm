@@ -70,6 +70,10 @@ init _ =
                 |> Task.mapError (GetProjectError name)
                 |> Task.andThen
                     (\project ->
+                        let
+                            _ =
+                                name |> Debug.log "log"
+                        in
                         case project |> Package.fromProject of
                             Just package ->
                                 Task.map2
