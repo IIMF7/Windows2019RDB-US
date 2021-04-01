@@ -317,9 +317,9 @@ blocksToSections defaultTitle a =
             case b of
                 Docs.MarkdownBlock c ->
                     String.lines c
-                        |> List.filter (String.startsWith "# ")
+                        |> List.filter (String.startsWith "#")
                         |> List.head
-                        |> Maybe.map (String.dropLeft 2)
+                        |> Maybe.map (\v -> v |> String.split " " |> List.drop 1 |> List.head |> Maybe.withDefault "")
 
                 _ ->
                     Nothing
