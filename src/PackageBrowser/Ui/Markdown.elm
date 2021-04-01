@@ -140,7 +140,6 @@ renderer =
         \{ body } ->
             el
                 [ Background.color (rgb255 233 236 239)
-                , htmlAttribute (Html.Attributes.style "white-space" "pre")
                 , padding 8
                 , width fill
                 , Border.rounded 4
