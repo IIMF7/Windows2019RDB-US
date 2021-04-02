@@ -370,78 +370,7 @@ blocksToSections defaultTitle a =
 
 viewBlocks : Readme.ModuleReadme -> Bool -> List Markdown.Block.Block -> Element msg
 viewBlocks module_ expand a =
-    case a of
-        Docs.MarkdownBlock b ->
-            viewBlockItem expand
-                { annotation = Nothing
-                , docs = b
-                }
-
-        Docs.UnionBlock b ->
-            viewBlockItem expand
-                { annotation =
-                    Just
-                        { name = b.name
-                        , type_ =
-                            (if b.args == [] then
-                                []
-
-                             else
-                                ("" :: b.args)
-                                    ++ (if b.tags == [] then
-                                            []
-
-                                        else
-                                            "="
-                                                :: [ b.tags
-                                                        |> List.map
-                                                            (\( v, vv ) ->
-                                                                (v :: List.concatMap typeToString vv) |> String.join " "
-                                                            )
-                                                        |> String.join " | "
-                                                   ]
-                                       )
-                            )
-                                |> String.join " "
-                        }
-                , docs = b.comment
-                }
-
-        Docs.AliasBlock b ->
-            viewBlockItem expand
-                { annotation =
-                    Just
-                        { name = b.name
-                        , type_ = "" :: b.args ++ [ "=" ] ++ typeToString b.tipe |> String.join " "
-                        }
-                , docs = b.comment
-                }
-
-        Docs.ValueBlock b ->
-            viewBlockItem expand
-                { annotation =
-                    Just
-                        { name = b.name
-                        , type_ = "" :: ":" :: typeToString b.tipe |> String.join " "
-                        }
-                , docs = b.comment
-                }
-
-        Docs.BinopBlock b ->
-            viewBlockItem expand
-                { annotation =
-                    Just
-                        { name = "(" ++ b.name ++ ")"
-                        , type_ = "" :: ":" :: typeToString b.tipe |> String.join " "
-                        }
-                , docs = b.comment
-                }
-
-        Docs.UnknownBlock b ->
-            viewBlockItem expand
-                { annotation = Nothing
-                , docs = b
-                }
+    ()
 
 
 viewBlockItem : Bool -> { annotation : Maybe { name : String, type_ : String }, docs : String } -> Element msg
