@@ -373,7 +373,7 @@ blocksToSections defaultTitle a =
 viewBlocks : Readme.ModuleReadme -> Bool -> List Markdown.Block.Block -> Element msg
 viewBlocks module_ expand a =
     let
-        viewDocs : String -> List Markdown.Block.Block -> Element.Element msg
+        viewDocs : String -> a -> Element.Element msg
         viewDocs b _ =
             b
                 |> String.split ","
