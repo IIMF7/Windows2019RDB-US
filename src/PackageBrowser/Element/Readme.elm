@@ -8,7 +8,7 @@ import Element.Background
 import Element.Border
 import Element.Events exposing (onClick)
 import Element.Font as Font
-import Elm.Docs as Docs
+import Elm.Docs
 import Elm.Module
 import Elm.Module.NameDict as ModuleNameDict
 import Elm.Package
