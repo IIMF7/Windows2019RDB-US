@@ -16,7 +16,9 @@ import Elm.Package.NameDict as PackageNameDict
 import Elm.Type
 import Http
 import Markdown.Block
+import Markdown.Html
 import Markdown.Parser
+import Markdown.Renderer
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
@@ -370,7 +372,60 @@ blocksToSections defaultTitle a =
 
 viewBlocks : Readme.ModuleReadme -> Bool -> List Markdown.Block.Block -> Element msg
 viewBlocks module_ expand a =
-    ()
+    let
+        viewDocs : String -> List Markdown.Block.Block -> Element.Element msg
+        viewDocs b _ =
+            b
+                |> String.split ","
+                |> List.map String.trim
+                |> List.map (\v -> v |> viewItem |> Maybe.map (viewBlockItem expand) |> Maybe.withDefault none)
+                |> column [ Element.spacing 0 ]
+
+        viewItem : String -> Maybe { name : String, type_ : String, comment : String }
+        viewItem b =
+            Nothing
+                |> onNothing (\_ -> module_.unions |> Dict.get b |> Maybe.map viewUnion)
+                |> onNothing (\_ -> module_.aliases |> Dict.get b |> Maybe.map viewAlias)
+                |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
+                |> onNothing (\_ -> module_.binops |> Dict.get b |> Maybe.map viewBinop)
+
+        blocks : List Markdown.Block.Block
+        blocks =
+            if expand then
+                a
+
+            else
+                a
+                    |> List.filter
+                        (\v ->
+                            case v of
+                                Markdown.Block.HtmlBlock _ ->
+                                    True
+
+                                _ ->
+                                    False
+                        )
+
+        renderer : Markdown.Renderer.Renderer (Element msg)
+        renderer =
+            Markdown.renderer
+    in
+    column [ Element.width Element.fill, Element.spacing 16 ]
+        (blocks
+            |> Markdown.Renderer.render
+                { renderer
+                    | html =
+                        Markdown.Html.oneOf
+                            [ Markdown.Html.tag "docs" viewDocs
+                                |> Markdown.Html.withAttribute "value"
+                            ]
+                }
+            |> Result.withDefault
+                [ status []
+                    [ text Strings.readmeIsNotAvailable
+                    ]
+                ]
+        )
 
 
 viewBlockItem : Bool -> { annotation : Maybe { name : String, type_ : String }, docs : String } -> Element msg
@@ -471,3 +526,17 @@ typeToString a =
             ]
                 |> String.join " "
                 |> List.singleton
+
+
+
+--
+
+
+onNothing : (() -> Maybe a) -> Maybe a -> Maybe a
+onNothing fn b =
+    case b of
+        Just c ->
+            Just c
+
+        Nothing ->
+            fn ()
