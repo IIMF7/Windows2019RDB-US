@@ -428,6 +428,63 @@ viewBlocks module_ expand a =
         )
 
 
+viewUnion : Elm.Docs.Union -> { name : String, type_ : String, comment : String }
+viewUnion a =
+    let
+        type_ : String
+        type_ =
+            (if a.args == [] then
+                []
+
+             else
+                "" :: a.args
+            )
+                ++ (if a.tags == [] then
+                        []
+
+                    else
+                        ""
+                            :: "="
+                            :: [ a.tags
+                                    |> List.map
+                                        (\( vv, vvv ) ->
+                                            (vv :: List.concatMap typeToString vvv) |> String.join " "
+                                        )
+                                    |> String.join " | "
+                               ]
+                   )
+                |> String.join " "
+    in
+    { name = a.name
+    , type_ = type_
+    , comment = a.comment
+    }
+
+
+viewAlias : Elm.Docs.Alias -> { name : String, type_ : String, comment : String }
+viewAlias a =
+    { name = a.name
+    , type_ = "" :: a.args ++ [ "=" ] ++ typeToString a.tipe |> String.join " "
+    , comment = a.comment
+    }
+
+
+viewValue : Elm.Docs.Value -> { name : String, type_ : String, comment : String }
+viewValue a =
+    { name = a.name
+    , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
+    , comment = a.comment
+    }
+
+
+viewBinop : Elm.Docs.Binop -> { name : String, type_ : String, comment : String }
+viewBinop a =
+    { name = a.name
+    , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
+    , comment = a.comment
+    }
+
+
 viewBlockItem : Bool -> { name : String, type_ : String, comment : String } -> Element msg
 viewBlockItem expand a =
     column [ Element.spacing 0 ]
