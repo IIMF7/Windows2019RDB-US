@@ -428,18 +428,13 @@ viewBlocks module_ expand a =
         )
 
 
-viewBlockItem : Bool -> { annotation : Maybe { name : String, type_ : String }, docs : String } -> Element msg
+viewBlockItem : Bool -> { name : String, type_ : String, comment : String } -> Element msg
 viewBlockItem expand a =
     column [ Element.spacing 0 ]
-        [ case a.annotation of
-            Just { name, type_ } ->
-                row [ Element.spacing 0 ]
-                    [ text name
-                    , el [ Font.color gray500 ] (text type_)
-                    ]
-
-            Nothing ->
-                none
+        [ row [ Element.spacing 0 ]
+            [ text a.name
+            , el [ Font.color gray500 ] (text a.type_)
+            ]
         , if expand then
             column [ Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
                 [ Markdown.view
@@ -448,7 +443,7 @@ viewBlockItem expand a =
                     , Element.Border.rounded 4
                     , Font.size 15
                     ]
-                    a.docs
+                    a.comment
                 ]
 
           else
