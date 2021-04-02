@@ -428,6 +428,33 @@ viewBlocks module_ expand a =
         )
 
 
+viewBlockItem : Bool -> { name : String, type_ : String, comment : String } -> Element msg
+viewBlockItem expand a =
+    column [ Element.spacing 0 ]
+        [ row [ Element.spacing 0 ]
+            [ text a.name
+            , el [ Font.color gray500 ] (text a.type_)
+            ]
+        , if expand then
+            column [ Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
+                [ Markdown.view
+                    [ Element.padding 16
+                    , Element.Background.color gray100
+                    , Element.Border.rounded 4
+                    , Font.size 15
+                    ]
+                    a.comment
+                ]
+
+          else
+            none
+        ]
+
+
+
+--
+
+
 viewUnion : Elm.Docs.Union -> { name : String, type_ : String, comment : String }
 viewUnion a =
     let
@@ -483,29 +510,6 @@ viewBinop a =
     , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
     , comment = a.comment
     }
-
-
-viewBlockItem : Bool -> { name : String, type_ : String, comment : String } -> Element msg
-viewBlockItem expand a =
-    column [ Element.spacing 0 ]
-        [ row [ Element.spacing 0 ]
-            [ text a.name
-            , el [ Font.color gray500 ] (text a.type_)
-            ]
-        , if expand then
-            column [ Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
-                [ Markdown.view
-                    [ Element.padding 16
-                    , Element.Background.color gray100
-                    , Element.Border.rounded 4
-                    , Font.size 15
-                    ]
-                    a.comment
-                ]
-
-          else
-            none
-        ]
 
 
 typeToString : Elm.Type.Type -> List String
