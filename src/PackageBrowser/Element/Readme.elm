@@ -475,7 +475,19 @@ viewUnion a =
                             :: [ a.tags
                                     |> List.map
                                         (\( vv, vvv ) ->
-                                            (vv :: List.concatMap typeToString vvv) |> String.join " "
+                                            vv
+                                                :: (vvv
+                                                        |> List.map typeToString
+                                                        |> List.map
+                                                            (\v ->
+                                                                if List.length v > 1 then
+                                                                    "(" ++ String.join " " v ++ ")"
+
+                                                                else
+                                                                    v |> String.join " "
+                                                            )
+                                                   )
+                                                |> String.join " "
                                         )
                                     |> String.join " | "
                                ]
