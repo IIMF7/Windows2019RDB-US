@@ -7,6 +7,10 @@ type alias Element msg =
     Element.Element msg
 
 
+
+--
+
+
 none =
     Element.none
 
@@ -17,10 +21,6 @@ text =
 
 el =
     Element.el
-
-
-
---
 
 
 row =
