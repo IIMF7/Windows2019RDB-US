@@ -20,7 +20,7 @@ text =
 
 
 
--- SHRINK BY DEFAULT
+-- ELEMENTS THAT SHRINK BY DEFAULT
 
 
 el =
@@ -44,7 +44,7 @@ textColumn a =
 
 
 
--- FILL WIDTH BY DEFAULT
+-- ELEMENTS THAT FILL WIDTH BY DEFAULT
 
 
 paragraph a =
