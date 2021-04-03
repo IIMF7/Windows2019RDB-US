@@ -8,22 +8,27 @@ import Html
 -- ELEMENTS THAT SHRINK BY DEFAULT
 
 
+el : List (Attribute msg) -> Element msg -> Element msg
 el =
     Element.el
 
 
+row : List (Attribute msg) -> List (Element msg) -> Element msg
 row =
     Element.row
 
 
+wrappedRow : List (Attribute msg) -> List (Element msg) -> Element msg
 wrappedRow =
     Element.wrappedRow
 
 
+column : List (Attribute msg) -> List (Element msg) -> Element msg
 column =
     Element.column
 
 
+textColumn : List (Attribute msg) -> List (Element msg) -> Element msg
 textColumn a =
     Element.textColumn (width shrink :: a)
 
@@ -32,6 +37,7 @@ textColumn a =
 -- ELEMENTS THAT FILL WIDTH BY DEFAULT
 
 
+paragraph : List (Attribute msg) -> List (Element msg) -> Element msg
 paragraph a =
     Element.paragraph (spacing 8 :: a)
 
