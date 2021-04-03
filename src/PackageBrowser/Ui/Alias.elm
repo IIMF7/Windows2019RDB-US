@@ -70,6 +70,7 @@ indexedTable =
 -- EXTRAS
 
 
+br : Element msg
 br =
     html (Html.br [] [])
 
@@ -82,10 +83,12 @@ type alias Element msg =
     Element.Element msg
 
 
+none : Element msg
 none =
     Element.none
 
 
+text : String -> Element msg
 text =
     Element.text
 
@@ -94,10 +97,12 @@ type alias Attribute msg =
     Element.Attribute msg
 
 
+width : Length -> Attribute msg
 width =
     Element.width
 
 
+height : Length -> Attribute msg
 height =
     Element.height
 
@@ -106,6 +111,7 @@ type alias Length =
     Element.Length
 
 
+px : Int -> Length
 px =
     Element.px
 
@@ -114,18 +120,22 @@ shrink =
     Element.shrink
 
 
+fill : Length
 fill =
     Element.fill
 
 
+fillPortion : Int -> Length
 fillPortion =
     Element.fillPortion
 
 
+maximum : Int -> Length -> Length
 maximum =
     Element.maximum
 
 
+minimum : Int -> Length -> Length
 minimum =
     Element.minimum
 
