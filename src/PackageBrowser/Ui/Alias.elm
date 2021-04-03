@@ -76,7 +76,7 @@ br =
 
 
 
--- THE REST
+-- ELEMENT MODULE
 
 
 type alias Element msg =
