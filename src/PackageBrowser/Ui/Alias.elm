@@ -382,26 +382,32 @@ toRgb =
     Element.toRgb
 
 
+above : Element msg -> Attribute msg
 above =
     Element.above
 
 
+below : Element msg -> Attribute msg
 below =
     Element.below
 
 
+onRight : Element msg -> Attribute msg
 onRight =
     Element.onRight
 
 
+onLeft : Element msg -> Attribute msg
 onLeft =
     Element.onLeft
 
 
+inFront : Element msg -> Attribute msg
 inFront =
     Element.inFront
 
 
+behindContent : Element msg -> Attribute msg
 behindContent =
     Element.behindContent
 
