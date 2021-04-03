@@ -117,8 +117,20 @@ update ctx msg model =
             )
 
         SearchChanged a ->
-            ( { model | search = a }
-            , Cmd.none
+            let
+                nextModel : Model
+                nextModel =
+                    { model | search = a }
+            in
+            ( nextModel
+            , if a |> String.trim |> String.isEmpty then
+                Elm.Package.fromString "elm/core"
+                    |> Maybe.andThen (scrollToPackage ctx nextModel)
+                    |> Maybe.withDefault Cmd.none
+
+              else
+                Browser.Dom.setViewportOf packagesId 0 0
+                    |> Task.attempt ViewportSet
             )
 
         ScrollOffsetChanged a ->
