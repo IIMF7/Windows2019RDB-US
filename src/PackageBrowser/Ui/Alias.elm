@@ -447,25 +447,31 @@ type alias Orientation =
     Element.Orientation
 
 
+classifyDevice : { window | height : Int, width : Int } -> Device
 classifyDevice =
     Element.classifyDevice
 
 
+modular : Float -> Float -> Int -> Float
 modular =
     Element.modular
 
 
+map : (msg -> msg1) -> Element msg -> Element msg1
 map =
     Element.map
 
 
+mapAttribute : (a -> b) -> Attribute a -> Attribute b
 mapAttribute =
     Element.mapAttribute
 
 
+html : Html.Html msg -> Element msg
 html =
     Element.html
 
 
+htmlAttribute : Html.Attribute msg -> Attribute msg
 htmlAttribute =
     Element.htmlAttribute
