@@ -323,15 +323,24 @@ viewItems module_ expand a =
         viewItem b =
             case b of
                 Section.Markdown c ->
-                    column []
-                        (c
-                            |> Markdown.Renderer.render Markdown.renderer
-                            |> Result.withDefault
-                                [ status []
-                                    [ text Strings.readmeIsNotAvailable
+                    column [ Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
+                        [ column
+                            [ Element.padding 16
+                            , Element.Background.color gray100
+                            , Element.Border.rounded 4
+                            , Element.width Element.fill
+                            , Element.spacing 16
+                            , Font.size 15
+                            ]
+                            (c
+                                |> Markdown.Renderer.render Markdown.renderer
+                                |> Result.withDefault
+                                    [ status []
+                                        [ text Strings.readmeIsNotAvailable
+                                        ]
                                     ]
-                                ]
-                        )
+                            )
+                        ]
 
                 Section.Member c ->
                     c
