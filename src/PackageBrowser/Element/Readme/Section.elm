@@ -4,6 +4,21 @@ import Markdown.Block
 import Regex
 
 
+type alias Section =
+    { name : String
+    , items : List Item
+    }
+
+
+type Item
+    = Markdown (List Markdown.Block.Block)
+    | Member { name : String, type_ : String, comment : String }
+
+
+
+--
+
+
 replaceDocs : String -> String
 replaceDocs a =
     let
