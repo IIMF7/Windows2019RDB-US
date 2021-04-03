@@ -347,30 +347,37 @@ type alias Color =
     Element.Color
 
 
+rgba : Float -> Float -> Float -> Float -> Color
 rgba =
     Element.rgba
 
 
+rgb : Float -> Float -> Float -> Color
 rgb =
     Element.rgb
 
 
+rgb255 : Int -> Int -> Int -> Color
 rgb255 =
     Element.rgb255
 
 
+rgba255 : Int -> Int -> Int -> Float -> Color
 rgba255 =
     Element.rgba255
 
 
+fromRgb : { red : Float, green : Float, blue : Float, alpha : Float } -> Color
 fromRgb =
     Element.fromRgb
 
 
+fromRgb255 : { red : Int, green : Int, blue : Int, alpha : Float } -> Color
 fromRgb255 =
     Element.fromRgb255
 
 
+toRgb : Color -> { red : Float, green : Float, blue : Float, alpha : Float }
 toRgb =
     Element.toRgb
 
