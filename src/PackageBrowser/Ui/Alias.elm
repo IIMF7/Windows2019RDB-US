@@ -6,6 +6,7 @@ import Element.Border
 import Element.Events
 import Element.Font
 import Element.Input
+import Element.Keyed
 import Html
 
 
@@ -1105,3 +1106,22 @@ inputLabelRight =
 inputLabelHidden : String -> InputLabel msg
 inputLabelHidden =
     Element.Input.labelHidden
+
+
+
+-- KEYED MODULE
+
+
+keyedEl : List (Attribute msg) -> ( String, Element msg ) -> Element msg
+keyedEl =
+    Element.Keyed.el
+
+
+keyedColumn : List (Attribute msg) -> List ( String, Element msg ) -> Element msg
+keyedColumn =
+    Element.Keyed.column
+
+
+keyedRow : List (Attribute msg) -> List ( String, Element msg ) -> Element msg
+keyedRow =
+    Element.Keyed.row
