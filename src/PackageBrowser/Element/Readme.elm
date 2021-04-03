@@ -19,6 +19,7 @@ import Markdown.Block
 import Markdown.Html
 import Markdown.Parser
 import Markdown.Renderer
+import PackageBrowser.Element.Readme.Section as Section
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
@@ -284,23 +285,22 @@ viewModuleReadme a b expanded c =
                                 |> List.head
                                 |> Maybe.withDefault ""
                     in
-                    case e.readme |> replaceDocs |> Markdown.Parser.parse of
+                    case e.readme |> Section.fromMarkdown defaultTitle of
                         Ok f ->
                             section []
                                 (f
-                                    |> blocksToSections defaultTitle
                                     |> List.map
-                                        (\( v, vv ) ->
+                                        (\v ->
                                             section [ Element.spacing 0 ]
                                                 [ buttonLink [ mutedTextColor, Element.paddingXY 0 4 ]
-                                                    { label = text v
-                                                    , onPress = Just (ToggleSection a b v)
+                                                    { label = text v.name
+                                                    , onPress = Just (ToggleSection a b v.name)
                                                     }
                                                 , column
                                                     [ Element.spacing 0
                                                     , Element.paddingXY 24 0
                                                     ]
-                                                    [ viewBlocks e (Dict.member v expanded) vv
+                                                    [ viewItems e (Dict.member v.name expanded) v.items
                                                     ]
                                                 ]
                                         )
@@ -319,8 +319,8 @@ viewModuleReadme a b expanded c =
     viewReadme view_ c
 
 
-viewBlocks : Readme.ModuleReadme -> Bool -> List Markdown.Block.Block -> Element msg
-viewBlocks module_ expand a =
+viewItems : Readme.ModuleReadme -> Bool -> List Section.Item -> Element msg
+viewItems module_ expand a =
     let
         viewDocs : String -> a -> Element.Element msg
         viewDocs b _ =
