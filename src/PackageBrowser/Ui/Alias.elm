@@ -1,6 +1,7 @@
 module PackageBrowser.Ui.Alias exposing (..)
 
 import Element
+import Element.Background
 import Html
 
 
@@ -475,3 +476,42 @@ html =
 htmlAttribute : Html.Attribute msg -> Attribute msg
 htmlAttribute =
     Element.htmlAttribute
+
+
+
+-- BACKGROUND MODULE
+
+
+bgColor : Color -> Attr decorative msg
+bgColor =
+    Element.Background.color
+
+
+bgGradient : { angle : Float, steps : List Color } -> Attr decorative msg
+bgGradient =
+    Element.Background.gradient
+
+
+bgImage : String -> Attribute msg
+bgImage =
+    Element.Background.image
+
+
+bgUncropped : String -> Attribute msg
+bgUncropped =
+    Element.Background.uncropped
+
+
+bgTiled : String -> Attribute msg
+bgTiled =
+    Element.Background.tiled
+
+
+bgTiledX : String -> Attribute msg
+bgTiledX =
+    Element.Background.tiledX
+
+
+bgTiledY : String -> Attribute msg
+bgTiledY =
+    Element.Background.tiledY
