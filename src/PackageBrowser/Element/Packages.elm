@@ -90,13 +90,15 @@ update ctx msg model =
 
                         Nothing ->
                             Elm.Package.fromString "elm/core"
+
+                nextModel : Model
+                nextModel =
+                    { model
+                        | packages = a |> Result.mapError HttpError
+                    }
             in
-            ( { model | packages = a |> Result.mapError HttpError }
-            , Maybe.map2 (scrollToPackage ctx)
-                (a |> Result.toMaybe)
-                package
-                |> Maybe.andThen identity
-                |> Maybe.withDefault Cmd.none
+            ( nextModel
+            , package |> Maybe.andThen (scrollToPackage ctx nextModel) |> Maybe.withDefault Cmd.none
             )
 
         ToggleInfo ->
@@ -106,10 +108,7 @@ update ctx msg model =
 
         Reveal a ->
             ( model
-            , model.packages
-                |> Result.toMaybe
-                |> Maybe.andThen (\v -> scrollToPackage ctx (filterPackages model.search v) a)
-                |> Maybe.withDefault Cmd.none
+            , a |> scrollToPackage ctx model |> Maybe.withDefault Cmd.none
             )
 
         ViewportSet _ ->
@@ -128,14 +127,19 @@ update ctx msg model =
             )
 
 
-scrollToPackage : Context a b -> List Package.Package -> Elm.Package.Name -> Maybe (Cmd Msg)
-scrollToPackage ctx data a =
-    Element.Virtualized.getScrollOffset
-        { data = data
-        , getKey = .name >> Elm.Package.toString
-        , getSize = \v -> computeSize (NameDict.member v.name ctx.router.recent) v
-        , key = Elm.Package.toString a
-        }
+scrollToPackage : Context a b -> Model -> Elm.Package.Name -> Maybe (Cmd Msg)
+scrollToPackage ctx model a =
+    model.packages
+        |> Result.toMaybe
+        |> Maybe.andThen
+            (\v ->
+                Element.Virtualized.getScrollOffset
+                    { data = v |> filterPackages model.search
+                    , getKey = .name >> Elm.Package.toString
+                    , getSize = \vv -> computeSize (NameDict.member vv.name ctx.router.recent) vv
+                    , key = Elm.Package.toString a
+                    }
+            )
         |> Maybe.map
             (\v ->
                 Browser.Dom.setViewportOf packagesId 0 (toFloat v)
