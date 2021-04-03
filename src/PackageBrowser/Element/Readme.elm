@@ -15,16 +15,13 @@ import Elm.Package
 import Elm.Package.NameDict as PackageNameDict
 import Elm.Type
 import Http
-import Markdown.Block
 import Markdown.Html
-import Markdown.Parser
 import Markdown.Renderer
 import PackageBrowser.Element.Readme.Section as Section
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Markdown as Markdown
-import Regex
 
 
 type alias Context a b =
@@ -322,63 +319,58 @@ viewModuleReadme a b expanded c =
 viewItems : Readme.ModuleReadme -> Bool -> List Section.Item -> Element msg
 viewItems module_ expand a =
     let
-        viewDocs : String -> a -> Element.Element msg
-        viewDocs b _ =
-            b
-                |> String.split ","
-                |> List.map String.trim
-                |> List.map (\v -> v |> viewItem |> Maybe.map (viewBlockItem expand) |> Maybe.withDefault none)
-                |> column [ Element.spacing 0 ]
-
-        viewItem : String -> Maybe { name : String, type_ : String, comment : String }
+        viewItem : Section.Item -> Element msg
         viewItem b =
+            case b of
+                Section.Markdown c ->
+                    column []
+                        (c
+                            |> Markdown.Renderer.render Markdown.renderer
+                            |> Result.withDefault
+                                [ status []
+                                    [ text Strings.readmeIsNotAvailable
+                                    ]
+                                ]
+                        )
+
+                Section.Member c ->
+                    c
+                        |> toMember
+                        |> Maybe.map (viewMember expand)
+                        |> Maybe.withDefault none
+
+        toMember : String -> Maybe { name : String, type_ : String, comment : String }
+        toMember b =
             Nothing
                 |> onNothing (\_ -> module_.unions |> Dict.get b |> Maybe.map viewUnion)
                 |> onNothing (\_ -> module_.aliases |> Dict.get b |> Maybe.map viewAlias)
                 |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
                 |> onNothing (\_ -> module_.binops |> Dict.get b |> Maybe.map viewBinop)
-
-        blocks : List Markdown.Block.Block
-        blocks =
-            if expand then
-                a
-
-            else
-                a
-                    |> List.filter
-                        (\v ->
-                            case v of
-                                Markdown.Block.HtmlBlock _ ->
-                                    True
-
-                                _ ->
-                                    False
-                        )
-
-        renderer : Markdown.Renderer.Renderer (Element msg)
-        renderer =
-            Markdown.renderer
     in
-    column [ Element.width Element.fill, Element.spacing 16 ]
-        (blocks
-            |> Markdown.Renderer.render
-                { renderer
-                    | html =
-                        Markdown.Html.oneOf
-                            [ Markdown.Html.tag "docs" viewDocs
-                                |> Markdown.Html.withAttribute "value"
-                            ]
-                }
-            |> Result.withDefault
-                [ status []
-                    [ text Strings.readmeIsNotAvailable
-                    ]
-                ]
+    column [ Element.width Element.fill, Element.spacing 0 ]
+        (a
+            |> (\v ->
+                    if expand then
+                        v
+
+                    else
+                        v
+                            |> List.filter
+                                (\vv ->
+                                    case vv of
+                                        Section.Member _ ->
+                                            True
+
+                                        _ ->
+                                            False
+                                )
+               )
+            |> List.map viewItem
         )
 
 
-viewBlockItem : Bool -> { name : String, type_ : String, comment : String } -> Element msg
-viewBlockItem expand a =
+viewMember : Bool -> { name : String, type_ : String, comment : String } -> Element msg
+viewMember expand a =
     column [ Element.spacing 0 ]
         [ row [ Element.spacing 0 ]
             [ text a.name
