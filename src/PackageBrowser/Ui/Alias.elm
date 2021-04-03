@@ -294,18 +294,22 @@ type alias Option =
     Element.Option
 
 
+noStaticStyleSheet : Option
 noStaticStyleSheet =
     Element.noStaticStyleSheet
 
 
+forceHover : Option
 forceHover =
     Element.forceHover
 
 
+noHover : Option
 noHover =
     Element.noHover
 
 
+focusStyle : FocusStyle -> Option
 focusStyle =
     Element.focusStyle
 
@@ -314,22 +318,27 @@ type alias FocusStyle =
     Element.FocusStyle
 
 
+link : List (Attribute msg) -> { label : Element msg, url : String } -> Element msg
 link =
     Element.link
 
 
+newTabLink : List (Attribute msg) -> { label : Element msg, url : String } -> Element msg
 newTabLink =
     Element.newTabLink
 
 
+download : List (Attribute msg) -> { label : Element msg, url : String } -> Element msg
 download =
     Element.download
 
 
+downloadAs : List (Attribute msg) -> { label : Element msg, url : String, filename : String } -> Element msg
 downloadAs =
     Element.downloadAs
 
 
+image : List (Attribute msg) -> { description : String, src : String } -> Element msg
 image =
     Element.image
 
