@@ -8,6 +8,7 @@ import Element.Font
 import Element.Input
 import Element.Keyed
 import Element.Lazy
+import Element.Region
 import Html
 
 
@@ -1155,3 +1156,47 @@ lazy4 =
 lazy5 : (a -> b -> c -> d -> e -> Element msg) -> a -> b -> c -> d -> e -> Element msg
 lazy5 =
     Element.Lazy.lazy5
+
+
+
+-- REGION MODULE
+
+
+mainContent : Attribute msg
+mainContent =
+    Element.Region.mainContent
+
+
+navigation : Attribute msg
+navigation =
+    Element.Region.navigation
+
+
+heading : Int -> Attribute msg
+heading =
+    Element.Region.heading
+
+
+aside : Attribute msg
+aside =
+    Element.Region.aside
+
+
+footer : Attribute msg
+footer =
+    Element.Region.footer
+
+
+description : String -> Attribute msg
+description =
+    Element.Region.description
+
+
+announce : Attribute msg
+announce =
+    Element.Region.announce
+
+
+announceUrgently : Attribute msg
+announceUrgently =
+    Element.Region.announceUrgently
