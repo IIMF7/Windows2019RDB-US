@@ -40,8 +40,8 @@ column =
 
 
 paragraph a =
-    Element.paragraph (width fill :: spacing 8 :: a)
+    Element.paragraph (width fill :: spacing 0 :: a)
 
 
 textColumn a =
-    Element.textColumn (width fill :: spacing 8 :: a)
+    Element.textColumn (width shrink :: a)
