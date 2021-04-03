@@ -48,6 +48,6 @@ textColumn a =
 
 
 paragraph a =
-    Element.paragraph (width fill :: spacing 0 :: a)
+    Element.paragraph (spacing 8 :: a)
 
 
