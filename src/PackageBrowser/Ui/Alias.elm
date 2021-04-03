@@ -3,6 +3,7 @@ module PackageBrowser.Ui.Alias exposing (..)
 import Element
 import Element.Background
 import Element.Border
+import Element.Events
 import Html
 
 
@@ -585,3 +586,52 @@ borderShadow =
 borderInnerShadow : { offset : ( Float, Float ), size : Float, blur : Float, color : Color } -> Attr decorative msg
 borderInnerShadow =
     Element.Border.innerShadow
+
+
+
+-- EVENTS MODULE
+
+
+onClick : msg -> Attribute msg
+onClick =
+    Element.Events.onClick
+
+
+onDoubleClick : msg -> Attribute msg
+onDoubleClick =
+    Element.Events.onDoubleClick
+
+
+onMouseDown : msg -> Attribute msg
+onMouseDown =
+    Element.Events.onMouseDown
+
+
+onMouseUp : msg -> Attribute msg
+onMouseUp =
+    Element.Events.onMouseUp
+
+
+onMouseEnter : msg -> Attribute msg
+onMouseEnter =
+    Element.Events.onMouseEnter
+
+
+onMouseLeave : msg -> Attribute msg
+onMouseLeave =
+    Element.Events.onMouseLeave
+
+
+onMouseMove : msg -> Attribute msg
+onMouseMove =
+    Element.Events.onMouseMove
+
+
+onFocus : msg -> Attribute msg
+onFocus =
+    Element.Events.onFocus
+
+
+onLoseFocus : msg -> Attribute msg
+onLoseFocus =
+    Element.Events.onLoseFocus
