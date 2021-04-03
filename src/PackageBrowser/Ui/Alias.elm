@@ -140,114 +140,142 @@ minimum =
     Element.minimum
 
 
+explain : (String -> Never) -> Attribute msg
 explain =
     Element.explain
 
 
+padding : Int -> Attribute msg
 padding =
     Element.padding
 
 
+paddingXY : Int -> Int -> Attribute msg
 paddingXY =
     Element.paddingXY
 
 
+paddingEach : Int -> Int -> Int -> Int -> Attribute msg
 paddingEach a b c d =
     Element.paddingEach { left = a, right = b, top = c, bottom = d }
 
 
+spacing : Int -> Attribute msg
 spacing =
     Element.spacing
 
 
+spacingXY : Int -> Int -> Attribute msg
 spacingXY =
     Element.spacingXY
 
 
+spaceEvenly : Attribute msg
 spaceEvenly =
     Element.spaceEvenly
 
 
+centerX : Attribute msg
 centerX =
     Element.centerX
 
 
+centerY : Attribute msg
 centerY =
     Element.centerY
 
 
+alignLeft : Attribute msg
 alignLeft =
     Element.alignLeft
 
 
+alignRight : Attribute msg
 alignRight =
     Element.alignRight
 
 
+alignTop : Attribute msg
 alignTop =
     Element.alignTop
 
 
+alignBottom : Attribute msg
 alignBottom =
     Element.alignBottom
 
 
+transparent : Bool -> Attr decorative msg
 transparent =
     Element.transparent
 
 
+alpha : Float -> Attr decorative msg
 alpha =
     Element.alpha
 
 
+pointer : Attribute msg
 pointer =
     Element.pointer
 
 
+moveUp : Float -> Attr decorative msg
 moveUp =
     Element.moveUp
 
 
+moveDown : Float -> Attr decorative msg
 moveDown =
     Element.moveDown
 
 
+moveRight : Float -> Attr decorative msg
 moveRight =
     Element.moveRight
 
 
+moveLeft : Float -> Attr decorative msg
 moveLeft =
     Element.moveLeft
 
 
+rotate : Float -> Attr decorative msg
 rotate =
     Element.rotate
 
 
+scale : Float -> Attr decorative msg
 scale =
     Element.scale
 
 
+clip : Attribute msg
 clip =
     Element.clip
 
 
+clipX : Attribute msg
 clipX =
     Element.clipX
 
 
+clipY : Attribute msg
 clipY =
     Element.clipY
 
 
+scrollbars : Attribute msg
 scrollbars =
     Element.scrollbars
 
 
+scrollbarX : Attribute msg
 scrollbarX =
     Element.scrollbarX
 
 
+scrollbarY : Attribute msg
 scrollbarY =
     Element.scrollbarY
 
