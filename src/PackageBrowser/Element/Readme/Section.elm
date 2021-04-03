@@ -13,7 +13,7 @@ type alias Section =
 
 type Item
     = Markdown (List Markdown.Block.Block)
-    | Member Markdown.Block.Block
+    | Member String
 
 
 
@@ -41,8 +41,13 @@ fromMarkdown defaultTitle a =
                     }
                         :: acc
 
-                Markdown.Block.HtmlBlock (Markdown.Block.HtmlElement "docs" _ _) ->
-                    acc |> mapItems (\v -> Member b :: v)
+                Markdown.Block.HtmlBlock (Markdown.Block.HtmlElement "docs" (attr :: _) _) ->
+                    case attr.name of
+                        "value" ->
+                            acc |> mapItems (\v -> Member attr.value :: v)
+
+                        _ ->
+                            acc
 
                 _ ->
                     acc
@@ -88,5 +93,9 @@ replaceDocs a =
                     |> List.head
                     |> Maybe.andThen identity
                     |> Maybe.withDefault ""
-                    |> (\vv -> "\n<docs value=\"" ++ escape vv ++ "\"></docs>")
+                    |> String.split ","
+                    |> List.map String.trim
+                    |> List.filter (String.isEmpty >> not)
+                    |> List.map (\vv -> "\n<docs value=\"" ++ escape vv ++ "\"></docs>")
+                    |> String.join ""
             )
