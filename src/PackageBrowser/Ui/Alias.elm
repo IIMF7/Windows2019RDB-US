@@ -5,6 +5,7 @@ import Element.Background
 import Element.Border
 import Element.Events
 import Element.Font
+import Element.Input
 import Html
 
 
@@ -853,3 +854,254 @@ fontGlow =
 fontShadow : { offset : ( Float, Float ), blur : Float, color : Color } -> Attr decorative msg
 fontShadow =
     Element.Font.shadow
+
+
+
+-- INPUT MODULE
+
+
+inputFocusedOnLoad : Attribute msg
+inputFocusedOnLoad =
+    Element.Input.focusedOnLoad
+
+
+inputButton : List (Attribute msg) -> { label : Element msg, onPress : Maybe msg } -> Element msg
+inputButton =
+    Element.Input.button
+
+
+inputCheckbox :
+    List (Attribute msg)
+    ->
+        { icon : Bool -> Element msg
+        , label : InputLabel msg
+        , checked : Bool
+        , onChange : Bool -> msg
+        }
+    -> Element msg
+inputCheckbox =
+    Element.Input.checkbox
+
+
+inputDefaultCheckbox : Bool -> Element msg
+inputDefaultCheckbox =
+    Element.Input.defaultCheckbox
+
+
+inputText :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , placeholder : Maybe (InputPlaceholder msg)
+        , text : String
+        , onChange : String -> msg
+        }
+    -> Element msg
+inputText =
+    Element.Input.text
+
+
+inputMultiline :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , placeholder : Maybe (InputPlaceholder msg)
+        , text : String
+        , spellcheck : Bool
+        , onChange : String -> msg
+        }
+    -> Element msg
+inputMultiline =
+    Element.Input.multiline
+
+
+type alias InputPlaceholder msg =
+    Element.Input.Placeholder msg
+
+
+inputPlaceholder : List (Attribute msg) -> Element msg -> InputPlaceholder msg
+inputPlaceholder =
+    Element.Input.placeholder
+
+
+inputUsername :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , placeholder : Maybe (InputPlaceholder msg)
+        , text : String
+        , onChange : String -> msg
+        }
+    -> Element msg
+inputUsername =
+    Element.Input.username
+
+
+inputNewPassword :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , placeholder : Maybe (InputPlaceholder msg)
+        , text : String
+        , show : Bool
+        , onChange : String -> msg
+        }
+    -> Element msg
+inputNewPassword =
+    Element.Input.newPassword
+
+
+inputCurrentPassword :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , placeholder : Maybe (InputPlaceholder msg)
+        , text : String
+        , onChange : String -> msg
+        , show : Bool
+        }
+    -> Element msg
+inputCurrentPassword =
+    Element.Input.currentPassword
+
+
+inputEmail :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , placeholder : Maybe (InputPlaceholder msg)
+        , text : String
+        , onChange : String -> msg
+        }
+    -> Element msg
+inputEmail =
+    Element.Input.email
+
+
+inputSearch :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , placeholder : Maybe (InputPlaceholder msg)
+        , text : String
+        , onChange : String -> msg
+        }
+    -> Element msg
+inputSearch =
+    Element.Input.search
+
+
+inputSpellChecked :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , placeholder : Maybe (InputPlaceholder msg)
+        , text : String
+        , onChange : String -> msg
+        }
+    -> Element msg
+inputSpellChecked =
+    Element.Input.spellChecked
+
+
+inputSlider :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , thumb : InputThumb
+        , min : Float
+        , max : Float
+        , step : Maybe Float
+        , value : Float
+        , onChange : Float -> msg
+        }
+    -> Element msg
+inputSlider =
+    Element.Input.slider
+
+
+type alias InputThumb =
+    Element.Input.Thumb
+
+
+inputThumb : List (Attribute Never) -> InputThumb
+inputThumb =
+    Element.Input.thumb
+
+
+inputDefaultThumb : InputThumb
+inputDefaultThumb =
+    Element.Input.defaultThumb
+
+
+inputRadio :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , options : List (InputOption a msg)
+        , selected : Maybe a
+        , onChange : a -> msg
+        }
+    -> Element msg
+inputRadio =
+    Element.Input.radio
+
+
+inputRadioRow :
+    List (Attribute msg)
+    ->
+        { label : InputLabel msg
+        , options : List (InputOption a msg)
+        , selected : Maybe a
+        , onChange : a -> msg
+        }
+    -> Element msg
+inputRadioRow =
+    Element.Input.radioRow
+
+
+type alias InputOption a msg =
+    Element.Input.Option a msg
+
+
+inputOption : a -> Element msg -> InputOption a msg
+inputOption =
+    Element.Input.option
+
+
+inputOptionWith : a -> (InputOptionState -> Element msg) -> InputOption a msg
+inputOptionWith =
+    Element.Input.optionWith
+
+
+type alias InputOptionState =
+    Element.Input.OptionState
+
+
+type alias InputLabel msg =
+    Element.Input.Label msg
+
+
+inputLabelAbove : List (Attribute msg) -> Element msg -> InputLabel msg
+inputLabelAbove =
+    Element.Input.labelAbove
+
+
+inputLabelBelow : List (Attribute msg) -> Element msg -> InputLabel msg
+inputLabelBelow =
+    Element.Input.labelBelow
+
+
+inputLabelLeft : List (Attribute msg) -> Element msg -> InputLabel msg
+inputLabelLeft =
+    Element.Input.labelLeft
+
+
+inputLabelRight : List (Attribute msg) -> Element msg -> InputLabel msg
+inputLabelRight =
+    Element.Input.labelRight
+
+
+inputLabelHidden : String -> InputLabel msg
+inputLabelHidden =
+    Element.Input.labelHidden
