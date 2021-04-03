@@ -51,3 +51,17 @@ paragraph a =
     Element.paragraph (spacing 8 :: a)
 
 
+type alias Column record msg =
+    Element.Column record msg
+
+
+table =
+    Element.table
+
+
+type alias IndexedColumn =
+    IndexedColumn
+
+
+indexedTable =
+    Element.indexedTable
