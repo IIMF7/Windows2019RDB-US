@@ -60,12 +60,34 @@ fromMarkdown defaultTitle a =
                                     _ ->
                                         Markdown [ b ] :: v
                             )
+
+        reverse : List Section -> List Section
+        reverse b =
+            b
+                |> List.map
+                    (\v ->
+                        { v
+                            | items =
+                                v.items
+                                    |> List.map
+                                        (\vv ->
+                                            case vv of
+                                                Markdown vvv ->
+                                                    Markdown (List.reverse vvv)
+
+                                                Member _ ->
+                                                    vv
+                                        )
+                                    |> List.reverse
+                        }
+                    )
+                |> List.reverse
     in
     a
         |> replaceDocs
         |> Markdown.Parser.parse
         |> Result.mapError (List.map Markdown.Parser.deadEndToString >> String.join "\n")
-        |> Result.map (List.foldl fold [])
+        |> Result.map (List.foldl fold [] >> reverse)
 
 
 replaceDocs : String -> String
