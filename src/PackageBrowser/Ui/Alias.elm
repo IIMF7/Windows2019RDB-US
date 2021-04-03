@@ -7,6 +7,7 @@ import Element.Events
 import Element.Font
 import Element.Input
 import Element.Keyed
+import Element.Lazy
 import Html
 
 
@@ -1125,3 +1126,32 @@ keyedColumn =
 keyedRow : List (Attribute msg) -> List ( String, Element msg ) -> Element msg
 keyedRow =
     Element.Keyed.row
+
+
+
+-- LAZY MODULE
+
+
+lazy : (a -> Element msg) -> a -> Element msg
+lazy =
+    Element.Lazy.lazy
+
+
+lazy2 : (a -> b -> Element msg) -> a -> b -> Element msg
+lazy2 =
+    Element.Lazy.lazy2
+
+
+lazy3 : (a -> b -> c -> Element msg) -> a -> b -> c -> Element msg
+lazy3 =
+    Element.Lazy.lazy3
+
+
+lazy4 : (a -> b -> c -> d -> Element msg) -> a -> b -> c -> d -> Element msg
+lazy4 =
+    Element.Lazy.lazy4
+
+
+lazy5 : (a -> b -> c -> d -> e -> Element msg) -> a -> b -> c -> d -> e -> Element msg
+lazy5 =
+    Element.Lazy.lazy5
