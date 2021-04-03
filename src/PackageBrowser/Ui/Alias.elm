@@ -19,6 +19,10 @@ text =
     Element.text
 
 
+
+-- SHRINK BY DEFAULT
+
+
 el =
     Element.el
 
@@ -40,7 +44,7 @@ textColumn a =
 
 
 
---
+-- FILL WIDTH BY DEFAULT
 
 
 paragraph a =
