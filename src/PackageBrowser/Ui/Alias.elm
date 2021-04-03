@@ -42,18 +42,26 @@ paragraph a =
     Element.paragraph (spacing 8 :: a)
 
 
-type alias Column record msg =
-    Element.Column record msg
+type alias Column a msg =
+    { header : Element msg
+    , width : Length
+    , view : a -> Element msg
+    }
 
 
+table : List (Attribute msg) -> { data : List a, columns : List (Column a msg) } -> Element msg
 table =
     Element.table
 
 
-type alias IndexedColumn =
-    IndexedColumn
+type alias IndexedColumn a msg =
+    { header : Element msg
+    , width : Length
+    , view : Int -> a -> Element msg
+    }
 
 
+indexedTable : List (Attribute msg) -> { data : List a, columns : List (IndexedColumn a msg) } -> Element msg
 indexedTable =
     Element.indexedTable
 
