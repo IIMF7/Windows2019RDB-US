@@ -35,6 +35,10 @@ column =
     Element.column
 
 
+textColumn a =
+    Element.textColumn (width shrink :: a)
+
+
 
 --
 
@@ -43,5 +47,3 @@ paragraph a =
     Element.paragraph (width fill :: spacing 0 :: a)
 
 
-textColumn a =
-    Element.textColumn (width shrink :: a)
