@@ -300,7 +300,8 @@ viewModuleReadme a b expanded c =
                                                     [ Element.spacing 0
                                                     , Element.paddingXY 24 0
                                                     ]
-                                                    [ viewBlocks e (Dict.member v expanded) vv ]
+                                                    [ viewBlocks e (Dict.member v expanded) vv
+                                                    ]
                                                 ]
                                         )
                                 )
