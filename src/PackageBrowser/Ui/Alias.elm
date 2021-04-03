@@ -420,14 +420,17 @@ type alias Decoration =
     Element.Decoration
 
 
+mouseOver : List Decoration -> Attribute msg
 mouseOver =
     Element.mouseOver
 
 
+mouseDown : List Decoration -> Attribute msg
 mouseDown =
     Element.mouseDown
 
 
+focused : List Decoration -> Attribute msg
 focused =
     Element.focused
 
