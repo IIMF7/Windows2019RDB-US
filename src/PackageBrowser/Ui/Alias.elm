@@ -1,6 +1,7 @@
 module PackageBrowser.Ui.Alias exposing (..)
 
 import Element
+import Html
 
 
 
@@ -49,6 +50,14 @@ type alias IndexedColumn =
 
 indexedTable =
     Element.indexedTable
+
+
+
+-- EXTRAS
+
+
+br =
+    html (Html.br [] [])
 
 
 
