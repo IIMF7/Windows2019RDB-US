@@ -2,6 +2,7 @@ module PackageBrowser.Ui.Alias exposing (..)
 
 import Element
 import Element.Background
+import Element.Border
 import Html
 
 
@@ -515,3 +516,72 @@ bgTiledX =
 bgTiledY : String -> Attribute msg
 bgTiledY =
     Element.Background.tiledY
+
+
+
+-- BORDER MODULE
+
+
+borderColor : Color -> Attr decorative msg
+borderColor =
+    Element.Border.color
+
+
+borderWidth : Int -> Attribute msg
+borderWidth =
+    Element.Border.width
+
+
+borderWidthXY : Int -> Int -> Attribute msg
+borderWidthXY =
+    Element.Border.widthXY
+
+
+borderWidthEach : Int -> Int -> Int -> Int -> Attribute msg
+borderWidthEach a b c d =
+    Element.Border.widthEach { left = a, right = b, top = c, bottom = d }
+
+
+borderSolid : Attribute msg
+borderSolid =
+    Element.Border.solid
+
+
+borderDashed : Attribute msg
+borderDashed =
+    Element.Border.dashed
+
+
+borderDotted : Attribute msg
+borderDotted =
+    Element.Border.dotted
+
+
+borderRounded : Int -> Attribute msg
+borderRounded =
+    Element.Border.rounded
+
+
+borderRoundEach : Int -> Int -> Int -> Int -> Attribute msg
+borderRoundEach a b c d =
+    Element.Border.roundEach { topLeft = a, topRight = b, bottomLeft = c, bottomRight = d }
+
+
+borderGlow : Color -> Float -> Attr decorative msg
+borderGlow =
+    Element.Border.glow
+
+
+borderInnerGlow : Color -> Float -> Attr decorative msg
+borderInnerGlow =
+    Element.Border.innerGlow
+
+
+borderShadow : { offset : ( Float, Float ), size : Float, blur : Float, color : Color } -> Attr decorative msg
+borderShadow =
+    Element.Border.shadow
+
+
+borderInnerShadow : { offset : ( Float, Float ), size : Float, blur : Float, color : Color } -> Attr decorative msg
+borderInnerShadow =
+    Element.Border.innerShadow
