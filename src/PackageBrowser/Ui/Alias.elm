@@ -280,10 +280,12 @@ scrollbarY =
     Element.scrollbarY
 
 
+layout : List (Attribute msg) -> Element msg -> Html.Html msg
 layout =
     Element.layout
 
 
+layoutWith : { options : List Option } -> List (Attribute msg) -> Element msg -> Html.Html msg
 layoutWith =
     Element.layoutWith
 
