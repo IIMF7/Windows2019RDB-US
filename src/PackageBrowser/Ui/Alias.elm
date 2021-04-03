@@ -4,6 +4,7 @@ import Element
 import Element.Background
 import Element.Border
 import Element.Events
+import Element.Font
 import Html
 
 
@@ -635,3 +636,220 @@ onFocus =
 onLoseFocus : msg -> Attribute msg
 onLoseFocus =
     Element.Events.onLoseFocus
+
+
+
+-- FONT MODULE
+
+
+fontColor : Color -> Attr decorative msg
+fontColor =
+    Element.Font.color
+
+
+fontSize : Int -> Attr decorative msg
+fontSize =
+    Element.Font.size
+
+
+fontFamily : List Font -> Attribute msg
+fontFamily =
+    Element.Font.family
+
+
+type alias Font =
+    Element.Font.Font
+
+
+fontTypeface : String -> Font
+fontTypeface =
+    Element.Font.typeface
+
+
+fontSerif : Font
+fontSerif =
+    Element.Font.serif
+
+
+fontSansSerif : Font
+fontSansSerif =
+    Element.Font.sansSerif
+
+
+fontMonospace : Font
+fontMonospace =
+    Element.Font.monospace
+
+
+fontExternal : { name : String, url : String } -> Font
+fontExternal =
+    Element.Font.external
+
+
+fontAlignLeft : Attribute msg
+fontAlignLeft =
+    Element.Font.alignLeft
+
+
+fontAlignRight : Attribute msg
+fontAlignRight =
+    Element.Font.alignRight
+
+
+fontCenter : Attribute msg
+fontCenter =
+    Element.Font.center
+
+
+fontJustify : Attribute msg
+fontJustify =
+    Element.Font.justify
+
+
+fontLetterSpacing : Float -> Attribute msg
+fontLetterSpacing =
+    Element.Font.letterSpacing
+
+
+fontWordSpacing : Float -> Attribute msg
+fontWordSpacing =
+    Element.Font.wordSpacing
+
+
+fontUnderline : Attribute msg
+fontUnderline =
+    Element.Font.underline
+
+
+fontStrike : Attribute msg
+fontStrike =
+    Element.Font.strike
+
+
+fontItalic : Attribute msg
+fontItalic =
+    Element.Font.italic
+
+
+fontUnitalicized : Attribute msg
+fontUnitalicized =
+    Element.Font.unitalicized
+
+
+fontHeavy : Attribute msg
+fontHeavy =
+    Element.Font.heavy
+
+
+fontExtraBold : Attribute msg
+fontExtraBold =
+    Element.Font.extraBold
+
+
+fontBold : Attribute msg
+fontBold =
+    Element.Font.bold
+
+
+fontSemiBold : Attribute msg
+fontSemiBold =
+    Element.Font.semiBold
+
+
+fontMedium : Attribute msg
+fontMedium =
+    Element.Font.medium
+
+
+fontRegular : Attribute msg
+fontRegular =
+    Element.Font.regular
+
+
+fontLight : Attribute msg
+fontLight =
+    Element.Font.light
+
+
+fontExtraLight : Attribute msg
+fontExtraLight =
+    Element.Font.extraLight
+
+
+fontHairline : Attribute msg
+fontHairline =
+    Element.Font.hairline
+
+
+type alias FontVariant =
+    Element.Font.Variant
+
+
+fontVariant : FontVariant -> Attribute msg
+fontVariant =
+    Element.Font.variant
+
+
+fontVariantList : List FontVariant -> Attribute msg
+fontVariantList =
+    Element.Font.variantList
+
+
+fontSmallCaps : FontVariant
+fontSmallCaps =
+    Element.Font.smallCaps
+
+
+fontSlashedZero : FontVariant
+fontSlashedZero =
+    Element.Font.slashedZero
+
+
+fontLigatures : FontVariant
+fontLigatures =
+    Element.Font.ligatures
+
+
+fontOrdinal : FontVariant
+fontOrdinal =
+    Element.Font.ordinal
+
+
+fontTabularNumbers : FontVariant
+fontTabularNumbers =
+    Element.Font.tabularNumbers
+
+
+fontStackedFractions : FontVariant
+fontStackedFractions =
+    Element.Font.stackedFractions
+
+
+fontDiagonalFractions : FontVariant
+fontDiagonalFractions =
+    Element.Font.diagonalFractions
+
+
+fontSwash : Int -> FontVariant
+fontSwash =
+    Element.Font.swash
+
+
+fontFeature : String -> Bool -> FontVariant
+fontFeature =
+    Element.Font.feature
+
+
+fontIndexed : String -> Int -> FontVariant
+fontIndexed =
+    Element.Font.indexed
+
+
+fontGlow : Color -> Float -> Attr decorative msg
+fontGlow =
+    Element.Font.glow
+
+
+fontShadow : { offset : ( Float, Float ), blur : Float, color : Color } -> Attr decorative msg
+fontShadow =
+    Element.Font.shadow
