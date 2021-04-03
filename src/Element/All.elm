@@ -1,4 +1,4 @@
-module PackageBrowser.Ui.Alias exposing (..)
+module Element.All exposing (..)
 
 import Element
 import Element.Background
