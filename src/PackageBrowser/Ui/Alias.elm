@@ -21,3 +21,19 @@ el =
 
 
 --
+
+
+row =
+    Element.row
+
+
+wrappedRow =
+    Element.wrappedRow
+
+
+column =
+    Element.column
+
+
+
+--
