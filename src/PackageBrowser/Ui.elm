@@ -11,47 +11,47 @@ import Html.Attributes
 
 
 white =
-    rgb255 255 255 255
+    rgb 1 1 1
 
 
 gray100 =
-    rgb255 248 249 250
+    rgb 0.97 0.98 0.98
 
 
 gray200 =
-    rgb255 233 236 239
+    rgb 0.91 0.93 0.94
 
 
 gray300 =
-    rgb255 222 226 230
+    rgb 0.87 0.89 0.9
 
 
 gray400 =
-    rgb255 206 212 218
+    rgb 0.81 0.83 0.85
 
 
 gray500 =
-    rgb255 173 181 189
+    rgb 0.68 0.71 0.74
 
 
 gray600 =
-    rgb255 108 117 125
+    rgb 0.42 0.46 0.49
 
 
 gray700 =
-    rgb255 73 80 87
+    rgb 0.29 0.31 0.34
 
 
 gray800 =
-    rgb255 52 58 64
+    rgb 0.2 0.23 0.25
 
 
 gray900 =
-    rgb255 33 37 41
+    rgb 0.13 0.15 0.16
 
 
 black =
-    rgb255 0 0 0
+    rgb 0 0 0
 
 
 
