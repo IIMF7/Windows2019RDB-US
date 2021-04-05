@@ -292,10 +292,7 @@ viewModuleReadme a b expanded c =
                                                     { label = text v.name
                                                     , onPress = Just (ToggleSection a b v.name)
                                                     }
-                                                , column
-                                                    [ width fill
-                                                    , paddingXY 1.5 0
-                                                    ]
+                                                , column [ width fill, paddingXY 1.5 0 ]
                                                     [ viewItems e (Dict.member v.name expanded) v.items
                                                     ]
                                                 ]
