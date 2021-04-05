@@ -304,7 +304,7 @@ viewItems module_ a =
                 |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
                 |> onNothing (\_ -> module_.binops |> Dict.get (b |> String.dropLeft 1 |> String.dropRight 1) |> Maybe.map viewBinop)
     in
-    column [ width fill, spacing 0.5 ]
+    column [ width fill, spacing 1 ]
         (a
             |> List.map viewItem
         )
