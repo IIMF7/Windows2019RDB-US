@@ -242,39 +242,39 @@ gray0 =
 
 
 gray1 =
-    Element.rgb 0.97 0.98 0.98
+    Element.rgb 0.96 0.97 0.97
 
 
 gray2 =
-    Element.rgb 0.91 0.93 0.94
+    Element.rgb 0.9 0.92 0.93
 
 
 gray3 =
-    Element.rgb 0.87 0.89 0.9
+    Element.rgb 0.86 0.88 0.89
 
 
 gray4 =
-    Element.rgb 0.81 0.83 0.85
+    Element.rgb 0.8 0.82 0.84
 
 
 gray5 =
-    Element.rgb 0.68 0.71 0.74
+    Element.rgb 0.67 0.7 0.73
 
 
 gray6 =
-    Element.rgb 0.42 0.46 0.49
+    Element.rgb 0.41 0.45 0.48
 
 
 gray7 =
-    Element.rgb 0.29 0.31 0.34
+    Element.rgb 0.28 0.3 0.33
 
 
 gray8 =
-    Element.rgb 0.2 0.23 0.25
+    Element.rgb 0.19 0.22 0.24
 
 
 gray9 =
-    Element.rgb 0.13 0.15 0.16
+    Element.rgb 0.12 0.14 0.15
 
 
 gray10 =
