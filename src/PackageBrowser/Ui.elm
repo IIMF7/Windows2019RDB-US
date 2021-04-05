@@ -317,7 +317,7 @@ fontSize a =
     Font.size (a * 16)
 
 
-fontFamily =
+fontFamilyDefault =
     Font.family
         [ Font.typeface "system-ui"
         , Font.typeface "-apple-system"
@@ -445,7 +445,7 @@ labelAbove a =
 
 rootStyle a =
     fontSize 1
-        :: fontFamily
+        :: fontFamilyDefault
         :: Font.color gray9
         :: Background.color gray1
         :: a
