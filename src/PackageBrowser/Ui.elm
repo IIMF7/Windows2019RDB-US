@@ -229,6 +229,15 @@ downloadAs =
 
 
 
+-- Images
+
+
+image : List (Element.Attribute msg) -> { description : String, src : String } -> Element msg
+image =
+    Element.image
+
+
+
 -- Root
 
 
