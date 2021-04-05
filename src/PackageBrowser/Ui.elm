@@ -11,6 +11,26 @@ import Html.Attributes
 
 
 
+-- Basic Elements
+
+
+type alias Element msg =
+    Element.Element msg
+
+
+none =
+    Element.none
+
+
+text =
+    Element.text
+
+
+el =
+    Element.el
+
+
+
 -- ROOT
 
 
@@ -245,10 +265,6 @@ padding4 =
 -- ELEMENTS
 
 
-type alias Element msg =
-    Element.Element msg
-
-
 row =
     Element.row
 
@@ -295,18 +311,6 @@ h6 a =
 
 
 -- ELEMENTS THAT SHRINK WIDTH
-
-
-none =
-    Element.none
-
-
-text =
-    Element.text
-
-
-el =
-    Element.el
 
 
 br =
