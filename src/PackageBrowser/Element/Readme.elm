@@ -245,7 +245,6 @@ viewModuleReadme _ b c =
     column
         [ width fill
         , height fill
-        , spacing 2
         , paddingEach 1 1 1 4
         , Element.scrollbars
         ]
