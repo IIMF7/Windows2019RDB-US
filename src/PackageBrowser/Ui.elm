@@ -318,7 +318,7 @@ backgroundColor =
 
 
 
--- Fonts
+-- Font
 
 
 fontColor =
@@ -327,6 +327,10 @@ fontColor =
 
 fontSize a =
     Font.size (step a)
+
+
+
+-- Font - Typefaces
 
 
 fontFamilyDefault =
@@ -357,6 +361,10 @@ fontFamilyMonospace =
         , Font.typeface "Courier New"
         , Font.monospace
         ]
+
+
+
+-- Font - Alignment and Spacing
 
 
 fontLeft =
