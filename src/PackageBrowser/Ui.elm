@@ -51,7 +51,7 @@ column =
 
 
 p a =
-    Element.paragraph (spacing1 :: a)
+    Element.paragraph (spacing 1 :: a)
 
 
 textColumn a =
@@ -59,7 +59,7 @@ textColumn a =
 
 
 status a =
-    p (padding2 :: fontCenter :: Font.color gray6 :: a)
+    p (padding 2 :: fontCenter :: Font.color gray6 :: a)
 
 
 h1 a =
