@@ -126,8 +126,8 @@ view view_ model =
         )
 
 
-viewReadme : (a -> Element msg) -> Maybe (Result Error a) -> Element msg
-viewReadme fn a =
+viewLoading : (a -> Element msg) -> Maybe (Result Error a) -> Element msg
+viewLoading fn a =
     case a of
         Just b ->
             case b of
@@ -219,7 +219,7 @@ viewPackageReadme a =
         , height fill
         , Element.scrollbars
         ]
-        [ viewReadme view_ a
+        [ viewLoading view_ a
         ]
 
 
@@ -277,7 +277,7 @@ viewModuleReadme _ b c =
         , paddingEach 1 1 1 8
         , Element.scrollbars
         ]
-        [ viewReadme view_ c
+        [ viewLoading view_ c
         ]
 
 
