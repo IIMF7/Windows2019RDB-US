@@ -193,6 +193,18 @@ alignBottom =
 
 
 
+-- Transparency
+
+
+transparent =
+    Element.transparent
+
+
+alpha =
+    Element.alpha
+
+
+
 -- Root
 
 
