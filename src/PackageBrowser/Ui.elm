@@ -401,25 +401,25 @@ id a =
 
 
 
--- INPUTS
+-- Inputs
 
 
 buttonLink : List (Element.Attribute msg) -> { label : Element msg, onPress : Maybe msg } -> Element msg
 buttonLink a =
     Input.button
         (Font.color primary
-            :: borderRounded05
+            :: borderRounded 0.5
             :: a
         )
 
 
 inputStyle a =
-    padding1
-        :: spacing1
+    padding 1
+        :: spacing 1
         :: Background.color gray0
         :: Border.color gray4
-        :: border
-        :: borderRounded05
+        :: borderWidth 1
+        :: borderRounded 0.5
         :: a
 
 
