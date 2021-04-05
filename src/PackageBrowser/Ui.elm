@@ -400,6 +400,43 @@ fontUnitalicized =
 
 
 
+-- Font - Font Weight
+
+
+fontWeight a =
+    case a of
+        1 ->
+            Font.hairline
+
+        2 ->
+            Font.extraLight
+
+        3 ->
+            Font.light
+
+        4 ->
+            Font.regular
+
+        5 ->
+            Font.medium
+
+        6 ->
+            Font.semiBold
+
+        7 ->
+            Font.bold
+
+        8 ->
+            Font.extraBold
+
+        9 ->
+            Font.heavy
+
+        _ ->
+            Font.regular
+
+
+
 -- Borders
 
 
