@@ -185,7 +185,7 @@ fontFamilyMonospace =
 
 
 
---
+-- BACKGROUND
 
 
 bgColor =
@@ -193,7 +193,7 @@ bgColor =
 
 
 
---
+-- BORDER
 
 
 borderColor =
