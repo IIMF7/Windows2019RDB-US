@@ -228,8 +228,16 @@ borderColorInput =
     Border.color gray4
 
 
-borderRounded =
+borderRounded1 =
     Border.rounded 4
+
+
+borderRounded2 =
+    Border.rounded 8
+
+
+borderRounded3 =
+    Border.rounded 16
 
 
 borderShadow =
@@ -415,7 +423,7 @@ inputStyle a =
         :: Background.color white
         :: borderColorInput
         :: border
-        :: borderRounded
+        :: borderRounded1
         :: a
 
 
