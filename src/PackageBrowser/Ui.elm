@@ -196,6 +196,18 @@ fontFamilyMonospace =
         ]
 
 
+fontLeft =
+    Font.alignLeft
+
+
+fontRight =
+    Font.alignRight
+
+
+fontCenter =
+    Font.center
+
+
 
 -- BACKGROUND
 
