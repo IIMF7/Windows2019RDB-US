@@ -393,7 +393,7 @@ borderRounded a =
 
 borderShadow a =
     Border.shadow
-        { offset = ( 0, 16 )
+        { offset = ( 0, stepFloat 1 )
         , size = 0
         , blur = stepFloat a
         , color = gray10 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
