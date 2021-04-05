@@ -333,18 +333,22 @@ br =
     Element.html (Html.br [] [])
 
 
+link : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 link a =
     Element.link (Font.color primary :: a)
 
 
+image : List (Element.Attribute msg) -> { description : String, src : String } -> Element.Element msg
 image =
     Element.image
 
 
+newTabLink : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 newTabLink a =
     Element.newTabLink (Font.color primary :: a)
 
 
+buttonLink : List (Element.Attribute msg) -> { label : Element.Element msg, onPress : Maybe msg } -> Element.Element msg
 buttonLink a =
     Input.button
         (Font.color primary
