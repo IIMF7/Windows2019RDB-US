@@ -43,7 +43,8 @@ renderer =
     , blockQuote =
         \a ->
             column
-                [ paddingEach { left = 32, right = 0, top = 0, bottom = 0 }
+                [ spacing 16
+                , paddingEach { left = 32, right = 0, top = 0, bottom = 0 }
                 ]
                 a
     , html = Markdown.Html.oneOf []
