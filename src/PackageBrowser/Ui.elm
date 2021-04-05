@@ -337,12 +337,12 @@ br =
     Element.html (Html.br [] [])
 
 
-image =
-    Element.image
-
-
 link a =
     Element.link (Font.color primary :: a)
+
+
+image =
+    Element.image
 
 
 newTabLink a =
