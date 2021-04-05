@@ -21,7 +21,6 @@ import PackageBrowser.Element.Readme.Section as Section
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
-import PackageBrowser.Ui.Color exposing (..)
 import PackageBrowser.Ui.Markdown as Markdown
 
 

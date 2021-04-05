@@ -8,7 +8,6 @@ import Element.Input as Input
 import Element.Region as Region
 import Html
 import Html.Attributes
-import PackageBrowser.Ui.Color as Color
 
 
 
@@ -18,9 +17,81 @@ import PackageBrowser.Ui.Color as Color
 rootStyle a =
     fontSize
         :: fontFamily
-        :: Color.fontGray9
-        :: Color.bgGray1
+        :: Font.color gray9
+        :: Background.color gray1
         :: a
+
+
+
+-- COLORS
+
+
+gray0 =
+    Element.rgb 1 1 1
+
+
+gray1 =
+    Element.rgb 0.97 0.98 0.98
+
+
+gray2 =
+    Element.rgb 0.91 0.93 0.94
+
+
+gray3 =
+    Element.rgb 0.87 0.89 0.9
+
+
+gray4 =
+    Element.rgb 0.81 0.83 0.85
+
+
+gray5 =
+    Element.rgb 0.68 0.71 0.74
+
+
+gray6 =
+    Element.rgb 0.42 0.46 0.49
+
+
+gray7 =
+    Element.rgb 0.29 0.31 0.34
+
+
+gray8 =
+    Element.rgb 0.2 0.23 0.25
+
+
+gray9 =
+    Element.rgb 0.13 0.15 0.16
+
+
+gray10 =
+    Element.rgb 0 0 0
+
+
+primary =
+    Element.rgb 0.05 0.43 0.99
+
+
+secondary =
+    gray6
+
+
+success =
+    Element.rgb 0.1 0.53 0.33
+
+
+info =
+    Element.rgb 0.05 0.79 0.94
+
+
+warning =
+    Element.rgb 1 0.76 0.03
+
+
+danger =
+    Element.rgb 0.86 0.21 0.27
 
 
 
@@ -118,7 +189,7 @@ borderShadow =
         { offset = ( 0, 16 )
         , size = 0
         , blur = 48
-        , color = Color.gray10 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
+        , color = gray10 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
         }
 
 
@@ -195,7 +266,7 @@ p a =
 
 
 status a =
-    p (padding2 :: fontCenter :: Color.fontGray6 :: a)
+    p (padding2 :: fontCenter :: Font.color gray6 :: a)
 
 
 h1 a =
@@ -244,7 +315,7 @@ br =
 
 link : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 link a =
-    Element.link (Color.fontPrimary :: a)
+    Element.link (Font.color primary :: a)
 
 
 image : List (Element.Attribute msg) -> { description : String, src : String } -> Element.Element msg
@@ -254,13 +325,13 @@ image =
 
 newTabLink : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 newTabLink a =
-    Element.newTabLink (Color.fontPrimary :: a)
+    Element.newTabLink (Font.color primary :: a)
 
 
 buttonLink : List (Element.Attribute msg) -> { label : Element.Element msg, onPress : Maybe msg } -> Element.Element msg
 buttonLink a =
     Input.button
-        (Color.fontPrimary
+        (Font.color primary
             :: borderRounded05
             :: a
         )
@@ -285,8 +356,8 @@ id a =
 inputStyle a =
     padding1
         :: spacing1
-        :: Color.bgGray0
-        :: Color.borderGray4
+        :: Background.color gray0
+        :: Border.color gray4
         :: border
         :: borderRounded05
         :: a
