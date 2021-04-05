@@ -372,50 +372,26 @@ fontCenter =
 
 
 
--- BORDER
+-- Border
 
 
-edges =
-    { left = 0, right = 0, top = 0, bottom = 0 }
+borderWidth a =
+    Border.width a
 
 
-border =
-    Border.width 1
+borderWidthEach a b c d =
+    Border.widthEach { left = a, right = b, top = c, bottom = d }
 
 
-borderLeft =
-    Border.widthEach { edges | left = 1 }
+borderRounded a =
+    Border.rounded (a * 8)
 
 
-borderRight =
-    Border.widthEach { edges | right = 1 }
-
-
-borderTop =
-    Border.widthEach { edges | top = 1 }
-
-
-borderBottom =
-    Border.widthEach { edges | bottom = 1 }
-
-
-borderRounded05 =
-    Border.rounded 4
-
-
-borderRounded1 =
-    Border.rounded 8
-
-
-borderRounded2 =
-    Border.rounded 16
-
-
-borderShadow =
+borderShadow a =
     Border.shadow
         { offset = ( 0, 16 )
         , size = 0
-        , blur = 48
+        , blur = a * 16
         , color = gray10 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
         }
 
