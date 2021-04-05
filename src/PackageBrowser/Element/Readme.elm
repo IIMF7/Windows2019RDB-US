@@ -128,36 +128,28 @@ view view_ model =
 
 viewReadme : (a -> Element msg) -> Maybe (Result Error a) -> Element msg
 viewReadme fn a =
-    column
-        [ width fill
-        , height fill
-        , spacing 2
-        , paddingEach 1 1 1 8
-        , Element.scrollbars
-        ]
-        [ case a of
-            Just b ->
-                case b of
-                    Ok c ->
-                        fn c
+    case a of
+        Just b ->
+            case b of
+                Ok c ->
+                    fn c
 
-                    Err c ->
-                        case c of
-                            Loading ->
-                                status []
-                                    [ text Strings.loading
-                                    ]
+                Err c ->
+                    case c of
+                        Loading ->
+                            status []
+                                [ text Strings.loading
+                                ]
 
-                            HttpError d ->
-                                status []
-                                    [ text (Strings.httpError d)
-                                    ]
+                        HttpError d ->
+                            status []
+                                [ text (Strings.httpError d)
+                                ]
 
-            Nothing ->
-                status []
-                    [ text Strings.packageNotFound
-                    ]
-        ]
+        Nothing ->
+            status []
+                [ text Strings.packageNotFound
+                ]
 
 
 viewPackageHeader : Elm.Package.Name -> Element Msg
@@ -219,7 +211,15 @@ viewPackageReadme a =
         view_ b =
             Markdown.view [ padding 1.5 ] b.readme
     in
-    viewReadme view_ a
+    column
+        [ width fill
+        , height fill
+        , spacing 2
+        , paddingEach 1 1 1 8
+        , Element.scrollbars
+        ]
+        [ viewReadme view_ a
+        ]
 
 
 
@@ -269,7 +269,15 @@ viewModuleReadme a b c =
                         [ text Strings.moduleNotFound
                         ]
     in
-    viewReadme view_ c
+    column
+        [ width fill
+        , height fill
+        , spacing 2
+        , paddingEach 1 1 1 8
+        , Element.scrollbars
+        ]
+        [ viewReadme view_ c
+        ]
 
 
 viewItems : Readme.ModuleReadme -> List Section.Item -> Element msg
