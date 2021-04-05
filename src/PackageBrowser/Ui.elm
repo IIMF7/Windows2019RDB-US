@@ -209,23 +209,23 @@ alpha =
 
 
 link : List (Element.Attribute msg) -> { label : Element msg, url : String } -> Element msg
-link =
-    Element.link
+link a =
+    Element.link (fontColor primary :: a)
 
 
 newTabLink : List (Element.Attribute msg) -> { label : Element msg, url : String } -> Element msg
-newTabLink =
-    Element.newTabLink
+newTabLink a =
+    Element.newTabLink (fontColor primary :: a)
 
 
 download : List (Element.Attribute msg) -> { label : Element msg, url : String } -> Element msg
-download =
-    Element.download
+download a =
+    Element.download (fontColor primary :: a)
 
 
 downloadAs : List (Element.Attribute msg) -> { label : Element msg, filename : String, url : String } -> Element msg
-downloadAs =
-    Element.downloadAs
+downloadAs a =
+    Element.downloadAs (fontColor primary :: a)
 
 
 
