@@ -404,15 +404,6 @@ id a =
 -- Inputs
 
 
-buttonLink : List (Element.Attribute msg) -> { label : Element msg, onPress : Maybe msg } -> Element msg
-buttonLink a =
-    Input.button
-        (Font.color primary
-            :: borderRounded 0.5
-            :: a
-        )
-
-
 inputStyle a =
     padding 1
         :: spacing 1
@@ -421,6 +412,15 @@ inputStyle a =
         :: borderWidth 1
         :: borderRounded 0.5
         :: a
+
+
+buttonLink : List (Element.Attribute msg) -> { label : Element msg, onPress : Maybe msg } -> Element msg
+buttonLink a =
+    Input.button
+        (Font.color primary
+            :: borderRounded 0.5
+            :: a
+        )
 
 
 searchInput a =
