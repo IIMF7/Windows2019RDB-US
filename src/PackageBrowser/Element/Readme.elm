@@ -183,15 +183,13 @@ viewPackageReadme a =
     let
         view_ : Readme.Readme -> Element msg
         view_ b =
-            Markdown.view
-                [ paddingEach 2 2 1 4
-                ]
-                b.readme
+            Markdown.view [] b.readme
     in
     column
         [ width fill
         , height fill
         , Element.scrollbars
+        , paddingEach 2 2 1 4
         ]
         [ viewLoading view_ a
         ]
