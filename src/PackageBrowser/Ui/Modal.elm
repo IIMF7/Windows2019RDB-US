@@ -5,12 +5,12 @@ import PackageBrowser.Ui exposing (..)
 
 view a =
     column
-        (spacing 2
-            :: width (shrink |> maximum 512)
+        (width (shrink |> maximum 512)
+            :: spacing 2
             :: backgroundColor gray0
-            :: borderShadow 3
             :: borderWidth 1
-            :: borderColor gray3
             :: borderRounded 1
+            :: borderShadow 3
+            :: borderColor gray3
             :: a
         )
