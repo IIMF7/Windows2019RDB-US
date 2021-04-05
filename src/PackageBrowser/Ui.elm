@@ -87,6 +87,20 @@ h6 a =
 
 
 
+-- Data Table
+
+
+table : List (Element.Attribute msg) -> { data : List a, columns : List (Element.Column a msg) } -> Element msg
+table =
+    Element.table
+
+
+indexedTable : List (Element.Attribute msg) -> { data : List a, columns : List (Element.IndexedColumn a msg) } -> Element msg
+indexedTable =
+    Element.indexedTable
+
+
+
 -- ROOT
 
 
