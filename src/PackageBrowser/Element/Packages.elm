@@ -165,23 +165,21 @@ scrollToPackage ctx model a =
 
 view : Router.View -> NameDict.NameDict () -> Model -> Element Msg
 view view_ recent model =
-    column
-        [ Element.spacing 32
-        , Element.width Element.fill
-        , Element.height Element.fill
-        , Element.spacing 0
-        ]
+    column [ width fill, height fill ]
         [ column
-            [ Element.spacing 32
-            , Element.width Element.fill
-            , Element.spacing 8
-            , Element.paddingXY 0 8
-            , borderGray3
-            , borderBottom
+            [ width fill
+            , spacing 0.5
+            , paddingXY 0 0.5
+            , borderColor gray3
+            , borderWidthEach 0 0 0 1
             ]
-            [ row [ Element.spacing 16, Element.width Element.fill, Element.paddingXY 16 0 ]
+            [ row
+                [ width fill
+                , spacing 1
+                , paddingXY 1 0
+                ]
                 [ h5 []
-                    [ link [ fontGray9 ]
+                    [ link [ fontColor gray9 ]
                         { label = text Strings.title
                         , url = Router.DefaultView |> Router.viewToUrl
                         }
@@ -192,9 +190,9 @@ view view_ recent model =
                     }
                 ]
             , row
-                [ Element.spacing 16
-                , Element.width Element.fill
-                , Element.paddingXY 16 0
+                [ width fill
+                , spacing 1
+                , paddingXY 1 0
                 ]
                 [ searchInput [ Input.focusedOnLoad ]
                     { label = labelHidden Strings.searchInput
@@ -224,7 +222,7 @@ viewPackages view_ recent model =
                         ]
 
                 c ->
-                    Element.Virtualized.column [ Element.paddingXY 0 64, id packagesId ]
+                    Element.Virtualized.column [ paddingXY 0 4, id packagesId ]
                         { data = c
                         , getKey = .name >> Elm.Package.toString
                         , getSize = \v -> computeSize (NameDict.member v.name recent) v
@@ -286,7 +284,7 @@ viewPackage expand active a =
                 noneAttribute
 
             else
-                fontGray6
+                fontColor gray6
 
         moduleColor : Elm.Module.Name -> Element.Attribute msg
         moduleColor b =
@@ -294,25 +292,24 @@ viewPackage expand active a =
                 noneAttribute
 
             else
-                fontGray9
+                fontColor gray9
     in
     column
-        [ Element.spacing 32
-        , Element.width Element.fill
-        , Element.height Element.fill
-        , Element.spacing 0
-        , borderGray3
+        [ width fill
+        , height fill
+        , spacing 0
+        , borderColor gray3
         ]
-        [ link [ Element.width Element.fill, Element.paddingXY 16 8, packageColor ]
+        [ link [ width fill, paddingXY 1 0.5, packageColor ]
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name)
             }
-        , Element.Keyed.column [ Element.width Element.fill ]
+        , Element.Keyed.column [ width fill ]
             (modules
                 |> List.map
                     (\v ->
                         ( Elm.Module.toString v
-                        , link [ Element.width Element.fill, Element.paddingXY 40 0, moduleColor v ]
+                        , link [ width fill, paddingXY 2.5 0, moduleColor v ]
                             { label = text (Elm.Module.toString v)
                             , url = Router.viewToUrl (Router.ModuleView a.name v)
                             }
@@ -320,7 +317,7 @@ viewPackage expand active a =
                     )
             )
         , if shortened then
-            link [ Element.width Element.fill, Element.paddingXY 40 0, fontGray9 ]
+            link [ width fill, paddingXY 2.5 0, fontColor gray9 ]
                 { label = text Strings.ellipsis
                 , url = Router.viewToUrl (Router.PackageView a.name)
                 }
