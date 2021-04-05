@@ -291,8 +291,8 @@ id a =
 
 
 inputStyle a =
-    Element.padding 8
-        :: Element.spacing 8
+    padding2
+        :: spacing2
         :: Background.color Colors.gray0
         :: borderColorInput
         :: border
