@@ -10,6 +10,7 @@ import Element.Keyed
 import Element.Lazy
 import Element.Region
 import Html
+import Html.Attributes
 
 
 
@@ -81,6 +82,11 @@ indexedTable =
 br : Element msg
 br =
     html (Html.br [] [])
+
+
+noneAttribute : Attribute msg
+noneAttribute =
+    Element.htmlAttribute (Html.Attributes.classList [])
 
 
 
