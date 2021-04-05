@@ -324,9 +324,9 @@ viewItems module_ expand a =
                             [ width fill
                             , padding 1
                             , spacing 1
+                            , fontSize 0.9375
                             , backgroundColor gray1
                             , borderRounded 0.25
-                            , fontSize 0.9375
                             ]
                             (c
                                 |> Markdown.Renderer.render Markdown.renderer
