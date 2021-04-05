@@ -1,6 +1,6 @@
 module PackageBrowser.Ui exposing (..)
 
-import Element exposing (..)
+import Element
 import Element.Background as Background
 import Element.Border as Border
 import Element.Font as Font
@@ -27,47 +27,47 @@ rootStyle a =
 
 
 white =
-    rgb 1 1 1
+    Element.rgb 1 1 1
 
 
 gray1 =
-    rgb 0.97 0.98 0.98
+    Element.rgb 0.97 0.98 0.98
 
 
 gray2 =
-    rgb 0.91 0.93 0.94
+    Element.rgb 0.91 0.93 0.94
 
 
 gray3 =
-    rgb 0.87 0.89 0.9
+    Element.rgb 0.87 0.89 0.9
 
 
 gray4 =
-    rgb 0.81 0.83 0.85
+    Element.rgb 0.81 0.83 0.85
 
 
 gray5 =
-    rgb 0.68 0.71 0.74
+    Element.rgb 0.68 0.71 0.74
 
 
 gray6 =
-    rgb 0.42 0.46 0.49
+    Element.rgb 0.42 0.46 0.49
 
 
 gray7 =
-    rgb 0.29 0.31 0.34
+    Element.rgb 0.29 0.31 0.34
 
 
 gray8 =
-    rgb 0.2 0.23 0.25
+    Element.rgb 0.2 0.23 0.25
 
 
 gray9 =
-    rgb 0.13 0.15 0.16
+    Element.rgb 0.13 0.15 0.16
 
 
 black =
-    rgb 0 0 0
+    Element.rgb 0 0 0
 
 
 
@@ -75,43 +75,43 @@ black =
 
 
 blue =
-    rgb 0.05 0.43 0.99
+    Element.rgb 0.05 0.43 0.99
 
 
 indigo =
-    rgb 0.4 0.06 0.95
+    Element.rgb 0.4 0.06 0.95
 
 
 purple =
-    rgb 0.44 0.26 0.76
+    Element.rgb 0.44 0.26 0.76
 
 
 pink =
-    rgb 0.84 0.2 0.52
+    Element.rgb 0.84 0.2 0.52
 
 
 red =
-    rgb 0.86 0.21 0.27
+    Element.rgb 0.86 0.21 0.27
 
 
 orange =
-    rgb 0.99 0.49 0.08
+    Element.rgb 0.99 0.49 0.08
 
 
 yellow =
-    rgb 1 0.76 0.03
+    Element.rgb 1 0.76 0.03
 
 
 green =
-    rgb 0.1 0.53 0.33
+    Element.rgb 0.1 0.53 0.33
 
 
 teal =
-    rgb 0.13 0.79 0.59
+    Element.rgb 0.13 0.79 0.59
 
 
 cyan =
-    rgb 0.05 0.79 0.94
+    Element.rgb 0.05 0.79 0.94
 
 
 
@@ -225,7 +225,7 @@ borderShadow =
         { offset = ( 0, 16 )
         , size = 0
         , blur = 48
-        , color = black |> toRgb |> (\v -> { v | alpha = 0.2 }) |> fromRgb
+        , color = black |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
         }
 
 
@@ -250,7 +250,7 @@ column =
 
 
 p a =
-    paragraph (spacing 8 :: a)
+    Element.paragraph (Element.spacing 8 :: a)
 
 
 status a =
@@ -302,7 +302,7 @@ el =
 
 
 br =
-    html (Html.br [] [])
+    Element.html (Html.br [] [])
 
 
 image =
@@ -366,8 +366,8 @@ edges =
 
 
 inputStyle a =
-    padding 8
-        :: spacing 8
+    Element.padding 8
+        :: Element.spacing 8
         :: Background.color white
         :: borderColorInput
         :: border
@@ -399,7 +399,7 @@ modal a =
     column
         (Element.spacing 32
             :: Element.width Element.fill
-            :: width (shrink |> Element.maximum 512)
+            :: Element.width (Element.shrink |> Element.maximum 512)
             :: Background.color white
             :: borderShadow
             :: border
