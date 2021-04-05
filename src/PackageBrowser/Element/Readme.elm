@@ -184,7 +184,20 @@ viewPackageReadme a =
     let
         view_ : Readme.Readme -> Element msg
         view_ b =
-            Markdown.view [] b.readme
+            column
+                [ width fill
+                , spacing 1
+                ]
+                (b.readme
+                    |> Markdown.Parser.parse
+                    |> Result.toMaybe
+                    |> Maybe.andThen (Markdown.Renderer.render Markdown.renderer >> Result.toMaybe)
+                    |> Maybe.withDefault
+                        [ status []
+                            [ text Strings.readmeIsNotAvailable
+                            ]
+                        ]
+                )
     in
     column
         [ width fill
