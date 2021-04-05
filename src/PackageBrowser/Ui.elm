@@ -126,43 +126,43 @@ borderShadow =
 -- SPACING
 
 
-spacing1 =
+spacing05 =
     Element.spacing 4
 
 
-spacing2 =
+spacing1 =
     Element.spacing 8
 
 
-spacing3 =
+spacing2 =
     Element.spacing 16
 
 
-spacing4 =
+spacing3 =
     Element.spacing 24
 
 
-spacing5 =
+spacing4 =
     Element.spacing 32
 
 
-padding1 =
+padding05 =
     Element.padding 4
 
 
-padding2 =
+padding1 =
     Element.padding 8
 
 
-padding3 =
+padding2 =
     Element.padding 16
 
 
-padding4 =
+padding3 =
     Element.padding 24
 
 
-padding5 =
+padding4 =
     Element.padding 32
 
 
@@ -187,11 +187,11 @@ column =
 
 
 p a =
-    Element.paragraph (spacing2 :: a)
+    Element.paragraph (spacing1 :: a)
 
 
 status a =
-    p (padding3 :: fontCenter :: Color.fontGray6 :: a)
+    p (padding2 :: fontCenter :: Color.fontGray6 :: a)
 
 
 h1 a =
@@ -279,8 +279,8 @@ id a =
 
 
 inputStyle a =
-    padding2
-        :: spacing2
+    padding1
+        :: spacing1
         :: Color.bgGray0
         :: Color.borderGray4
         :: border
