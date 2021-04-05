@@ -149,7 +149,7 @@ paddingXY a b =
 
 
 paddingEach a b c d =
-    Element.paddingEach { top = a * 8, right = b * 8, bottom = c * 8, left = d * 8 }
+    Element.paddingEach { left = a * 8, right = b * 8, top = c * 8, bottom = d * 8 }
 
 
 spacing a =
