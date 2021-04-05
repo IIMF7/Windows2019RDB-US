@@ -63,27 +63,27 @@ status a =
 
 
 h1 a =
-    p (Region.heading 1 :: Font.size 40 :: a)
+    p (Region.heading 1 :: fontSize 1.5 :: a)
 
 
 h2 a =
-    p (Region.heading 2 :: Font.size 32 :: a)
+    p (Region.heading 2 :: fontSize 2 :: a)
 
 
 h3 a =
-    p (Region.heading 3 :: Font.size 28 :: a)
+    p (Region.heading 3 :: fontSize 1.75 :: a)
 
 
 h4 a =
-    p (Region.heading 4 :: Font.size 24 :: a)
+    p (Region.heading 4 :: fontSize 1.5 :: a)
 
 
 h5 a =
-    p (Region.heading 5 :: Font.size 20 :: a)
+    p (Region.heading 5 :: fontSize 1.25 :: a)
 
 
 h6 a =
-    p (Region.heading 6 :: Font.size 16 :: a)
+    p (Region.heading 6 :: fontSize 1 :: a)
 
 
 
