@@ -55,7 +55,7 @@ p a =
 
 
 textColumn a =
-    Element.textColumn (Element.width Element.fill :: a)
+    Element.textColumn (width fill :: a)
 
 
 status a =
