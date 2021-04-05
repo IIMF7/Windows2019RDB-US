@@ -1,5 +1,6 @@
 module PackageBrowser.Element.Readme exposing (..)
 
+import Browser.Dom
 import Database.Package.Readme as Readme
 import Database.Package.Readme.Decode
 import Dict exposing (Dict)
@@ -20,6 +21,7 @@ import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Markdown as Markdown
 import PackageBrowser.Ui.Status as Status
+import Task
 
 
 type alias Context a b =
@@ -69,13 +71,14 @@ type Msg
     = ViewChanged
     | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
     | Reveal Elm.Package.Name
+    | ViewportSet (Result Browser.Dom.Error ())
 
 
 update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
 update ctx msg model =
     case msg of
         ViewChanged ->
-            case ctx.router.view |> Router.viewToPackageName of
+            (case ctx.router.view |> Router.viewToPackageName of
                 Just b ->
                     case model.readmes |> PackageNameDict.get b of
                         Just _ ->
@@ -92,6 +95,15 @@ update ctx msg model =
                     ( model
                     , Cmd.none
                     )
+            )
+                |> Tuple.mapSecond
+                    (\v ->
+                        Cmd.batch
+                            [ Browser.Dom.setViewportOf readmeId 0 0
+                                |> Task.attempt ViewportSet
+                            , v
+                            ]
+                    )
 
         Reveal _ ->
             ( model
@@ -100,6 +112,11 @@ update ctx msg model =
 
         GotReadme a b ->
             ( { model | readmes = model.readmes |> PackageNameDict.insert a (b |> Result.mapError HttpError) }
+            , Cmd.none
+            )
+
+        ViewportSet _ ->
+            ( model
             , Cmd.none
             )
 
@@ -204,6 +221,7 @@ viewPackageReadme a =
         [ width fill
         , height fill
         , paddingEach 2 2 1 4
+        , id readmeId
         , Element.scrollbars
         ]
         [ viewLoading view_ a
@@ -259,6 +277,7 @@ viewModuleReadme _ b c =
         [ width fill
         , height fill
         , paddingEach 1 1 1 4
+        , id readmeId
         , Element.scrollbars
         ]
         [ viewLoading view_ c
@@ -511,6 +530,10 @@ viewLoading fn a =
 
 
 --
+
+
+readmeId =
+    "readme"
 
 
 onNothing : (() -> Maybe a) -> Maybe a -> Maybe a
