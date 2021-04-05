@@ -209,13 +209,14 @@ viewPackageReadme a =
     let
         view_ : Readme.Readme -> Element msg
         view_ b =
-            Markdown.view [ padding 1.5 ] b.readme
+            Markdown.view
+                [ paddingEach 2 2 1 4
+                ]
+                b.readme
     in
     column
         [ width fill
         , height fill
-        , spacing 2
-        , paddingEach 1 1 1 8
         , Element.scrollbars
         ]
         [ viewReadme view_ a
