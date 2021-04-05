@@ -138,6 +138,14 @@ spacing3 =
     Element.spacing 16
 
 
+spacing4 =
+    Element.spacing 24
+
+
+spacing5 =
+    Element.spacing 32
+
+
 padding1 =
     Element.padding 4
 
@@ -148,6 +156,14 @@ padding2 =
 
 padding3 =
     Element.padding 16
+
+
+padding4 =
+    Element.padding 24
+
+
+padding5 =
+    Element.padding 32
 
 
 
