@@ -175,7 +175,7 @@ p a =
 
 
 status a =
-    p (padding3 :: Font.center :: fontColorMuted :: a)
+    p (padding3 :: fontCenter :: fontColorMuted :: a)
 
 
 h1 a =
