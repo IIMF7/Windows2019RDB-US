@@ -227,7 +227,7 @@ viewPackageReadme a =
 
 
 viewModuleReadme : Elm.Package.Name -> Elm.Module.Name -> Maybe (Result Error Readme.Readme) -> Element Msg
-viewModuleReadme a b c =
+viewModuleReadme _ b c =
     let
         view_ : Readme.Readme -> Element Msg
         view_ d =
