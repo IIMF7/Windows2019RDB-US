@@ -150,30 +150,6 @@ fontColorMuted =
     Font.color gray6
 
 
-
---
-
-
-bgColor =
-    Background.color gray1
-
-
-
---
-
-
-borderColor =
-    Border.color gray3
-
-
-borderColorInput =
-    Border.color gray4
-
-
-
---
-
-
 fontFamily =
     Font.family
         [ Font.typeface "system-ui"
@@ -206,6 +182,22 @@ fontFamilyMonospace =
 
 
 --
+
+
+bgColor =
+    Background.color gray1
+
+
+
+--
+
+
+borderColor =
+    Border.color gray3
+
+
+borderColorInput =
+    Border.color gray4
 
 
 borderShadow =
