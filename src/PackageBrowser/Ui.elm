@@ -150,6 +150,10 @@ fontColorMuted =
     Font.color gray6
 
 
+fontSize =
+    Font.size 16
+
+
 fontFamily =
     Font.family
         [ Font.typeface "system-ui"
@@ -214,10 +218,10 @@ borderShadow =
 
 
 rootStyle a =
-    bgColor
-        :: fontColor
-        :: Font.size 16
+    fontColor
+        :: fontSize
         :: fontFamily
+        :: bgColor
         :: a
 
 
