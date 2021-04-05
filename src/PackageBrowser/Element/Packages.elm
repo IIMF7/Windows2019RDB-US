@@ -16,6 +16,7 @@ import Json.Decode as Decode
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Status as Status
 import Regex
 import Task
 
@@ -217,7 +218,7 @@ viewPackages view_ recent model =
         Ok b ->
             case filterPackages model.search b of
                 [] ->
-                    status []
+                    Status.view []
                         [ text Strings.noPackagesFound
                         ]
 
@@ -237,7 +238,7 @@ viewPackages view_ recent model =
                         }
 
         Err b ->
-            status []
+            Status.view []
                 [ case b of
                     Loading ->
                         text Strings.loading

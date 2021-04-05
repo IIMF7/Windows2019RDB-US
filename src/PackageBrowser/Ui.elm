@@ -58,10 +58,6 @@ textColumn a =
     Element.textColumn (width fill :: a)
 
 
-status a =
-    p (padding 1 :: fontCenter :: fontColor gray6 :: a)
-
-
 h1 a =
     p (Region.heading 1 :: fontSize 1.5 :: a)
 

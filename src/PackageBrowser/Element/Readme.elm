@@ -19,6 +19,7 @@ import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Markdown as Markdown
+import PackageBrowser.Ui.Status as Status
 
 
 type alias Context a b =
@@ -193,7 +194,7 @@ viewPackageReadme a =
                     |> Result.toMaybe
                     |> Maybe.andThen (Markdown.Renderer.render Markdown.renderer >> Result.toMaybe)
                     |> Maybe.withDefault
-                        [ status []
+                        [ Status.view []
                             [ text Strings.readmeIsNotAvailable
                             ]
                         ]
@@ -245,12 +246,12 @@ viewModuleReadme _ b c =
                                 )
 
                         Err _ ->
-                            status []
+                            Status.view []
                                 [ text Strings.readmeIsNotAvailable
                                 ]
 
                 Nothing ->
-                    status []
+                    Status.view []
                         [ text Strings.moduleNotFound
                         ]
     in
@@ -283,7 +284,7 @@ viewItems module_ a =
                             (c
                                 |> Markdown.Renderer.render Markdown.renderer
                                 |> Result.withDefault
-                                    [ status []
+                                    [ Status.view []
                                         [ text Strings.readmeIsNotAvailable
                                         ]
                                     ]
@@ -331,7 +332,7 @@ viewMember a =
                     |> Result.toMaybe
                     |> Maybe.andThen (Markdown.Renderer.render Markdown.renderer >> Result.toMaybe)
                     |> Maybe.withDefault
-                        [ status []
+                        [ Status.view []
                             [ text Strings.readmeIsNotAvailable
                             ]
                         ]
@@ -493,17 +494,17 @@ viewLoading fn a =
                 Err c ->
                     case c of
                         Loading ->
-                            status []
+                            Status.view []
                                 [ text Strings.loading
                                 ]
 
                         HttpError d ->
-                            status []
+                            Status.view []
                                 [ text (Strings.httpError d)
                                 ]
 
         Nothing ->
-            status []
+            Status.view []
                 [ text Strings.packageNotFound
                 ]
 
