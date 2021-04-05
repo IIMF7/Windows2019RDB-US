@@ -207,7 +207,9 @@ viewReadme fn a =
 viewPackageHeader : Elm.Package.Name -> Element Msg
 viewPackageHeader a =
     row
-        [ Element.paddingXY 16 12
+        [ Element.spacing 16
+        , Element.width Element.fill
+        , Element.paddingXY 16 12
         , borderColor
         , borderBottom
         ]
@@ -231,7 +233,9 @@ viewPackageHeader a =
 viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element Msg
 viewModuleHeader a b =
     row
-        [ Element.paddingXY 16 12
+        [ Element.spacing 16
+        , Element.width Element.fill
+        , Element.paddingXY 16 12
         , borderColor
         , borderBottom
         ]
@@ -381,7 +385,7 @@ viewItems module_ expand a =
 viewMember : Bool -> { name : String, type_ : String, comment : String } -> Element msg
 viewMember expand a =
     column [ Element.spacing 0 ]
-        [ row [ Element.spacing 0 ]
+        [ row [ Element.spacing 16, Element.width Element.fill, Element.spacing 0 ]
             [ text a.name
             , el [ Font.color gray5 ] (text a.type_)
             ]

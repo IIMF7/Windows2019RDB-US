@@ -148,7 +148,9 @@ viewBody model =
             el [ Element.height Element.fill, borderColor, borderRight ] none
     in
     row
-        [ Element.height Element.fill
+        [ Element.spacing 16
+        , Element.width Element.fill
+        , Element.height Element.fill
         , Element.width Element.shrink
         , Element.centerX
         , Element.spacing 0

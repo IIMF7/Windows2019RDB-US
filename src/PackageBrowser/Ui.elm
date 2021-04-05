@@ -251,12 +251,8 @@ type alias Element msg =
 --
 
 
-row a =
+row =
     Element.row
-        (spacing 16
-            :: width fill
-            :: a
-        )
 
 
 column a =

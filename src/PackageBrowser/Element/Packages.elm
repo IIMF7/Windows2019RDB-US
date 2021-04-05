@@ -175,7 +175,7 @@ view view_ recent model =
             , borderColor
             , borderBottom
             ]
-            [ row [ Element.paddingXY 16 0 ]
+            [ row [ Element.spacing 16, Element.width Element.fill, Element.paddingXY 16 0 ]
                 [ h5 []
                     [ link [ fontColor ]
                         { label = text Strings.title
@@ -188,7 +188,9 @@ view view_ recent model =
                     }
                 ]
             , row
-                [ Element.paddingXY 16 0
+                [ Element.spacing 16
+                , Element.width Element.fill
+                , Element.paddingXY 16 0
                 ]
                 [ searchInput [ Input.focusedOnLoad ]
                     { label = labelHidden Strings.searchInput
