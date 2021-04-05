@@ -238,18 +238,6 @@ image =
 
 
 
--- Root
-
-
-rootStyle a =
-    fontSize 1
-        :: fontFamily
-        :: Font.color gray9
-        :: Background.color gray1
-        :: a
-
-
-
 -- Colors
 
 
@@ -449,3 +437,15 @@ labelHidden =
 
 labelAbove a =
     Input.labelAbove (Font.size 12 :: a)
+
+
+
+-- Root
+
+
+rootStyle a =
+    fontSize 1
+        :: fontFamily
+        :: Font.color gray9
+        :: Background.color gray1
+        :: a
