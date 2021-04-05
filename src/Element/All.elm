@@ -1162,41 +1162,41 @@ lazy5 =
 -- REGION MODULE
 
 
-mainContent : Attribute msg
-mainContent =
+regionMainContent : Attribute msg
+regionMainContent =
     Element.Region.mainContent
 
 
-navigation : Attribute msg
-navigation =
+regionNavigation : Attribute msg
+regionNavigation =
     Element.Region.navigation
 
 
-heading : Int -> Attribute msg
-heading =
+regionHeading : Int -> Attribute msg
+regionHeading =
     Element.Region.heading
 
 
-aside : Attribute msg
-aside =
+regionAside : Attribute msg
+regionAside =
     Element.Region.aside
 
 
-footer : Attribute msg
-footer =
+regionFooter : Attribute msg
+regionFooter =
     Element.Region.footer
 
 
-description : String -> Attribute msg
-description =
+regionDescription : String -> Attribute msg
+regionDescription =
     Element.Region.description
 
 
-announce : Attribute msg
-announce =
+regionAnnounce : Attribute msg
+regionAnnounce =
     Element.Region.announce
 
 
-announceUrgently : Attribute msg
-announceUrgently =
+regionAnnounceUrgently : Attribute msg
+regionAnnounceUrgently =
     Element.Region.announceUrgently
