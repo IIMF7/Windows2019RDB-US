@@ -380,6 +380,26 @@ fontCenter =
 
 
 
+-- Font - Font Styles
+
+
+fontUnderline =
+    Font.underline
+
+
+fontStrike =
+    Font.strike
+
+
+fontItalic =
+    Font.italic
+
+
+fontUnitalicized =
+    Font.unitalicized
+
+
+
 -- Borders
 
 
