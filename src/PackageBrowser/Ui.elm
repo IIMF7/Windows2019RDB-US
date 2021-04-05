@@ -51,7 +51,7 @@ column =
 
 
 p a =
-    Element.paragraph (spacing 1 :: a)
+    Element.paragraph (spacing 0.5 :: a)
 
 
 textColumn a =
@@ -59,7 +59,7 @@ textColumn a =
 
 
 status a =
-    p (padding 2 :: fontCenter :: fontColor gray6 :: a)
+    p (padding 1 :: fontCenter :: fontColor gray6 :: a)
 
 
 h1 a =
@@ -141,23 +141,23 @@ minimum =
 
 
 padding a =
-    Element.padding (mul8 a)
+    Element.padding (mul16 a)
 
 
 paddingXY a b =
-    Element.paddingXY (mul8 a) (mul8 b)
+    Element.paddingXY (mul16 a) (mul16 b)
 
 
 paddingEach a b c d =
-    Element.paddingEach { left = mul8 a, right = mul8 b, top = mul8 c, bottom = mul8 d }
+    Element.paddingEach { left = mul16 a, right = mul16 b, top = mul16 c, bottom = mul16 d }
 
 
 spacing a =
-    Element.spacing (mul8 a)
+    Element.spacing (mul16 a)
 
 
 spacingXY a b =
-    Element.spacingXY (mul8 a) (mul8 b)
+    Element.spacingXY (mul16 a) (mul16 b)
 
 
 spaceEvenly =
@@ -388,7 +388,7 @@ borderWidthEach a b c d =
 
 
 borderRounded a =
-    Border.rounded (mul8 a)
+    Border.rounded (mul16 a)
 
 
 borderShadow a =
@@ -421,12 +421,12 @@ id a =
 
 
 inputStyle a =
-    padding 1
-        :: spacing 1
+    padding 0.5
+        :: spacing 0.5
         :: backgroundColor gray0
         :: borderColor gray4
         :: borderWidth 1
-        :: borderRounded 0.5
+        :: borderRounded 0.25
         :: a
 
 
@@ -434,7 +434,7 @@ buttonLink : List (Element.Attribute msg) -> { label : Element msg, onPress : Ma
 buttonLink a =
     Input.button
         (fontColor primary
-            :: borderRounded 0.5
+            :: borderRounded 0.25
             :: a
         )
 
@@ -469,11 +469,6 @@ rootStyle a =
 
 
 -- Helpers
-
-
-mul8 : Float -> Int
-mul8 a =
-    a * 8 |> round
 
 
 mul16 : Float -> Int
