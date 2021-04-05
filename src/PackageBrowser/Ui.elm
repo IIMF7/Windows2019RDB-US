@@ -8,6 +8,7 @@ import Element.Input as Input
 import Element.Region as Region
 import Html
 import Html.Attributes
+import PackageBrowser.Ui.Colors as Colors
 
 
 
@@ -23,143 +24,15 @@ rootStyle a =
 
 
 
--- COLORS
-
-
-white =
-    Element.rgb 1 1 1
-
-
-gray1 =
-    Element.rgb 0.97 0.98 0.98
-
-
-gray2 =
-    Element.rgb 0.91 0.93 0.94
-
-
-gray3 =
-    Element.rgb 0.87 0.89 0.9
-
-
-gray4 =
-    Element.rgb 0.81 0.83 0.85
-
-
-gray5 =
-    Element.rgb 0.68 0.71 0.74
-
-
-gray6 =
-    Element.rgb 0.42 0.46 0.49
-
-
-gray7 =
-    Element.rgb 0.29 0.31 0.34
-
-
-gray8 =
-    Element.rgb 0.2 0.23 0.25
-
-
-gray9 =
-    Element.rgb 0.13 0.15 0.16
-
-
-black =
-    Element.rgb 0 0 0
-
-
-
---
-
-
-blue =
-    Element.rgb 0.05 0.43 0.99
-
-
-indigo =
-    Element.rgb 0.4 0.06 0.95
-
-
-purple =
-    Element.rgb 0.44 0.26 0.76
-
-
-pink =
-    Element.rgb 0.84 0.2 0.52
-
-
-red =
-    Element.rgb 0.86 0.21 0.27
-
-
-orange =
-    Element.rgb 0.99 0.49 0.08
-
-
-yellow =
-    Element.rgb 1 0.76 0.03
-
-
-green =
-    Element.rgb 0.1 0.53 0.33
-
-
-teal =
-    Element.rgb 0.13 0.79 0.59
-
-
-cyan =
-    Element.rgb 0.05 0.79 0.94
-
-
-
---
-
-
-primary =
-    blue
-
-
-secondary =
-    gray6
-
-
-success =
-    green
-
-
-info =
-    cyan
-
-
-warning =
-    yellow
-
-
-danger =
-    red
-
-
-light =
-    gray1
-
-
-dark =
-    gray9
-
-
-
 -- FONT
 
 
 fontColor =
-    Font.color gray9
+    Font.color Colors.gray9
 
 
 fontColorMuted =
-    Font.color gray6
+    Font.color Colors.gray6
 
 
 fontSize =
@@ -213,7 +86,7 @@ fontCenter =
 
 
 bgColor =
-    Background.color gray1
+    Background.color Colors.gray1
 
 
 
@@ -221,11 +94,11 @@ bgColor =
 
 
 borderColor =
-    Border.color gray3
+    Border.color Colors.gray3
 
 
 borderColorInput =
-    Border.color gray4
+    Border.color Colors.gray4
 
 
 borderRounded1 =
@@ -245,7 +118,7 @@ borderShadow =
         { offset = ( 0, 16 )
         , size = 0
         , blur = 48
-        , color = black |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
+        , color = Colors.black |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
         }
 
 
@@ -351,7 +224,7 @@ br =
 
 link : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 link a =
-    Element.link (Font.color primary :: a)
+    Element.link (Font.color Colors.primary :: a)
 
 
 image : List (Element.Attribute msg) -> { description : String, src : String } -> Element.Element msg
@@ -361,13 +234,13 @@ image =
 
 newTabLink : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 newTabLink a =
-    Element.newTabLink (Font.color primary :: a)
+    Element.newTabLink (Font.color Colors.primary :: a)
 
 
 buttonLink : List (Element.Attribute msg) -> { label : Element.Element msg, onPress : Maybe msg } -> Element.Element msg
 buttonLink a =
     Input.button
-        (Font.color primary
+        (Font.color Colors.primary
             :: borderRounded1
             :: a
         )
@@ -420,7 +293,7 @@ edges =
 inputStyle a =
     Element.padding 8
         :: Element.spacing 8
-        :: Background.color white
+        :: Background.color Colors.white
         :: borderColorInput
         :: border
         :: borderRounded1
@@ -452,7 +325,7 @@ modal a =
         (Element.spacing 32
             :: Element.width Element.fill
             :: Element.width (Element.shrink |> Element.maximum 512)
-            :: Background.color white
+            :: Background.color Colors.white
             :: borderShadow
             :: border
             :: borderColor
