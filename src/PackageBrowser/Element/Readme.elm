@@ -246,7 +246,7 @@ viewModuleReadme _ b c =
         [ width fill
         , height fill
         , spacing 2
-        , paddingEach 1 1 1 8
+        , paddingEach 1 1 1 4
         , Element.scrollbars
         ]
         [ viewLoading view_ c
