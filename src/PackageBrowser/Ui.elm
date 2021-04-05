@@ -202,7 +202,7 @@ fontMonospace =
 --
 
 
-shadow =
+borderShadow =
     Border.shadow
         { offset = ( 0, 16 )
         , size = 0
@@ -413,7 +413,7 @@ modal a =
     column
         (width (shrink |> Element.maximum 512)
             :: Background.color white
-            :: shadow
+            :: borderShadow
             :: border
             :: borderColorDefault
             :: Border.rounded 16
