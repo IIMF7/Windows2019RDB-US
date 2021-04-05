@@ -233,20 +233,6 @@ borderShadow =
 --
 
 
-inputStyle a =
-    padding 8
-        :: spacing 8
-        :: Background.color white
-        :: borderColorInput
-        :: border
-        :: borderRounded
-        :: a
-
-
-
---
-
-
 type alias Element msg =
     Element.Element msg
 
@@ -381,6 +367,16 @@ edges =
 
 
 --
+
+
+inputStyle a =
+    padding 8
+        :: spacing 8
+        :: Background.color white
+        :: borderColorInput
+        :: border
+        :: borderRounded
+        :: a
 
 
 searchInput a =
