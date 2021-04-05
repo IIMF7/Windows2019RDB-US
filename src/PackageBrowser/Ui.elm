@@ -101,7 +101,7 @@ indexedTable =
 
 
 
--- ROOT
+-- Root
 
 
 rootStyle a =
@@ -113,7 +113,7 @@ rootStyle a =
 
 
 
--- COLORS
+-- Colors
 
 
 gray0 =
