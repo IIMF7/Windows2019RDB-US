@@ -376,54 +376,6 @@ borderShadow =
 
 
 
--- SPACING
-
-
-spacing05 =
-    Element.spacing 4
-
-
-spacing1 =
-    Element.spacing 8
-
-
-spacing2 =
-    Element.spacing 16
-
-
-spacing3 =
-    Element.spacing 24
-
-
-spacing4 =
-    Element.spacing 32
-
-
-
--- PADDING
-
-
-padding05 =
-    Element.padding 4
-
-
-padding1 =
-    Element.padding 8
-
-
-padding2 =
-    Element.padding 16
-
-
-padding3 =
-    Element.padding 24
-
-
-padding4 =
-    Element.padding 32
-
-
-
 -- ELEMENTS THAT SHRINK WIDTH
 
 
