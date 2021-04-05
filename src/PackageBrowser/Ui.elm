@@ -141,23 +141,23 @@ minimum =
 
 
 padding a =
-    Element.padding (a * 8)
+    Element.padding (mul8 a)
 
 
 paddingXY a b =
-    Element.paddingXY (a * 8) (b * 8)
+    Element.paddingXY (mul8 a) (mul8 b)
 
 
 paddingEach a b c d =
-    Element.paddingEach { left = a * 8, right = b * 8, top = c * 8, bottom = d * 8 }
+    Element.paddingEach { left = mul8 a, right = mul8 b, top = mul8 c, bottom = mul8 d }
 
 
 spacing a =
-    Element.spacing (a * 8)
+    Element.spacing (mul8 a)
 
 
 spacingXY a b =
-    Element.spacingXY (a * 8) (b * 8)
+    Element.spacingXY (mul8 a) (mul8 b)
 
 
 spaceEvenly =
@@ -314,7 +314,7 @@ danger =
 
 
 fontSize a =
-    Font.size (a * 16)
+    Font.size (mul16 a)
 
 
 fontFamilyDefault =
@@ -372,7 +372,7 @@ borderWidthEach a b c d =
 
 
 borderRounded a =
-    Border.rounded (a * 8)
+    Border.rounded (mul8 a)
 
 
 borderShadow a =
@@ -449,3 +449,17 @@ rootStyle a =
         :: Font.color gray9
         :: Background.color gray1
         :: a
+
+
+
+-- Helpers
+
+
+mul8 : Float -> Int
+mul8 a =
+    a * 8 |> round
+
+
+mul16 : Float -> Int
+mul16 a =
+    a * 16 |> round
