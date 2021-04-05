@@ -138,23 +138,23 @@ dark =
 --
 
 
-defaultTextColor =
+fontColorDefault =
     Font.color gray900
 
 
-mutedTextColor =
+fontColorMuted =
     Font.color gray600
 
 
-defaultBackgroundColor =
+bgColorDefault =
     Background.color gray100
 
 
-defaultBorderColor =
+borderColorDefault =
     Border.color gray300
 
 
-inputBorderColor =
+borderColorInput =
     Border.color gray400
 
 
@@ -200,8 +200,8 @@ fontMonospace =
 
 
 rootStyle a =
-    defaultBackgroundColor
-        :: defaultTextColor
+    bgColorDefault
+        :: fontColorDefault
         :: Font.size 16
         :: Font.family fontSansSerif
         :: a
@@ -211,7 +211,7 @@ inputStyle a =
     padding 8
         :: spacing 8
         :: Background.color white
-        :: inputBorderColor
+        :: borderColorInput
         :: border
         :: Border.rounded 4
         :: a
@@ -286,7 +286,7 @@ p a =
 
 
 status a =
-    p (Element.padding 16 :: Font.center :: mutedTextColor :: a)
+    p (Element.padding 16 :: Font.center :: fontColorMuted :: a)
 
 
 
@@ -399,7 +399,7 @@ modal a =
             :: Background.color white
             :: shadow
             :: border
-            :: defaultBorderColor
+            :: borderColorDefault
             :: Border.rounded 16
             :: a
         )

@@ -208,11 +208,11 @@ viewPackageHeader : Elm.Package.Name -> Element Msg
 viewPackageHeader a =
     row
         [ Element.paddingXY 16 12
-        , defaultBorderColor
+        , borderColorDefault
         , borderBottom
         ]
         [ h4 []
-            [ link [ defaultTextColor, onClick (Reveal a) ]
+            [ link [ fontColorDefault, onClick (Reveal a) ]
                 { label = text (Elm.Package.toString a)
                 , url = Router.PackageView a |> Router.viewToUrl
                 }
@@ -232,11 +232,11 @@ viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element Msg
 viewModuleHeader a b =
     row
         [ Element.paddingXY 16 12
-        , defaultBorderColor
+        , borderColorDefault
         , borderBottom
         ]
         [ h5 []
-            [ link [ defaultTextColor, onClick (Reveal a) ]
+            [ link [ fontColorDefault, onClick (Reveal a) ]
                 { label = text (Elm.Module.toString b)
                 , url = Router.ModuleView a b |> Router.viewToUrl
                 }
@@ -289,7 +289,7 @@ viewModuleReadme a b expanded c =
                                     |> List.map
                                         (\v ->
                                             section [ Element.spacing 0 ]
-                                                [ buttonLink [ mutedTextColor, Element.paddingXY 0 4 ]
+                                                [ buttonLink [ fontColorMuted, Element.paddingXY 0 4 ]
                                                     { label = text v.name
                                                     , onPress = Just (ToggleSection a b v.name)
                                                     }
