@@ -101,6 +101,42 @@ indexedTable =
 
 
 
+-- Size
+
+
+width =
+    Element.width
+
+
+height =
+    Element.height
+
+
+px =
+    Element.px
+
+
+shrink =
+    Element.shrink
+
+
+fill =
+    Element.fill
+
+
+fillPortion =
+    Element.fillPortion
+
+
+maximum =
+    Element.maximum
+
+
+minimum =
+    Element.minimum
+
+
+
 -- Root
 
 
