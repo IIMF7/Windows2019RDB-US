@@ -188,8 +188,8 @@ viewPackageReadme a =
     column
         [ width fill
         , height fill
-        , Element.scrollbars
         , paddingEach 2 2 1 4
+        , Element.scrollbars
         ]
         [ viewLoading view_ a
         ]
