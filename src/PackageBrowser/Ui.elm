@@ -397,24 +397,11 @@ borderShadow a =
 
 
 
--- ELEMENTS THAT SHRINK WIDTH
+-- Extras
 
 
 br =
     Element.html (Html.br [] [])
-
-
-buttonLink : List (Element.Attribute msg) -> { label : Element msg, onPress : Maybe msg } -> Element msg
-buttonLink a =
-    Input.button
-        (Font.color primary
-            :: borderRounded05
-            :: a
-        )
-
-
-
--- ATTRIBUTES
 
 
 noneAttribute =
@@ -427,6 +414,15 @@ id a =
 
 
 -- INPUTS
+
+
+buttonLink : List (Element.Attribute msg) -> { label : Element msg, onPress : Maybe msg } -> Element msg
+buttonLink a =
+    Input.button
+        (Font.color primary
+            :: borderRounded05
+            :: a
+        )
 
 
 inputStyle a =
