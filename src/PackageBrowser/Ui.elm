@@ -321,10 +321,6 @@ none =
     Element.none
 
 
-noneAttribute =
-    Element.htmlAttribute (Html.Attributes.classList [])
-
-
 text =
     Element.text
 
@@ -358,7 +354,11 @@ buttonLink a =
 
 
 
---
+-- ATTRIBUTES
+
+
+noneAttribute =
+    Element.htmlAttribute (Html.Attributes.classList [])
 
 
 id a =
