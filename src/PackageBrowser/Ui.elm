@@ -118,7 +118,7 @@ borderShadow =
         { offset = ( 0, 16 )
         , size = 0
         , blur = 48
-        , color = Colors.black |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
+        , color = Colors.gray10 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
         }
 
 
@@ -293,7 +293,7 @@ edges =
 inputStyle a =
     Element.padding 8
         :: Element.spacing 8
-        :: Background.color Colors.white
+        :: Background.color Colors.gray0
         :: borderColorInput
         :: border
         :: borderRounded1
@@ -325,7 +325,7 @@ modal a =
         (Element.spacing 32
             :: Element.width Element.fill
             :: Element.width (Element.shrink |> Element.maximum 512)
-            :: Background.color Colors.white
+            :: Background.color Colors.gray0
             :: borderShadow
             :: border
             :: borderColor

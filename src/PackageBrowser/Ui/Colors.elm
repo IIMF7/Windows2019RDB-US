@@ -3,7 +3,7 @@ module PackageBrowser.Ui.Colors exposing (..)
 import Element
 
 
-white =
+gray0 =
     Element.rgb 1 1 1
 
 
@@ -43,7 +43,7 @@ gray9 =
     Element.rgb 0.13 0.15 0.16
 
 
-black =
+gray10 =
     Element.rgb 0 0 0
 
 
