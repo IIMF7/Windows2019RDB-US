@@ -310,7 +310,7 @@ danger =
 
 
 
--- Font
+-- Fonts
 
 
 fontSize a =
@@ -360,7 +360,7 @@ fontCenter =
 
 
 
--- Border
+-- Borders
 
 
 borderWidth a =
