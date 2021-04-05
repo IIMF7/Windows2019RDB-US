@@ -230,15 +230,11 @@ borderShadow =
 
 
 
---
+-- ELEMENTS
 
 
 type alias Element msg =
     Element.Element msg
-
-
-
---
 
 
 row =
