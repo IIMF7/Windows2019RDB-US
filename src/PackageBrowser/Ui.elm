@@ -249,6 +249,14 @@ column =
 --
 
 
+p a =
+    paragraph (spacing 8 :: a)
+
+
+status a =
+    p (Element.padding 16 :: Font.center :: fontColorMuted :: a)
+
+
 h1 a =
     p (Region.heading 1 :: Font.size 40 :: a)
 
@@ -271,14 +279,6 @@ h5 a =
 
 h6 a =
     p (Region.heading 6 :: Font.size 16 :: a)
-
-
-p a =
-    paragraph (spacing 8 :: a)
-
-
-status a =
-    p (Element.padding 16 :: Font.center :: fontColorMuted :: a)
 
 
 
