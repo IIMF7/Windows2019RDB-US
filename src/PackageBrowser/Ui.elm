@@ -97,6 +97,30 @@ bgColor =
 -- BORDER
 
 
+edges =
+    { left = 0, right = 0, top = 0, bottom = 0 }
+
+
+border =
+    Border.width 1
+
+
+borderLeft =
+    Border.widthEach { edges | left = 1 }
+
+
+borderRight =
+    Border.widthEach { edges | right = 1 }
+
+
+borderTop =
+    Border.widthEach { edges | top = 1 }
+
+
+borderBottom =
+    Border.widthEach { edges | bottom = 1 }
+
+
 borderColor =
     Border.color Colors.gray3
 
@@ -260,34 +284,6 @@ noneAttribute =
 
 id a =
     Element.htmlAttribute (Html.Attributes.id a)
-
-
-
---
-
-
-border =
-    Border.width 1
-
-
-borderLeft =
-    Border.widthEach { edges | left = 1 }
-
-
-borderRight =
-    Border.widthEach { edges | right = 1 }
-
-
-borderTop =
-    Border.widthEach { edges | top = 1 }
-
-
-borderBottom =
-    Border.widthEach { edges | bottom = 1 }
-
-
-edges =
-    { left = 0, right = 0, top = 0, bottom = 0 }
 
 
 
