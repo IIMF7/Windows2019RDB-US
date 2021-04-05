@@ -316,7 +316,7 @@ viewMember a =
     column [ width fill, spacing 0.5, paddingXY 1.5 0 ]
         [ row [ width fill ]
             [ text a.name
-            , el [ fontColor gray5 ] (text a.type_)
+            , el [ fontColor gray6 ] (text a.type_)
             ]
         , column [ width fill, paddingXY 1.5 0 ]
             [ column
