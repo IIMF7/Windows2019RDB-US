@@ -217,17 +217,15 @@ viewModuleReadme _ b c =
                     in
                     case e.readme |> Section.fromMarkdown defaultTitle of
                         Ok f ->
-                            column [ width fill, spacing 1 ]
+                            column [ width fill, spacing 1.5 ]
                                 (f
                                     |> List.map
                                         (\v ->
-                                            column [ width fill ]
-                                                [ p [ paddingXY 0 0.25, fontWeight 7 ]
+                                            column [ width fill, spacing 0.5 ]
+                                                [ p [ fontWeight 7 ]
                                                     [ text v.name
                                                     ]
-                                                , column [ width fill, paddingXY 1.5 0 ]
-                                                    [ viewItems e v.items
-                                                    ]
+                                                , viewItems e v.items
                                                 ]
                                         )
                                 )
@@ -259,7 +257,7 @@ viewItems module_ a =
         viewItem b =
             case b of
                 Section.Markdown c ->
-                    column [ width fill, paddingXY 1.5 0 ]
+                    column [ width fill, paddingXY 3 0 ]
                         [ column
                             [ width fill
                             , padding 1
@@ -292,7 +290,7 @@ viewItems module_ a =
                 |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
                 |> onNothing (\_ -> module_.binops |> Dict.get (b |> String.dropLeft 1 |> String.dropRight 1) |> Maybe.map viewBinop)
     in
-    column [ width fill ]
+    column [ width fill, spacing 0.5 ]
         (a
             |> List.map viewItem
         )
