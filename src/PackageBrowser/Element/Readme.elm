@@ -366,15 +366,7 @@ viewUnion a =
                                         (\( vv, vvv ) ->
                                             vv
                                                 :: (vvv
-                                                        |> List.map typeToString
-                                                        |> List.map
-                                                            (\v ->
-                                                                if List.length v > 1 then
-                                                                    "(" ++ String.join " " v ++ ")"
-
-                                                                else
-                                                                    v |> String.join " "
-                                                            )
+                                                        |> List.map (typeToString >> maybeWrapInParents)
                                                    )
                                                 |> String.join " "
                                         )
@@ -421,7 +413,7 @@ typeToString a =
             ]
 
         Elm.Type.Lambda b c ->
-            [ b |> typeToString |> String.join " "
+            [ b |> typeToString |> maybeWrapInParents
             , "->"
             , c |> typeToString |> String.join " "
             ]
@@ -452,15 +444,7 @@ typeToString a =
             else
                 [ name
                 , c
-                    |> List.map typeToString
-                    |> List.map
-                        (\v ->
-                            if List.length v > 1 then
-                                "(" ++ String.join " " v ++ ")"
-
-                            else
-                                v |> String.join " "
-                        )
+                    |> List.map (typeToString >> maybeWrapInParents)
                     |> String.join " "
                 ]
 
@@ -483,6 +467,15 @@ typeToString a =
             ]
                 |> String.join " "
                 |> List.singleton
+
+
+maybeWrapInParents : List String -> String
+maybeWrapInParents a =
+    if List.length a > 1 then
+        "(" ++ String.join " " a ++ ")"
+
+    else
+        a |> String.join " "
 
 
 
