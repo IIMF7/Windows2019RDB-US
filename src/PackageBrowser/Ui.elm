@@ -35,6 +35,10 @@ fontColorMuted =
     Font.color Colors.gray6
 
 
+fontColorPrimary =
+    Font.color Colors.primary
+
+
 fontSize =
     Font.size 16
 
@@ -224,7 +228,7 @@ br =
 
 link : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 link a =
-    Element.link (Font.color Colors.primary :: a)
+    Element.link (fontColorPrimary :: a)
 
 
 image : List (Element.Attribute msg) -> { description : String, src : String } -> Element.Element msg
@@ -234,13 +238,13 @@ image =
 
 newTabLink : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 newTabLink a =
-    Element.newTabLink (Font.color Colors.primary :: a)
+    Element.newTabLink (fontColorPrimary :: a)
 
 
 buttonLink : List (Element.Attribute msg) -> { label : Element.Element msg, onPress : Maybe msg } -> Element.Element msg
 buttonLink a =
     Input.button
-        (Font.color Colors.primary
+        (fontColorPrimary
             :: borderRounded1
             :: a
         )
