@@ -51,52 +51,8 @@ gray10 =
 --
 
 
-blue =
-    Element.rgb 0.05 0.43 0.99
-
-
-indigo =
-    Element.rgb 0.4 0.06 0.95
-
-
-purple =
-    Element.rgb 0.44 0.26 0.76
-
-
-pink =
-    Element.rgb 0.84 0.2 0.52
-
-
-red =
-    Element.rgb 0.86 0.21 0.27
-
-
-orange =
-    Element.rgb 0.99 0.49 0.08
-
-
-yellow =
-    Element.rgb 1 0.76 0.03
-
-
-green =
-    Element.rgb 0.1 0.53 0.33
-
-
-teal =
-    Element.rgb 0.13 0.79 0.59
-
-
-cyan =
-    Element.rgb 0.05 0.79 0.94
-
-
-
---
-
-
 primary =
-    blue
+    Element.rgb 0.05 0.43 0.99
 
 
 secondary =
@@ -104,24 +60,16 @@ secondary =
 
 
 success =
-    green
+    Element.rgb 0.1 0.53 0.33
 
 
 info =
-    cyan
+    Element.rgb 0.05 0.79 0.94
 
 
 warning =
-    yellow
+    Element.rgb 1 0.76 0.03
 
 
 danger =
-    red
-
-
-light =
-    gray1
-
-
-dark =
-    gray9
+    Element.rgb 0.86 0.21 0.27
