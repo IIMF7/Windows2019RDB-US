@@ -1,4 +1,4 @@
-module PackageBrowser.Ui.Colors exposing (..)
+module PackageBrowser.Ui.Color exposing (..)
 
 import Element
 import Element.Background as Background

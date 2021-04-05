@@ -16,7 +16,7 @@ import Json.Decode as Decode
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
-import PackageBrowser.Ui.Colors exposing (..)
+import PackageBrowser.Ui.Color exposing (..)
 import Regex
 import Task
 
