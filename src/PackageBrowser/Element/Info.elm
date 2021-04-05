@@ -4,6 +4,7 @@ import Element
 import Element.Font as Font
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Modal as Modal
 
 
 type alias Model =
@@ -41,7 +42,7 @@ update msg model =
 view : Model -> Element Msg
 view model =
     if model.show then
-        modal [ Element.moveDown 16, Element.moveRight 16, Element.padding 32 ]
+        Modal.view [ Element.moveDown 16, Element.moveRight 16, Element.padding 32 ]
             [ h5 [ Font.center ]
                 [ text Strings.info
                 ]
