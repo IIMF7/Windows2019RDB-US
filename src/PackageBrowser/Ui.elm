@@ -101,15 +101,15 @@ borderBottom =
     Border.widthEach { edges | bottom = 1 }
 
 
-borderRounded1 =
+borderRounded05 =
     Border.rounded 4
 
 
-borderRounded2 =
+borderRounded1 =
     Border.rounded 8
 
 
-borderRounded3 =
+borderRounded2 =
     Border.rounded 16
 
 
@@ -257,7 +257,7 @@ buttonLink : List (Element.Attribute msg) -> { label : Element.Element msg, onPr
 buttonLink a =
     Input.button
         (Color.fontPrimary
-            :: borderRounded1
+            :: borderRounded05
             :: a
         )
 
@@ -284,7 +284,7 @@ inputStyle a =
         :: Color.bgGray0
         :: Color.borderGray4
         :: border
-        :: borderRounded1
+        :: borderRounded05
         :: a
 
 
