@@ -379,8 +379,8 @@ borderColor =
     Border.color
 
 
-borderWidth a =
-    Border.width a
+borderWidth =
+    Border.width
 
 
 borderWidthEach a b c d =
