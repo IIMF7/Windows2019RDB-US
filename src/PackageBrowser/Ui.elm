@@ -310,11 +310,23 @@ danger =
 
 
 
+-- Backgrounds
+
+
+backgroundColor =
+    Background.color
+
+
+
 -- Fonts
 
 
 fontSize a =
     Font.size (mul16 a)
+
+
+fontColor =
+    Font.color
 
 
 fontFamilyDefault =
@@ -361,6 +373,10 @@ fontCenter =
 
 
 -- Borders
+
+
+borderColor =
+    Border.color
 
 
 borderWidth a =
