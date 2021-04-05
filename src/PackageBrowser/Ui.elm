@@ -10,6 +10,10 @@ import Html
 import Html.Attributes
 
 
+
+-- COLORS
+
+
 white =
     rgb 1 1 1
 
@@ -55,7 +59,7 @@ black =
 
 
 
---
+-- COLORS
 
 
 blue =
@@ -99,7 +103,7 @@ cyan =
 
 
 
---
+-- COLORS
 
 
 primary =
@@ -135,7 +139,7 @@ dark =
 
 
 
---
+-- FONT
 
 
 fontColor =
