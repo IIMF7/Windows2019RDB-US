@@ -170,32 +170,34 @@ borderColorInput =
 --
 
 
-fontSansSerif =
-    [ Font.typeface "system-ui"
-    , Font.typeface "-apple-system"
-    , Font.typeface "Segoe UI"
-    , Font.typeface "Roboto"
-    , Font.typeface "Helvetica Neue"
-    , Font.typeface "Arial"
-    , Font.typeface "Noto Sans"
-    , Font.typeface "Liberation Sans"
-    , Font.sansSerif
-    , Font.typeface "Apple Color Emoji"
-    , Font.typeface "Segoe UI Emoji"
-    , Font.typeface "Segoe UI Symbol"
-    , Font.typeface "Noto Color Emoji"
-    ]
+fontFamily =
+    Font.family
+        [ Font.typeface "system-ui"
+        , Font.typeface "-apple-system"
+        , Font.typeface "Segoe UI"
+        , Font.typeface "Roboto"
+        , Font.typeface "Helvetica Neue"
+        , Font.typeface "Arial"
+        , Font.typeface "Noto Sans"
+        , Font.typeface "Liberation Sans"
+        , Font.sansSerif
+        , Font.typeface "Apple Color Emoji"
+        , Font.typeface "Segoe UI Emoji"
+        , Font.typeface "Segoe UI Symbol"
+        , Font.typeface "Noto Color Emoji"
+        ]
 
 
-fontMonospace =
-    [ Font.typeface "SFMono-Regular"
-    , Font.typeface "Menlo"
-    , Font.typeface "Monaco"
-    , Font.typeface "Consolas"
-    , Font.typeface "Liberation Mono"
-    , Font.typeface "Courier New"
-    , Font.monospace
-    ]
+fontFamilyMonospace =
+    Font.family
+        [ Font.typeface "SFMono-Regular"
+        , Font.typeface "Menlo"
+        , Font.typeface "Monaco"
+        , Font.typeface "Consolas"
+        , Font.typeface "Liberation Mono"
+        , Font.typeface "Courier New"
+        , Font.monospace
+        ]
 
 
 
@@ -219,7 +221,7 @@ rootStyle a =
     bgColor
         :: fontColor
         :: Font.size 16
-        :: Font.family fontSansSerif
+        :: fontFamily
         :: a
 
 
