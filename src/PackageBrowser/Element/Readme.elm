@@ -171,8 +171,8 @@ viewReadme fn a =
         [ width fill
         , height fill
         , spacing 2
-        , Element.scrollbars
         , paddingEach 1 1 1 8
+        , Element.scrollbars
         ]
         [ case a of
             Just b ->
