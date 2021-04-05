@@ -204,6 +204,10 @@ borderColorInput =
     Border.color gray4
 
 
+borderRounded =
+    Border.rounded 4
+
+
 borderShadow =
     Border.shadow
         { offset = ( 0, 16 )
@@ -231,7 +235,7 @@ inputStyle a =
         :: Background.color white
         :: borderColorInput
         :: border
-        :: Border.rounded 4
+        :: borderRounded
         :: a
 
 
