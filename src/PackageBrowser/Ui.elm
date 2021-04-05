@@ -31,6 +31,22 @@ el =
 
 
 
+-- Rows and Columns
+
+
+row =
+    Element.row
+
+
+wrappedRow =
+    Element.wrappedRow
+
+
+column =
+    Element.column
+
+
+
 -- ROOT
 
 
@@ -259,18 +275,6 @@ padding3 =
 
 padding4 =
     Element.padding 32
-
-
-
--- ELEMENTS
-
-
-row =
-    Element.row
-
-
-column =
-    Element.column
 
 
 
