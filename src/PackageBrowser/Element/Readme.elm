@@ -290,7 +290,7 @@ viewItems module_ a =
                 |> onNothing (\_ -> module_.unions |> Dict.get b |> Maybe.map viewUnion)
                 |> onNothing (\_ -> module_.aliases |> Dict.get b |> Maybe.map viewAlias)
                 |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
-                |> onNothing (\_ -> module_.binops |> Dict.get b |> Maybe.map viewBinop)
+                |> onNothing (\_ -> module_.binops |> Dict.get (b |> String.dropLeft 1 |> String.dropRight 1) |> Maybe.map viewBinop)
     in
     column [ width fill ]
         (a
@@ -384,7 +384,7 @@ viewValue a =
 
 viewBinop : Elm.Docs.Binop -> { name : String, type_ : String, comment : String }
 viewBinop a =
-    { name = a.name
+    { name = "(" ++ a.name ++ ")"
     , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
     , comment = a.comment
     }
