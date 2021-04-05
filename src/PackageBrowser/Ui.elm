@@ -245,12 +245,20 @@ borderShadow =
 -- SPACING
 
 
+spacing1 =
+    Element.spacing 4
+
+
 spacing2 =
     Element.spacing 8
 
 
 spacing3 =
     Element.spacing 16
+
+
+padding1 =
+    Element.padding 4
 
 
 padding2 =
