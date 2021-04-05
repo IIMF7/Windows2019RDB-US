@@ -368,7 +368,7 @@ buttonLink : List (Element.Attribute msg) -> { label : Element.Element msg, onPr
 buttonLink a =
     Input.button
         (Font.color primary
-            :: Border.rounded 2
+            :: borderRounded1
             :: a
         )
 
