@@ -4,10 +4,7 @@ import Database.Package.Readme as Readme
 import Database.Package.Readme.Decode
 import Dict exposing (Dict)
 import Element
-import Element.Background
-import Element.Border
 import Element.Events exposing (onClick)
-import Element.Font as Font
 import Elm.Docs
 import Elm.Module
 import Elm.Module.NameDict as ModuleNameDict
@@ -15,7 +12,6 @@ import Elm.Package
 import Elm.Package.NameDict as PackageNameDict
 import Elm.Type
 import Http
-import Markdown.Html
 import Markdown.Renderer
 import PackageBrowser.Element.Readme.Section as Section
 import PackageBrowser.Router as Router
@@ -143,12 +139,7 @@ update ctx msg model =
 
 view : Router.View -> Model -> Element Msg
 view view_ model =
-    column
-        [ Element.spacing 32
-        , Element.width Element.fill
-        , Element.height Element.fill
-        , Element.spacing 0
-        ]
+    column [ width fill, height fill ]
         (case view_ of
             Router.DefaultView ->
                 []
@@ -177,11 +168,11 @@ view view_ model =
 viewReadme : (a -> Element msg) -> Maybe (Result Error a) -> Element msg
 viewReadme fn a =
     column
-        [ Element.spacing 32
-        , Element.width Element.fill
-        , Element.height Element.fill
+        [ width fill
+        , height fill
+        , spacing 2
         , Element.scrollbars
-        , Element.paddingEach { left = 16, right = 16, top = 16, bottom = 128 }
+        , paddingEach 1 1 1 8
         ]
         [ case a of
             Just b ->
@@ -211,14 +202,14 @@ viewReadme fn a =
 viewPackageHeader : Elm.Package.Name -> Element Msg
 viewPackageHeader a =
     row
-        [ Element.spacing 16
-        , Element.width Element.fill
-        , Element.paddingXY 16 12
-        , borderGray3
-        , borderBottom
+        [ width fill
+        , spacing 1
+        , paddingXY 1 0.75
+        , borderColor gray3
+        , borderWidthEach 0 0 0 1
         ]
         [ h4 []
-            [ link [ fontGray9, onClick (Reveal a) ]
+            [ link [ fontColor gray9, onClick (Reveal a) ]
                 { label = text (Elm.Package.toString a)
                 , url = Router.PackageView a |> Router.viewToUrl
                 }
@@ -237,14 +228,14 @@ viewPackageHeader a =
 viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element Msg
 viewModuleHeader a b =
     row
-        [ Element.spacing 16
-        , Element.width Element.fill
-        , Element.paddingXY 16 12
-        , borderGray3
-        , borderBottom
+        [ width fill
+        , spacing 1
+        , paddingXY 1 0.75
+        , borderColor gray3
+        , borderWidthEach 0 0 0 1
         ]
         [ h5 []
-            [ link [ fontGray9, onClick (Reveal a) ]
+            [ link [ fontColor gray9, onClick (Reveal a) ]
                 { label = text (Elm.Module.toString b)
                 , url = Router.ModuleView a b |> Router.viewToUrl
                 }
@@ -265,7 +256,7 @@ viewPackageReadme a =
     let
         view_ : Readme.Readme -> Element msg
         view_ b =
-            Markdown.view [ Element.padding 24 ] b.readme
+            Markdown.view [ padding 1.5 ] b.readme
     in
     viewReadme view_ a
 
@@ -292,20 +283,18 @@ viewModuleReadme a b expanded c =
                     in
                     case e.readme |> Section.fromMarkdown defaultTitle of
                         Ok f ->
-                            column [ Element.spacing 16, Element.width Element.fill ]
+                            column [ width fill, spacing 1 ]
                                 (f
                                     |> List.map
                                         (\v ->
-                                            column [ Element.spacing 16, Element.width Element.fill, Element.spacing 0 ]
-                                                [ buttonLink [ fontGray6, Element.paddingXY 0 4 ]
+                                            column [ width fill ]
+                                                [ buttonLink [ fontColor gray6, paddingXY 0 0.25 ]
                                                     { label = text v.name
                                                     , onPress = Just (ToggleSection a b v.name)
                                                     }
                                                 , column
-                                                    [ Element.spacing 32
-                                                    , Element.width Element.fill
-                                                    , Element.spacing 0
-                                                    , Element.paddingXY 24 0
+                                                    [ width fill
+                                                    , paddingXY 1.5 0
                                                     ]
                                                     [ viewItems e (Dict.member v.name expanded) v.items
                                                     ]
@@ -333,16 +322,14 @@ viewItems module_ expand a =
         viewItem b =
             case b of
                 Section.Markdown c ->
-                    column [ Element.spacing 32, Element.width Element.fill, Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
+                    column [ width fill, spacing 2, paddingEach 1.5 1.5 0.25 1.5 ]
                         [ column
-                            [ Element.spacing 32
-                            , Element.width Element.fill
-                            , Element.padding 16
-                            , Element.Background.color gray1
-                            , Element.Border.rounded 4
-                            , Element.width Element.fill
-                            , Element.spacing 16
-                            , Font.size 15
+                            [ width fill
+                            , padding 1
+                            , spacing 1
+                            , backgroundColor gray1
+                            , borderRounded 0.25
+                            , fontSize 0.9375
                             ]
                             (c
                                 |> Markdown.Renderer.render Markdown.renderer
@@ -368,7 +355,7 @@ viewItems module_ expand a =
                 |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
                 |> onNothing (\_ -> module_.binops |> Dict.get b |> Maybe.map viewBinop)
     in
-    column [ Element.spacing 32, Element.width Element.fill, Element.width Element.fill, Element.spacing 0 ]
+    column [ width fill ]
         (a
             |> (\v ->
                     if expand then
@@ -392,18 +379,18 @@ viewItems module_ expand a =
 
 viewMember : Bool -> { name : String, type_ : String, comment : String } -> Element msg
 viewMember expand a =
-    column [ Element.spacing 32, Element.width Element.fill, Element.spacing 0 ]
-        [ row [ Element.spacing 16, Element.width Element.fill, Element.spacing 0 ]
+    column [ width fill ]
+        [ row [ width fill ]
             [ text a.name
-            , el [ Font.color gray5 ] (text a.type_)
+            , el [ fontColor gray5 ] (text a.type_)
             ]
         , if expand then
-            column [ Element.spacing 32, Element.width Element.fill, Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
+            column [ width fill, spacing 2, paddingEach 1.5 1.5 0.25 1.5 ]
                 [ Markdown.view
-                    [ Element.padding 16
-                    , Element.Background.color gray1
-                    , Element.Border.rounded 4
-                    , Font.size 15
+                    [ padding 1
+                    , backgroundColor gray1
+                    , borderRounded 0.5
+                    , fontSize 0.9375
                     ]
                     a.comment
                 ]
