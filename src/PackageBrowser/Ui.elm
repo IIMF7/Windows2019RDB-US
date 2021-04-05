@@ -259,10 +259,6 @@ column =
     Element.column
 
 
-section =
-    Element.column
-
-
 
 --
 

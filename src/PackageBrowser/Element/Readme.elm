@@ -292,11 +292,11 @@ viewModuleReadme a b expanded c =
                     in
                     case e.readme |> Section.fromMarkdown defaultTitle of
                         Ok f ->
-                            section [ Element.spacing 16, Element.width Element.fill ]
+                            column [ Element.spacing 16, Element.width Element.fill ]
                                 (f
                                     |> List.map
                                         (\v ->
-                                            section [ Element.spacing 16, Element.width Element.fill, Element.spacing 0 ]
+                                            column [ Element.spacing 16, Element.width Element.fill, Element.spacing 0 ]
                                                 [ buttonLink [ fontColorMuted, Element.paddingXY 0 4 ]
                                                     { label = text v.name
                                                     , onPress = Just (ToggleSection a b v.name)
