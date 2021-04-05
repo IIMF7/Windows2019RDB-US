@@ -314,7 +314,7 @@ h6 a =
 
 
 
---
+-- ELEMENTS THAT SHRINK WIDTH
 
 
 none =
