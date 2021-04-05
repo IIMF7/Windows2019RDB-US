@@ -35,7 +35,6 @@ type alias Context a b =
 
 type alias Model =
     { readmes : PackageNameDict.NameDict (Result Error Readme.Readme)
-    , expandedSections : PackageNameDict.NameDict (ModuleNameDict.NameDict (Dict String ()))
     }
 
 
@@ -47,7 +46,6 @@ type Error
 init : ( Model, Cmd Msg )
 init =
     ( { readmes = PackageNameDict.empty
-      , expandedSections = PackageNameDict.empty
       }
     , Cmd.none
     )
@@ -69,7 +67,6 @@ type Msg
     = ViewChanged
     | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
     | Reveal Elm.Package.Name
-    | ToggleSection Elm.Package.Name Elm.Module.Name String
 
 
 update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
@@ -104,34 +101,6 @@ update ctx msg model =
             , Cmd.none
             )
 
-        ToggleSection a b c ->
-            ( { model
-                | expandedSections =
-                    model.expandedSections
-                        |> PackageNameDict.update a
-                            (\v ->
-                                v
-                                    |> Maybe.withDefault ModuleNameDict.empty
-                                    |> ModuleNameDict.update b
-                                        (\vv ->
-                                            vv
-                                                |> Maybe.withDefault Dict.empty
-                                                |> Dict.update c
-                                                    (\vvv ->
-                                                        if vvv == Nothing then
-                                                            Just ()
-
-                                                        else
-                                                            Nothing
-                                                    )
-                                                |> Just
-                                        )
-                                    |> Just
-                            )
-              }
-            , Cmd.none
-            )
-
 
 
 --
@@ -150,17 +119,9 @@ view view_ model =
                 ]
 
             Router.ModuleView b c ->
-                let
-                    d : Dict String ()
-                    d =
-                        model.expandedSections
-                            |> PackageNameDict.get b
-                            |> Maybe.andThen (ModuleNameDict.get c)
-                            |> Maybe.withDefault Dict.empty
-                in
                 [ viewPackageHeader b
                 , viewModuleHeader b c
-                , viewModuleReadme b c d (PackageNameDict.get b model.readmes)
+                , viewModuleReadme b c (PackageNameDict.get b model.readmes)
                 ]
         )
 
@@ -265,8 +226,8 @@ viewPackageReadme a =
 --
 
 
-viewModuleReadme : Elm.Package.Name -> Elm.Module.Name -> Dict String () -> Maybe (Result Error Readme.Readme) -> Element Msg
-viewModuleReadme a b expanded c =
+viewModuleReadme : Elm.Package.Name -> Elm.Module.Name -> Maybe (Result Error Readme.Readme) -> Element Msg
+viewModuleReadme a b c =
     let
         view_ : Readme.Readme -> Element Msg
         view_ d =
@@ -288,12 +249,11 @@ viewModuleReadme a b expanded c =
                                     |> List.map
                                         (\v ->
                                             column [ width fill ]
-                                                [ buttonLink [ fontColor gray6, paddingXY 0 0.25 ]
-                                                    { label = text v.name
-                                                    , onPress = Just (ToggleSection a b v.name)
-                                                    }
+                                                [ p [ paddingXY 0 0.25, fontWeight 7 ]
+                                                    [ text v.name
+                                                    ]
                                                 , column [ width fill, paddingXY 1.5 0 ]
-                                                    [ viewItems e (Dict.member v.name expanded) v.items
+                                                    [ viewItems e v.items
                                                     ]
                                                 ]
                                         )
@@ -312,8 +272,8 @@ viewModuleReadme a b expanded c =
     viewReadme view_ c
 
 
-viewItems : Readme.ModuleReadme -> Bool -> List Section.Item -> Element msg
-viewItems module_ expand a =
+viewItems : Readme.ModuleReadme -> List Section.Item -> Element msg
+viewItems module_ a =
     let
         viewItem : Section.Item -> Element msg
         viewItem b =
@@ -341,7 +301,7 @@ viewItems module_ expand a =
                 Section.Member c ->
                     c
                         |> toMember
-                        |> Maybe.map (viewMember expand)
+                        |> Maybe.map viewMember
                         |> Maybe.withDefault none
 
         toMember : String -> Maybe { name : String, type_ : String, comment : String }
@@ -354,46 +314,26 @@ viewItems module_ expand a =
     in
     column [ width fill ]
         (a
-            |> (\v ->
-                    if expand then
-                        v
-
-                    else
-                        v
-                            |> List.filter
-                                (\vv ->
-                                    case vv of
-                                        Section.Member _ ->
-                                            True
-
-                                        _ ->
-                                            False
-                                )
-               )
             |> List.map viewItem
         )
 
 
-viewMember : Bool -> { name : String, type_ : String, comment : String } -> Element msg
-viewMember expand a =
+viewMember : { name : String, type_ : String, comment : String } -> Element msg
+viewMember a =
     column [ width fill ]
         [ row [ width fill ]
             [ text a.name
             , el [ fontColor gray5 ] (text a.type_)
             ]
-        , if expand then
-            column [ width fill, spacing 2, paddingEach 1.5 1.5 0.25 1.5 ]
-                [ Markdown.view
-                    [ padding 1
-                    , backgroundColor gray1
-                    , borderRounded 0.5
-                    , fontSize 0.9375
-                    ]
-                    a.comment
+        , column [ width fill, spacing 2, paddingEach 1.5 1.5 0.25 1.5 ]
+            [ Markdown.view
+                [ padding 1
+                , backgroundColor gray1
+                , borderRounded 0.5
+                , fontSize 0.9375
                 ]
-
-          else
-            none
+                a.comment
+            ]
         ]
 
 
