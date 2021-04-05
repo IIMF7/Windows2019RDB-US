@@ -321,12 +321,12 @@ backgroundColor =
 -- Fonts
 
 
-fontSize a =
-    Font.size (step a)
-
-
 fontColor =
     Font.color
+
+
+fontSize a =
+    Font.size (step a)
 
 
 fontFamilyDefault =
