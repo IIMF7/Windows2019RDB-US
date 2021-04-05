@@ -14,16 +14,6 @@ import Markdown.Parser
 import Markdown.Renderer
 
 
-view : List (Attribute msg) -> String -> Element msg
-view attrs a =
-    column (width fill :: spacing 16 :: attrs)
-        (a
-            |> (Markdown.Parser.parse >> Result.toMaybe)
-            |> Maybe.andThen (Markdown.Renderer.render renderer >> Result.toMaybe)
-            |> Maybe.withDefault [ paragraph [] [ text a ] ]
-        )
-
-
 renderer : Markdown.Renderer.Renderer (Element msg)
 renderer =
     { heading =

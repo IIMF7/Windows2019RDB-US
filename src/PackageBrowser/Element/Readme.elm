@@ -12,6 +12,7 @@ import Elm.Package
 import Elm.Package.NameDict as PackageNameDict
 import Elm.Type
 import Http
+import Markdown.Parser
 import Markdown.Renderer
 import PackageBrowser.Element.Readme.Section as Section
 import PackageBrowser.Router as Router
@@ -298,19 +299,30 @@ viewItems module_ a =
 
 viewMember : { name : String, type_ : String, comment : String } -> Element msg
 viewMember a =
-    column [ width fill ]
+    column [ width fill, spacing 0.5, paddingXY 1.5 0 ]
         [ row [ width fill ]
             [ text a.name
             , el [ fontColor gray5 ] (text a.type_)
             ]
         , column [ width fill, paddingXY 1.5 0 ]
-            [ Markdown.view
-                [ padding 1
-                , backgroundColor gray1
-                , borderRounded 0.5
+            [ column
+                [ width fill
+                , padding 1
+                , spacing 1
                 , fontSize 0.9375
+                , backgroundColor gray1
+                , borderRounded 0.25
                 ]
-                a.comment
+                (a.comment
+                    |> Markdown.Parser.parse
+                    |> Result.toMaybe
+                    |> Maybe.andThen (Markdown.Renderer.render Markdown.renderer >> Result.toMaybe)
+                    |> Maybe.withDefault
+                        [ status []
+                            [ text Strings.readmeIsNotAvailable
+                            ]
+                        ]
+                )
             ]
         ]
 
