@@ -10,7 +10,6 @@ import Html
 import Html.Attributes
 import Markdown.Block as Block
 import Markdown.Html
-import Markdown.Parser
 import Markdown.Renderer
 
 
