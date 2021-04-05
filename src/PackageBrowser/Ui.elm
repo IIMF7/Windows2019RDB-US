@@ -137,6 +137,34 @@ minimum =
 
 
 
+-- Padding and Spacing
+
+
+padding a =
+    Element.padding (a * 8)
+
+
+paddingXY a b =
+    Element.paddingXY (a * 8) (b * 8)
+
+
+paddingEach a b c d =
+    Element.paddingEach { top = a * 8, right = b * 8, bottom = c * 8, left = d * 8 }
+
+
+spacing a =
+    Element.spacing (a * 8)
+
+
+spacingXY a b =
+    Element.spacingXY (a * 8) (b * 8)
+
+
+spaceEvenly =
+    Element.spaceEvenly
+
+
+
 -- Root
 
 
