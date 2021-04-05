@@ -154,7 +154,7 @@ viewPackageHeader a =
         , borderColor gray3
         , borderWidthEach 0 0 0 1
         ]
-        [ h4 []
+        [ h5 []
             [ link [ fontColor gray9, onClick (Reveal a) ]
                 { label = text (Elm.Package.toString a)
                 , url = Router.PackageView a |> Router.viewToUrl
