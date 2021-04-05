@@ -14,39 +14,39 @@ white =
     rgb 1 1 1
 
 
-gray100 =
+gray1 =
     rgb 0.97 0.98 0.98
 
 
-gray200 =
+gray2 =
     rgb 0.91 0.93 0.94
 
 
-gray300 =
+gray3 =
     rgb 0.87 0.89 0.9
 
 
-gray400 =
+gray4 =
     rgb 0.81 0.83 0.85
 
 
-gray500 =
+gray5 =
     rgb 0.68 0.71 0.74
 
 
-gray600 =
+gray6 =
     rgb 0.42 0.46 0.49
 
 
-gray700 =
+gray7 =
     rgb 0.29 0.31 0.34
 
 
-gray800 =
+gray8 =
     rgb 0.2 0.23 0.25
 
 
-gray900 =
+gray9 =
     rgb 0.13 0.15 0.16
 
 
@@ -107,7 +107,7 @@ primary =
 
 
 secondary =
-    gray600
+    gray6
 
 
 success =
@@ -127,11 +127,11 @@ danger =
 
 
 light =
-    gray100
+    gray1
 
 
 dark =
-    gray900
+    gray9
 
 
 
@@ -139,11 +139,11 @@ dark =
 
 
 fontColorDefault =
-    Font.color gray900
+    Font.color gray9
 
 
 fontColorMuted =
-    Font.color gray600
+    Font.color gray6
 
 
 
@@ -151,7 +151,7 @@ fontColorMuted =
 
 
 bgColorDefault =
-    Background.color gray100
+    Background.color gray1
 
 
 
@@ -159,11 +159,11 @@ bgColorDefault =
 
 
 borderColorDefault =
-    Border.color gray300
+    Border.color gray3
 
 
 borderColorInput =
-    Border.color gray400
+    Border.color gray4
 
 
 shadow =

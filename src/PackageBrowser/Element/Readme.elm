@@ -326,7 +326,7 @@ viewItems module_ expand a =
                     column [ Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
                         [ column
                             [ Element.padding 16
-                            , Element.Background.color gray100
+                            , Element.Background.color gray1
                             , Element.Border.rounded 4
                             , Element.width Element.fill
                             , Element.spacing 16
@@ -383,13 +383,13 @@ viewMember expand a =
     column [ Element.spacing 0 ]
         [ row [ Element.spacing 0 ]
             [ text a.name
-            , el [ Font.color gray500 ] (text a.type_)
+            , el [ Font.color gray5 ] (text a.type_)
             ]
         , if expand then
             column [ Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
                 [ Markdown.view
                     [ Element.padding 16
-                    , Element.Background.color gray100
+                    , Element.Background.color gray1
                     , Element.Border.rounded 4
                     , Font.size 15
                     ]
