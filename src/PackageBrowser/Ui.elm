@@ -245,19 +245,19 @@ borderShadow =
 -- SPACING
 
 
-spacing =
+spacing2 =
     Element.spacing 8
 
 
-spacing2 =
+spacing3 =
     Element.spacing 16
 
 
-padding =
+padding2 =
     Element.padding 8
 
 
-padding2 =
+padding3 =
     Element.padding 16
 
 
@@ -282,11 +282,11 @@ column =
 
 
 p a =
-    Element.paragraph (spacing :: a)
+    Element.paragraph (spacing2 :: a)
 
 
 status a =
-    p (padding2 :: Font.center :: fontColorMuted :: a)
+    p (padding3 :: Font.center :: fontColorMuted :: a)
 
 
 h1 a =
