@@ -235,7 +235,7 @@ viewModuleReadme _ b c =
                                 (f
                                     |> List.map
                                         (\v ->
-                                            column [ width fill, spacing 0.5 ]
+                                            column [ width fill, spacing 1 ]
                                                 [ p [ fontWeight 7 ]
                                                     [ text v.name
                                                     ]
