@@ -242,7 +242,7 @@ image =
 
 
 rootStyle a =
-    fontSize
+    fontSize 1
         :: fontFamily
         :: Font.color gray9
         :: Background.color gray1
@@ -322,11 +322,11 @@ danger =
 
 
 
--- FONT
+-- Font
 
 
-fontSize =
-    Font.size 16
+fontSize a =
+    Font.size (a * 16)
 
 
 fontFamily =
