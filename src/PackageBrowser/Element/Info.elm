@@ -45,7 +45,7 @@ view model =
             [ h5 [ Font.center ]
                 [ text Strings.info
                 ]
-            , section []
+            , section [ Element.spacing 16, Element.width Element.fill ]
                 [ p []
                     [ text Strings.infoText1
                     ]

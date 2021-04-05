@@ -259,12 +259,8 @@ column =
     Element.column
 
 
-section a =
+section =
     Element.column
-        (spacing 16
-            :: width fill
-            :: a
-        )
 
 
 
