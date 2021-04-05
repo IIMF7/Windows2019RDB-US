@@ -151,7 +151,13 @@ viewBody model =
         [ height fill
         , centerX
         , backgroundColor gray0
-        , Element.inFront (Info.view model.info |> Element.map InfoMsg)
+        , Element.inFront
+            (el
+                [ Element.moveDown 16
+                , Element.moveRight 16
+                ]
+                (Info.view model.info |> Element.map InfoMsg)
+            )
         ]
         [ border_
         , el [ width (px 320), height fill ]

@@ -1,6 +1,5 @@
 module PackageBrowser.Element.Info exposing (..)
 
-import Element
 import Element.Font as Font
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
@@ -42,11 +41,11 @@ update msg model =
 view : Model -> Element Msg
 view model =
     if model.show then
-        Modal.view [ Element.moveDown 16, Element.moveRight 16, Element.padding 32 ]
+        Modal.view [ padding 2 ]
             [ h5 [ Font.center ]
                 [ text Strings.info
                 ]
-            , column [ Element.spacing 16, Element.width Element.fill ]
+            , column [ width fill, spacing 1 ]
                 [ p []
                     [ text Strings.infoText1
                     ]
@@ -69,7 +68,7 @@ view model =
                     , text "."
                     ]
                 ]
-            , buttonLink [ Element.centerX, Element.padding 8 ]
+            , buttonLink [ centerX, padding 0.5 ]
                 { label = text Strings.ok
                 , onPress = Just ToggleInfo
                 }
