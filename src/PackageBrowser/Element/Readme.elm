@@ -126,32 +126,6 @@ view view_ model =
         )
 
 
-viewLoading : (a -> Element msg) -> Maybe (Result Error a) -> Element msg
-viewLoading fn a =
-    case a of
-        Just b ->
-            case b of
-                Ok c ->
-                    fn c
-
-                Err c ->
-                    case c of
-                        Loading ->
-                            status []
-                                [ text Strings.loading
-                                ]
-
-                        HttpError d ->
-                            status []
-                                [ text (Strings.httpError d)
-                                ]
-
-        Nothing ->
-            status []
-                [ text Strings.packageNotFound
-                ]
-
-
 viewPackageHeader : Elm.Package.Name -> Element Msg
 viewPackageHeader a =
     row
@@ -489,6 +463,36 @@ typeToString a =
             ]
                 |> String.join " "
                 |> List.singleton
+
+
+
+--
+
+
+viewLoading : (a -> Element msg) -> Maybe (Result Error a) -> Element msg
+viewLoading fn a =
+    case a of
+        Just b ->
+            case b of
+                Ok c ->
+                    fn c
+
+                Err c ->
+                    case c of
+                        Loading ->
+                            status []
+                                [ text Strings.loading
+                                ]
+
+                        HttpError d ->
+                            status []
+                                [ text (Strings.httpError d)
+                                ]
+
+        Nothing ->
+            status []
+                [ text Strings.packageNotFound
+                ]
 
 
 
