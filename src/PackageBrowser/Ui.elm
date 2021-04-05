@@ -395,7 +395,7 @@ borderShadow a =
     Border.shadow
         { offset = ( 0, 16 )
         , size = 0
-        , blur = a * 16
+        , blur = stepFloat a
         , color = gray10 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
         }
 
@@ -473,4 +473,9 @@ rootStyle a =
 
 step : Float -> Int
 step a =
-    a * 16 |> round
+    round (stepFloat a)
+
+
+stepFloat : Float -> Float
+stepFloat a =
+    a * 16
