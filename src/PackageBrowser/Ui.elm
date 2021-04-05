@@ -11,6 +11,18 @@ import Html.Attributes
 
 
 
+-- ROOT
+
+
+rootStyle a =
+    fontSize
+        :: fontFamily
+        :: fontColor
+        :: bgColor
+        :: a
+
+
+
 -- COLORS
 
 
@@ -219,14 +231,6 @@ borderShadow =
 
 
 --
-
-
-rootStyle a =
-    fontColor
-        :: fontSize
-        :: fontFamily
-        :: bgColor
-        :: a
 
 
 inputStyle a =
