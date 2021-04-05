@@ -165,6 +165,34 @@ spaceEvenly =
 
 
 
+-- Alignment
+
+
+centerX =
+    Element.centerX
+
+
+centerY =
+    Element.centerY
+
+
+alignLeft =
+    Element.alignLeft
+
+
+alignRight =
+    Element.alignRight
+
+
+alignTop =
+    Element.alignTop
+
+
+alignBottom =
+    Element.alignBottom
+
+
+
 -- Root
 
 
