@@ -208,11 +208,11 @@ viewPackageHeader : Elm.Package.Name -> Element Msg
 viewPackageHeader a =
     row
         [ Element.paddingXY 16 12
-        , borderColorDefault
+        , borderColor
         , borderBottom
         ]
         [ h4 []
-            [ link [ fontColorDefault, onClick (Reveal a) ]
+            [ link [ fontColor, onClick (Reveal a) ]
                 { label = text (Elm.Package.toString a)
                 , url = Router.PackageView a |> Router.viewToUrl
                 }
@@ -232,11 +232,11 @@ viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element Msg
 viewModuleHeader a b =
     row
         [ Element.paddingXY 16 12
-        , borderColorDefault
+        , borderColor
         , borderBottom
         ]
         [ h5 []
-            [ link [ fontColorDefault, onClick (Reveal a) ]
+            [ link [ fontColor, onClick (Reveal a) ]
                 { label = text (Elm.Module.toString b)
                 , url = Router.ModuleView a b |> Router.viewToUrl
                 }

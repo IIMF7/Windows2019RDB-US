@@ -172,12 +172,12 @@ view view_ recent model =
         [ column
             [ Element.spacing 8
             , Element.paddingXY 0 8
-            , borderColorDefault
+            , borderColor
             , borderBottom
             ]
             [ row [ Element.paddingXY 16 0 ]
                 [ h5 []
-                    [ link [ fontColorDefault ]
+                    [ link [ fontColor ]
                         { label = text Strings.title
                         , url = Router.DefaultView |> Router.viewToUrl
                         }
@@ -288,12 +288,12 @@ viewPackage expand active a =
                 noneAttribute
 
             else
-                fontColorDefault
+                fontColor
     in
     column
         [ Element.height Element.fill
         , Element.spacing 0
-        , borderColorDefault
+        , borderColor
         ]
         [ link [ Element.width Element.fill, Element.paddingXY 16 8, packageColor ]
             { label = text (Elm.Package.toString a.name)
@@ -312,7 +312,7 @@ viewPackage expand active a =
                     )
             )
         , if shortened then
-            link [ Element.width Element.fill, Element.paddingXY 40 0, fontColorDefault ]
+            link [ Element.width Element.fill, Element.paddingXY 40 0, fontColor ]
                 { label = text Strings.ellipsis
                 , url = Router.viewToUrl (Router.PackageView a.name)
                 }

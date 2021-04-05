@@ -138,7 +138,7 @@ dark =
 --
 
 
-fontColorDefault =
+fontColor =
     Font.color gray9
 
 
@@ -150,7 +150,7 @@ fontColorMuted =
 --
 
 
-bgColorDefault =
+bgColor =
     Background.color gray1
 
 
@@ -158,7 +158,7 @@ bgColorDefault =
 --
 
 
-borderColorDefault =
+borderColor =
     Border.color gray3
 
 
@@ -216,8 +216,8 @@ borderShadow =
 
 
 rootStyle a =
-    bgColorDefault
-        :: fontColorDefault
+    bgColor
+        :: fontColor
         :: Font.size 16
         :: Font.family fontSansSerif
         :: a
@@ -415,7 +415,7 @@ modal a =
             :: Background.color white
             :: borderShadow
             :: border
-            :: borderColorDefault
+            :: borderColor
             :: Border.rounded 16
             :: a
         )
