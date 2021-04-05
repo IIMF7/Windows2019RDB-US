@@ -145,25 +145,21 @@ viewBody : Model -> Element Msg
 viewBody model =
     let
         border_ =
-            el [ Element.height Element.fill, borderGray3, borderRight ] none
+            el [ height fill, borderColor gray3, borderWidthEach 1 0 0 0 ] none
     in
     row
-        [ Element.spacing 16
-        , Element.width Element.fill
-        , Element.height Element.fill
-        , Element.width Element.shrink
-        , Element.centerX
-        , Element.spacing 0
-        , Background.color white
+        [ height fill
+        , centerX
+        , backgroundColor gray0
         , Element.inFront (Info.view model.info |> Element.map InfoMsg)
         ]
         [ border_
-        , el [ Element.width (Element.px 320), Element.height Element.fill ]
+        , el [ width (px 320), height fill ]
             (Lazy.lazy3 Packages.view model.router.view model.router.recent model.packages
                 |> Element.map PackagesMsg
             )
         , border_
-        , el [ Element.width (Element.px 880), Element.height Element.fill ]
+        , el [ width (px 880), height fill ]
             (Lazy.lazy2 Readme.view model.router.view model.readme
                 |> Element.map ReadmeMsg
             )
