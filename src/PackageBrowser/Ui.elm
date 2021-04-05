@@ -287,7 +287,7 @@ id a =
 
 
 
---
+-- INPUTS
 
 
 inputStyle a =
@@ -317,7 +317,7 @@ labelAbove a =
 
 
 
---
+-- VIEWS
 
 
 modal a =
