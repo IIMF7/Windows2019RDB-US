@@ -166,11 +166,15 @@ scrollToPackage ctx model a =
 view : Router.View -> NameDict.NameDict () -> Model -> Element Msg
 view view_ recent model =
     column
-        [ Element.height Element.fill
+        [ Element.spacing 32
+        , Element.width Element.fill
+        , Element.height Element.fill
         , Element.spacing 0
         ]
         [ column
-            [ Element.spacing 8
+            [ Element.spacing 32
+            , Element.width Element.fill
+            , Element.spacing 8
             , Element.paddingXY 0 8
             , borderColor
             , borderBottom
@@ -293,7 +297,9 @@ viewPackage expand active a =
                 fontColor
     in
     column
-        [ Element.height Element.fill
+        [ Element.spacing 32
+        , Element.width Element.fill
+        , Element.height Element.fill
         , Element.spacing 0
         , borderColor
         ]

@@ -255,12 +255,8 @@ row =
     Element.row
 
 
-column a =
+column =
     Element.column
-        (spacing 32
-            :: width fill
-            :: a
-        )
 
 
 section a =
@@ -413,7 +409,9 @@ labelAbove a =
 
 modal a =
     column
-        (width (shrink |> Element.maximum 512)
+        (Element.spacing 32
+            :: Element.width Element.fill
+            :: width (shrink |> Element.maximum 512)
             :: Background.color white
             :: borderShadow
             :: border

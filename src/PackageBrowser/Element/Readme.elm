@@ -144,7 +144,9 @@ update ctx msg model =
 view : Router.View -> Model -> Element Msg
 view view_ model =
     column
-        [ Element.height Element.fill
+        [ Element.spacing 32
+        , Element.width Element.fill
+        , Element.height Element.fill
         , Element.spacing 0
         ]
         (case view_ of
@@ -175,7 +177,9 @@ view view_ model =
 viewReadme : (a -> Element msg) -> Maybe (Result Error a) -> Element msg
 viewReadme fn a =
     column
-        [ Element.height Element.fill
+        [ Element.spacing 32
+        , Element.width Element.fill
+        , Element.height Element.fill
         , Element.scrollbars
         , Element.paddingEach { left = 16, right = 16, top = 16, bottom = 128 }
         ]
@@ -298,7 +302,9 @@ viewModuleReadme a b expanded c =
                                                     , onPress = Just (ToggleSection a b v.name)
                                                     }
                                                 , column
-                                                    [ Element.spacing 0
+                                                    [ Element.spacing 32
+                                                    , Element.width Element.fill
+                                                    , Element.spacing 0
                                                     , Element.paddingXY 24 0
                                                     ]
                                                     [ viewItems e (Dict.member v.name expanded) v.items
@@ -327,9 +333,11 @@ viewItems module_ expand a =
         viewItem b =
             case b of
                 Section.Markdown c ->
-                    column [ Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
+                    column [ Element.spacing 32, Element.width Element.fill, Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
                         [ column
-                            [ Element.padding 16
+                            [ Element.spacing 32
+                            , Element.width Element.fill
+                            , Element.padding 16
                             , Element.Background.color gray1
                             , Element.Border.rounded 4
                             , Element.width Element.fill
@@ -360,7 +368,7 @@ viewItems module_ expand a =
                 |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
                 |> onNothing (\_ -> module_.binops |> Dict.get b |> Maybe.map viewBinop)
     in
-    column [ Element.width Element.fill, Element.spacing 0 ]
+    column [ Element.spacing 32, Element.width Element.fill, Element.width Element.fill, Element.spacing 0 ]
         (a
             |> (\v ->
                     if expand then
@@ -384,13 +392,13 @@ viewItems module_ expand a =
 
 viewMember : Bool -> { name : String, type_ : String, comment : String } -> Element msg
 viewMember expand a =
-    column [ Element.spacing 0 ]
+    column [ Element.spacing 32, Element.width Element.fill, Element.spacing 0 ]
         [ row [ Element.spacing 16, Element.width Element.fill, Element.spacing 0 ]
             [ text a.name
             , el [ Font.color gray5 ] (text a.type_)
             ]
         , if expand then
-            column [ Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
+            column [ Element.spacing 32, Element.width Element.fill, Element.paddingEach { left = 24, right = 24, top = 4, bottom = 24 } ]
                 [ Markdown.view
                     [ Element.padding 16
                     , Element.Background.color gray1
