@@ -334,7 +334,10 @@ viewMember : { name : String, type_ : String, comment : String } -> Element msg
 viewMember a =
     column [ width fill, spacing 0.5, paddingXY 1.5 0 ]
         [ row [ width fill ]
-            [ text a.name
+            [ link [ id a.name ]
+                { label = text a.name
+                , url = "#" ++ a.name
+                }
             , el [ fontColor gray6 ] (text a.type_)
             ]
         , column [ width fill, paddingXY 1.5 0 ]
