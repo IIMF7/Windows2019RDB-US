@@ -259,7 +259,7 @@ viewItems module_ a =
         viewItem b =
             case b of
                 Section.Markdown c ->
-                    column [ width fill, spacing 2, paddingEach 1.5 1.5 0.25 1.5 ]
+                    column [ width fill, paddingXY 1.5 0 ]
                         [ column
                             [ width fill
                             , padding 1
@@ -305,7 +305,7 @@ viewMember a =
             [ text a.name
             , el [ fontColor gray5 ] (text a.type_)
             ]
-        , column [ width fill, spacing 2, paddingEach 1.5 1.5 0.25 1.5 ]
+        , column [ width fill, paddingXY 1.5 0 ]
             [ Markdown.view
                 [ padding 1
                 , backgroundColor gray1
