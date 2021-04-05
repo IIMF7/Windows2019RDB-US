@@ -59,7 +59,7 @@ textColumn a =
 
 
 status a =
-    p (padding 2 :: fontCenter :: Font.color gray6 :: a)
+    p (padding 2 :: fontCenter :: fontColor gray6 :: a)
 
 
 h1 a =
@@ -423,8 +423,8 @@ id a =
 inputStyle a =
     padding 1
         :: spacing 1
-        :: Background.color gray0
-        :: Border.color gray4
+        :: backgroundColor gray0
+        :: borderColor gray4
         :: borderWidth 1
         :: borderRounded 0.5
         :: a
@@ -433,7 +433,7 @@ inputStyle a =
 buttonLink : List (Element.Attribute msg) -> { label : Element msg, onPress : Maybe msg } -> Element msg
 buttonLink a =
     Input.button
-        (Font.color primary
+        (fontColor primary
             :: borderRounded 0.5
             :: a
         )
@@ -444,7 +444,7 @@ searchInput a =
 
 
 placeholder a =
-    Input.placeholder (Font.size 14 :: a)
+    Input.placeholder (fontSize 0.875 :: a)
 
 
 labelHidden =
@@ -452,7 +452,7 @@ labelHidden =
 
 
 labelAbove a =
-    Input.labelAbove (Font.size 12 :: a)
+    Input.labelAbove (fontSize 0.75 :: a)
 
 
 
@@ -462,8 +462,8 @@ labelAbove a =
 rootStyle a =
     fontSize 1
         :: fontFamilyDefault
-        :: Font.color gray9
-        :: Background.color gray1
+        :: fontColor gray9
+        :: backgroundColor gray1
         :: a
 
 
