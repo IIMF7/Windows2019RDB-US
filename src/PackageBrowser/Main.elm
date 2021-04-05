@@ -145,7 +145,7 @@ viewBody : Model -> Element Msg
 viewBody model =
     let
         border_ =
-            el [ Element.height Element.fill, borderColor, borderRight ] none
+            el [ Element.height Element.fill, borderGray3, borderRight ] none
     in
     row
         [ Element.spacing 16

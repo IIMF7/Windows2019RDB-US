@@ -21,6 +21,7 @@ import PackageBrowser.Element.Readme.Section as Section
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Colors exposing (..)
 import PackageBrowser.Ui.Markdown as Markdown
 
 
@@ -214,11 +215,11 @@ viewPackageHeader a =
         [ Element.spacing 16
         , Element.width Element.fill
         , Element.paddingXY 16 12
-        , borderColor
+        , borderGray3
         , borderBottom
         ]
         [ h4 []
-            [ link [ fontColor, onClick (Reveal a) ]
+            [ link [ fontGray9, onClick (Reveal a) ]
                 { label = text (Elm.Package.toString a)
                 , url = Router.PackageView a |> Router.viewToUrl
                 }
@@ -240,11 +241,11 @@ viewModuleHeader a b =
         [ Element.spacing 16
         , Element.width Element.fill
         , Element.paddingXY 16 12
-        , borderColor
+        , borderGray3
         , borderBottom
         ]
         [ h5 []
-            [ link [ fontColor, onClick (Reveal a) ]
+            [ link [ fontGray9, onClick (Reveal a) ]
                 { label = text (Elm.Module.toString b)
                 , url = Router.ModuleView a b |> Router.viewToUrl
                 }
@@ -297,7 +298,7 @@ viewModuleReadme a b expanded c =
                                     |> List.map
                                         (\v ->
                                             column [ Element.spacing 16, Element.width Element.fill, Element.spacing 0 ]
-                                                [ buttonLink [ fontColorMuted, Element.paddingXY 0 4 ]
+                                                [ buttonLink [ fontGray6, Element.paddingXY 0 4 ]
                                                     { label = text v.name
                                                     , onPress = Just (ToggleSection a b v.name)
                                                     }

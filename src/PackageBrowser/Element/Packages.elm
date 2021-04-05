@@ -16,6 +16,7 @@ import Json.Decode as Decode
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Colors exposing (..)
 import Regex
 import Task
 
@@ -176,12 +177,12 @@ view view_ recent model =
             , Element.width Element.fill
             , Element.spacing 8
             , Element.paddingXY 0 8
-            , borderColor
+            , borderGray3
             , borderBottom
             ]
             [ row [ Element.spacing 16, Element.width Element.fill, Element.paddingXY 16 0 ]
                 [ h5 []
-                    [ link [ fontColor ]
+                    [ link [ fontGray9 ]
                         { label = text Strings.title
                         , url = Router.DefaultView |> Router.viewToUrl
                         }
@@ -286,7 +287,7 @@ viewPackage expand active a =
                 noneAttribute
 
             else
-                fontColorMuted
+                fontGray6
 
         moduleColor : Elm.Module.Name -> Element.Attribute msg
         moduleColor b =
@@ -294,14 +295,14 @@ viewPackage expand active a =
                 noneAttribute
 
             else
-                fontColor
+                fontGray9
     in
     column
         [ Element.spacing 32
         , Element.width Element.fill
         , Element.height Element.fill
         , Element.spacing 0
-        , borderColor
+        , borderGray3
         ]
         [ link [ Element.width Element.fill, Element.paddingXY 16 8, packageColor ]
             { label = text (Elm.Package.toString a.name)
@@ -320,7 +321,7 @@ viewPackage expand active a =
                     )
             )
         , if shortened then
-            link [ Element.width Element.fill, Element.paddingXY 40 0, fontColor ]
+            link [ Element.width Element.fill, Element.paddingXY 40 0, fontGray9 ]
                 { label = text Strings.ellipsis
                 , url = Router.viewToUrl (Router.PackageView a.name)
                 }

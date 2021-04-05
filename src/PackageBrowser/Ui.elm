@@ -18,25 +18,13 @@ import PackageBrowser.Ui.Colors as Colors
 rootStyle a =
     fontSize
         :: fontFamily
-        :: fontColor
-        :: bgColor
+        :: Colors.fontGray9
+        :: Colors.bgGray1
         :: a
 
 
 
 -- FONT
-
-
-fontColor =
-    Font.color Colors.gray9
-
-
-fontColorMuted =
-    Font.color Colors.gray6
-
-
-fontColorPrimary =
-    Font.color Colors.primary
 
 
 fontSize =
@@ -86,14 +74,6 @@ fontCenter =
 
 
 
--- BACKGROUND
-
-
-bgColor =
-    Background.color Colors.gray1
-
-
-
 -- BORDER
 
 
@@ -119,14 +99,6 @@ borderTop =
 
 borderBottom =
     Border.widthEach { edges | bottom = 1 }
-
-
-borderColor =
-    Border.color Colors.gray3
-
-
-borderColorInput =
-    Border.color Colors.gray4
 
 
 borderRounded1 =
@@ -203,7 +175,7 @@ p a =
 
 
 status a =
-    p (padding3 :: fontCenter :: fontColorMuted :: a)
+    p (padding3 :: fontCenter :: Colors.fontGray6 :: a)
 
 
 h1 a =
@@ -252,7 +224,7 @@ br =
 
 link : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 link a =
-    Element.link (fontColorPrimary :: a)
+    Element.link (Colors.fontPrimary :: a)
 
 
 image : List (Element.Attribute msg) -> { description : String, src : String } -> Element.Element msg
@@ -262,13 +234,13 @@ image =
 
 newTabLink : List (Element.Attr () msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
 newTabLink a =
-    Element.newTabLink (fontColorPrimary :: a)
+    Element.newTabLink (Colors.fontPrimary :: a)
 
 
 buttonLink : List (Element.Attribute msg) -> { label : Element.Element msg, onPress : Maybe msg } -> Element.Element msg
 buttonLink a =
     Input.button
-        (fontColorPrimary
+        (Colors.fontPrimary
             :: borderRounded1
             :: a
         )
@@ -293,8 +265,8 @@ id a =
 inputStyle a =
     padding2
         :: spacing2
-        :: Background.color Colors.gray0
-        :: borderColorInput
+        :: Colors.bgGray0
+        :: Colors.borderGray4
         :: border
         :: borderRounded1
         :: a
@@ -325,10 +297,10 @@ modal a =
         (Element.spacing 32
             :: Element.width Element.fill
             :: Element.width (Element.shrink |> Element.maximum 512)
-            :: Background.color Colors.gray0
+            :: Colors.bgGray0
             :: borderShadow
             :: border
-            :: borderColor
+            :: Colors.borderGray3
             :: Border.rounded 16
             :: a
         )
