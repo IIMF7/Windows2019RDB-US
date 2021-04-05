@@ -208,22 +208,22 @@ alpha =
 -- Links
 
 
-link : List (Element.Attribute msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
+link : List (Element.Attribute msg) -> { label : Element msg, url : String } -> Element msg
 link =
     Element.link
 
 
-newTabLink : List (Element.Attribute msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
+newTabLink : List (Element.Attribute msg) -> { label : Element msg, url : String } -> Element msg
 newTabLink =
     Element.newTabLink
 
 
-download : List (Element.Attribute msg) -> { label : Element.Element msg, url : String } -> Element.Element msg
+download : List (Element.Attribute msg) -> { label : Element msg, url : String } -> Element msg
 download =
     Element.download
 
 
-downloadAs : List (Element.Attribute msg) -> { label : Element.Element msg, filename : String, url : String } -> Element.Element msg
+downloadAs : List (Element.Attribute msg) -> { label : Element msg, filename : String, url : String } -> Element msg
 downloadAs =
     Element.downloadAs
 
@@ -419,7 +419,7 @@ br =
     Element.html (Html.br [] [])
 
 
-buttonLink : List (Element.Attribute msg) -> { label : Element.Element msg, onPress : Maybe msg } -> Element.Element msg
+buttonLink : List (Element.Attribute msg) -> { label : Element msg, onPress : Maybe msg } -> Element msg
 buttonLink a =
     Input.button
         (Font.color primary
