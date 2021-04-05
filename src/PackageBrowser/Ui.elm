@@ -141,23 +141,23 @@ minimum =
 
 
 padding a =
-    Element.padding (mul16 a)
+    Element.padding (step a)
 
 
 paddingXY a b =
-    Element.paddingXY (mul16 a) (mul16 b)
+    Element.paddingXY (step a) (step b)
 
 
 paddingEach a b c d =
-    Element.paddingEach { left = mul16 a, right = mul16 b, top = mul16 c, bottom = mul16 d }
+    Element.paddingEach { left = step a, right = step b, top = step c, bottom = step d }
 
 
 spacing a =
-    Element.spacing (mul16 a)
+    Element.spacing (step a)
 
 
 spacingXY a b =
-    Element.spacingXY (mul16 a) (mul16 b)
+    Element.spacingXY (step a) (step b)
 
 
 spaceEvenly =
@@ -322,7 +322,7 @@ backgroundColor =
 
 
 fontSize a =
-    Font.size (mul16 a)
+    Font.size (step a)
 
 
 fontColor =
@@ -388,7 +388,7 @@ borderWidthEach a b c d =
 
 
 borderRounded a =
-    Border.rounded (mul16 a)
+    Border.rounded (step a)
 
 
 borderShadow a =
@@ -471,6 +471,6 @@ rootStyle a =
 -- Helpers
 
 
-mul16 : Float -> Int
-mul16 a =
+step : Float -> Int
+step a =
     a * 16 |> round
