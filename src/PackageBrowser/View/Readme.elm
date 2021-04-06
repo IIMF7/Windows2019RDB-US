@@ -10,6 +10,7 @@ import Elm.Module.NameDict as ModuleNameDict
 import Elm.Package
 import Elm.Package.NameDict as PackageNameDict
 import Http
+import Markdown.Block
 import Markdown.Parser
 import Markdown.Renderer
 import PackageBrowser.Router as Router
@@ -283,37 +284,40 @@ viewModuleReadme _ b c =
 
 viewItems : List Section.Item -> Element msg
 viewItems a =
-    let
-        viewItem : Section.Item -> Element msg
-        viewItem b =
-            case b of
-                Section.Markdown c ->
-                    column [ width fill, paddingXY 3 0 ]
-                        [ column
-                            [ width fill
-                            , padding 1
-                            , spacing 1
-                            , fontSize 0.9375
-                            , backgroundColor gray1
-                            , borderRounded 0.25
-                            ]
-                            (c
-                                |> Markdown.Renderer.render Markdown.renderer
-                                |> Result.withDefault
-                                    [ Status.view []
-                                        [ text Strings.readmeIsNotAvailable
-                                        ]
-                                    ]
-                            )
-                        ]
-
-                Section.Member c ->
-                    viewMember c
-    in
     column [ width fill, spacing 1 ]
         (a
-            |> List.map viewItem
+            |> List.map
+                (\v ->
+                    case v of
+                        Section.Markdown c ->
+                            viewMarkdown c
+
+                        Section.Member c ->
+                            viewMember c
+                )
         )
+
+
+viewMarkdown : List Markdown.Block.Block -> Element.Element msg
+viewMarkdown a =
+    column [ width fill, paddingXY 3 0 ]
+        [ column
+            [ width fill
+            , padding 1
+            , spacing 1
+            , fontSize 0.9375
+            , backgroundColor gray1
+            , borderRounded 0.25
+            ]
+            (a
+                |> Markdown.Renderer.render Markdown.renderer
+                |> Result.withDefault
+                    [ Status.view []
+                        [ text Strings.readmeIsNotAvailable
+                        ]
+                    ]
+            )
+        ]
 
 
 viewMember : { name : String, type_ : String, comment : String } -> Element msg
