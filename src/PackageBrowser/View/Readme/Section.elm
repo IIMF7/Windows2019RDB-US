@@ -1,5 +1,6 @@
 module PackageBrowser.View.Readme.Section exposing (..)
 
+import Database.Package.Readme
 import Dict
 import Elm.Docs
 import Elm.Type
@@ -137,13 +138,13 @@ replaceDocs a =
 --
 
 
-toMember : String -> Maybe Member
-toMember b =
+toMember : Database.Package.Readme.ModuleReadme -> String -> Maybe Member
+toMember module_ a =
     Nothing
-        |> onNothing (\_ -> module_.unions |> Dict.get b |> Maybe.map unionToMember)
-        |> onNothing (\_ -> module_.aliases |> Dict.get b |> Maybe.map aliasToMember)
-        |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map valueToMember)
-        |> onNothing (\_ -> module_.binops |> Dict.get (b |> String.dropLeft 1 |> String.dropRight 1) |> Maybe.map binopToMember)
+        |> onNothing (\_ -> module_.unions |> Dict.get a |> Maybe.map unionToMember)
+        |> onNothing (\_ -> module_.aliases |> Dict.get a |> Maybe.map aliasToMember)
+        |> onNothing (\_ -> module_.values |> Dict.get a |> Maybe.map valueToMember)
+        |> onNothing (\_ -> module_.binops |> Dict.get (a |> String.dropLeft 1 |> String.dropRight 1) |> Maybe.map binopToMember)
 
 
 unionToMember : Elm.Docs.Union -> Member
