@@ -162,4 +162,4 @@ renderer =
 
 idFromString : String -> String
 idFromString a =
-    a |> String.replace " " "-" |> String.toLower
+    a |> String.replace " " "-"
