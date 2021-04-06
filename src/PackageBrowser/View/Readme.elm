@@ -233,19 +233,18 @@ viewPackageReadme a =
 viewModuleReadme : Elm.Package.Name -> Elm.Module.Name -> Maybe (Result Error Readme.Readme) -> Element Msg
 viewModuleReadme _ b c =
     let
+        defaultTitle : String
+        defaultTitle =
+            Elm.Module.toString b
+                |> String.split "."
+                |> List.reverse
+                |> List.head
+                |> Maybe.withDefault ""
+
         view_ : Readme.Readme -> Element Msg
         view_ d =
             case d.modules |> ModuleNameDict.get b of
                 Just e ->
-                    let
-                        defaultTitle : String
-                        defaultTitle =
-                            Elm.Module.toString b
-                                |> String.split "."
-                                |> List.reverse
-                                |> List.head
-                                |> Maybe.withDefault ""
-                    in
                     case e.readme |> Section.fromMarkdown defaultTitle of
                         Ok f ->
                             viewSections f
