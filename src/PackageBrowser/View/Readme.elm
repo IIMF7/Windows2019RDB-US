@@ -297,7 +297,7 @@ viewSections a =
         )
 
 
-viewMarkdown : List Markdown.Block.Block -> Element.Element msg
+viewMarkdown : List Markdown.Block.Block -> Element msg
 viewMarkdown a =
     column [ width fill, paddingXY 3 0 ]
         [ column
