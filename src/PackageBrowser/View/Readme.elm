@@ -76,12 +76,12 @@ update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
 update ctx msg model =
     case msg of
         UrlChanged ->
-            (case ctx.router.view |> Router.viewToPackageName of
+            case ctx.router.view |> Router.viewToPackageName of
                 Just b ->
                     case model.readmes |> PackageNameDict.get b of
                         Just _ ->
                             ( model
-                            , Cmd.none
+                            , scrollToFragment ctx
                             )
 
                         Nothing ->
@@ -93,15 +93,6 @@ update ctx msg model =
                     ( model
                     , Cmd.none
                     )
-            )
-                |> Tuple.mapSecond
-                    (\v ->
-                        Cmd.batch
-                            [ Browser.Dom.setViewportOf readmeId 0 0
-                                |> Task.attempt ViewportSet
-                            , v
-                            ]
-                    )
 
         Reveal _ ->
             ( model
@@ -110,13 +101,35 @@ update ctx msg model =
 
         GotReadme a b ->
             ( { model | readmes = model.readmes |> PackageNameDict.insert a (b |> Result.mapError HttpError) }
-            , Cmd.none
+            , if (ctx.router.view |> Router.viewToPackageName) == Just a then
+                scrollToFragment ctx
+
+              else
+                Cmd.none
             )
 
         ViewportSet _ ->
             ( model
             , Cmd.none
             )
+
+
+scrollToFragment : Context a b -> Cmd Msg
+scrollToFragment ctx =
+    case ctx.router.view |> Router.viewToFragment of
+        Just c ->
+            Task.map2
+                (\v vv ->
+                    Browser.Dom.setViewportOf readmeId 0 (v.viewport.y + vv.element.y - 104)
+                )
+                (Browser.Dom.getViewportOf readmeId)
+                (Browser.Dom.getElement (Markdown.idFromString c))
+                |> Task.andThen identity
+                |> Task.attempt ViewportSet
+
+        Nothing ->
+            Browser.Dom.setViewportOf readmeId 0 0
+                |> Task.attempt ViewportSet
 
 
 
