@@ -31,8 +31,8 @@ type alias Member =
 --
 
 
-fromMarkdown : String -> String -> Result String (List Section)
-fromMarkdown defaultTitle a =
+fromMarkdown : Database.Package.Readme.ModuleReadme -> String -> String -> Result String (List Section)
+fromMarkdown module_ defaultTitle a =
     let
         mapItems : (List Item -> List Item) -> List Section -> List Section
         mapItems fn acc =
@@ -55,7 +55,12 @@ fromMarkdown defaultTitle a =
                 Markdown.Block.HtmlBlock (Markdown.Block.HtmlElement "docs" (attr :: _) _) ->
                     case attr.name of
                         "value" ->
-                            acc |> mapItems (\v -> MemberItem attr.value :: v)
+                            case attr.value |> toMember module_ of
+                                Just c ->
+                                    acc |> mapItems (\v -> MemberItem c :: v)
+
+                                Nothing ->
+                                    acc
 
                         _ ->
                             acc

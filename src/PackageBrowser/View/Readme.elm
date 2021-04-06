@@ -246,7 +246,7 @@ viewModuleReadme _ b c =
         view_ d =
             case d.modules |> ModuleNameDict.get b of
                 Just e ->
-                    case e.readme |> Section.fromMarkdown defaultTitle of
+                    case e.readme |> Section.fromMarkdown e defaultTitle of
                         Ok f ->
                             viewSections f
 
