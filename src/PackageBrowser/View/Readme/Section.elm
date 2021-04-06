@@ -206,6 +206,10 @@ viewBinop a =
     }
 
 
+
+--
+
+
 typeToString : Elm.Type.Type -> List String
 typeToString a =
     case a of
