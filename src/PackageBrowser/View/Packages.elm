@@ -255,11 +255,13 @@ computeSize expand a =
             a.exposed |> Package.exposedToList |> List.length
     in
     32
-        + (if not expand && len > modulesLimit then
-            modulesLimit * 16
+        + ((if not expand && len > modulesLimit then
+                modulesLimit
 
-           else
-            len * 16
+            else
+                len
+           )
+            |> (\v -> v * 16 + (v - 1) * 4)
           )
         + 12
 
@@ -304,7 +306,7 @@ viewPackage expand active a =
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name)
             }
-        , Element.Keyed.column [ width fill ]
+        , Element.Keyed.column [ width fill, spacing 0.25 ]
             (modules
                 |> List.map
                     (\v ->
