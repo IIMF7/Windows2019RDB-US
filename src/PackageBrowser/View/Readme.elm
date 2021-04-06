@@ -274,6 +274,18 @@ viewModuleReadme _ b c =
 viewSections : List Section.Section -> Element msg
 viewSections a =
     let
+        viewSection : Section.Section -> Element.Element msg
+        viewSection b =
+            column [ width fill, spacing 1 ]
+                (p [ fontWeight 7 ]
+                    [ link [ id (Markdown.textToId b.name), fontColor gray9 ]
+                        { label = text b.name
+                        , url = "#" ++ Markdown.textToId b.name
+                        }
+                    ]
+                    :: (b.items |> List.map viewItem)
+                )
+
         viewItem : Section.Item -> Element msg
         viewItem b =
             case b of
@@ -284,14 +296,7 @@ viewSections a =
                     viewMember c
     in
     column [ width fill, spacing 1.5 ]
-        (a
-            |> List.map
-                (\v ->
-                    column [ width fill, spacing 1 ]
-                        (p [ fontWeight 7 ]
-                            [ text v.name
-                            ]
-                            :: (v.items |> List.map viewItem)
+        (a |> List.map viewSection)
                         )
                 )
         )
