@@ -6,12 +6,12 @@ import Element
 import Element.Lazy as Lazy
 import Html
 import Json.Decode as Decode
-import PackageBrowser.Element.Info as Info
-import PackageBrowser.Element.Packages as Packages
-import PackageBrowser.Element.Readme as Readme
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui as Ui exposing (..)
+import PackageBrowser.View.Info as Info
+import PackageBrowser.View.Packages as Packages
+import PackageBrowser.View.Readme as Readme
 import Url exposing (Url)
 import Utils.Update as Update
 

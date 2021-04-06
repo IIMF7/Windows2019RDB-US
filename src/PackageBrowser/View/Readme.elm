@@ -1,4 +1,4 @@
-module PackageBrowser.Element.Readme exposing (..)
+module PackageBrowser.View.Readme exposing (..)
 
 import Browser.Dom
 import Database.Package.Readme as Readme
@@ -15,12 +15,12 @@ import Elm.Type
 import Http
 import Markdown.Parser
 import Markdown.Renderer
-import PackageBrowser.Element.Readme.Section as Section
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Markdown as Markdown
 import PackageBrowser.Ui.Status as Status
+import PackageBrowser.View.Readme.Section as Section
 import Task
 
 

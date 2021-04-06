@@ -1,4 +1,4 @@
-module PackageBrowser.Element.Info exposing (..)
+module PackageBrowser.View.Info exposing (..)
 
 import Element.Font as Font
 import PackageBrowser.Strings as Strings

@@ -1,4 +1,4 @@
-module PackageBrowser.Element.Readme.Section exposing (..)
+module PackageBrowser.View.Readme.Section exposing (..)
 
 import Markdown.Block
 import Markdown.Parser

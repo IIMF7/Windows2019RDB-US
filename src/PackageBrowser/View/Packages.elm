@@ -1,4 +1,4 @@
-module PackageBrowser.Element.Packages exposing (..)
+module PackageBrowser.View.Packages exposing (..)
 
 import Browser.Dom
 import Database.Package as Package
