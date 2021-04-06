@@ -277,22 +277,21 @@ viewSections a =
             |> List.map
                 (\v ->
                     column [ width fill, spacing 1 ]
-                        [ p [ fontWeight 7 ]
+                        (p [ fontWeight 7 ]
                             [ text v.name
                             ]
-                        , column [ width fill, spacing 1 ]
-                            (v.items
-                                |> List.map
-                                    (\vv ->
-                                        case vv of
-                                            Section.Markdown c ->
-                                                viewMarkdown c
+                            :: (v.items
+                                    |> List.map
+                                        (\vv ->
+                                            case vv of
+                                                Section.Markdown c ->
+                                                    viewMarkdown c
 
-                                            Section.Member c ->
-                                                viewMember c
-                                    )
-                            )
-                        ]
+                                                Section.Member c ->
+                                                    viewMember c
+                                        )
+                               )
+                        )
                 )
         )
 
