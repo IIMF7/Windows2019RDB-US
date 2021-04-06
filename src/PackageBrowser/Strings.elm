@@ -23,8 +23,8 @@ infoText3 =
     "Use prefix search. For \"mdgriffith/elm-ui\" type \"e ui md\"."
 
 
-proposalLink =
-    "Official proposal"
+tampermonkey =
+    "Redirect Script for Tampermonkey"
 
 
 ok =

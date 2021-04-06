@@ -62,8 +62,8 @@ view model =
                         }
                     , text ". "
                     , newTabLink []
-                        { label = text Strings.proposalLink
-                        , url = "https://github.com/elm/package.elm-lang.org/issues"
+                        { label = text Strings.tampermonkey
+                        , url = "elm.user.js"
                         }
                     , text "."
                     ]
