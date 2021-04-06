@@ -368,9 +368,9 @@ viewMember a =
         , paddingXY 1.5 0
         ]
         [ row [ width fill ]
-            [ link [ id a.name, fontWeight 7 ]
+            [ link [ id (Markdown.textToId a.name), fontWeight 7 ]
                 { label = text a.name
-                , url = "#" ++ a.name
+                , url = "#" ++ Markdown.textToId a.name
                 }
             , el [ fontColor gray6 ]
                 (text a.type_)
