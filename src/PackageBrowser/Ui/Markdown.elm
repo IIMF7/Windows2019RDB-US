@@ -1,88 +1,56 @@
 module PackageBrowser.Ui.Markdown exposing (..)
 
-import Element exposing (..)
-import Element.Background as Background
-import Element.Border as Border
-import Element.Font as Font
 import Element.Input as Input
 import Element.Region as Region
-import Html
-import Html.Attributes
 import Markdown.Block as Block
 import Markdown.Html
 import Markdown.Renderer
+import PackageBrowser.Ui exposing (..)
 
 
 renderer : Markdown.Renderer.Renderer (Element msg)
 renderer =
     { heading =
         \{ level, rawText, children } ->
-            paragraph
-                [ Font.size
+            p
+                [ fontSize
                     (case level of
                         Block.H1 ->
-                            32
+                            2
 
                         Block.H2 ->
-                            24
+                            1.5
 
                         _ ->
-                            16
+                            1
                     )
-                , Font.bold
-                , spacing 8
-                , paddingEach { left = 0, right = 0, top = 16, bottom = 0 }
+                , fontWeight 7
+                , paddingEach 0 0 1 0
                 , Region.heading (Block.headingLevelToInt level)
-                , htmlAttribute (Html.Attributes.attribute "name" (idFromString rawText))
-                , htmlAttribute (Html.Attributes.id (idFromString rawText))
+                , id (idFromString rawText)
                 ]
                 children
-    , paragraph =
-        \a ->
-            paragraph [ spacing 8 ] a
-    , blockQuote =
-        \a ->
-            column
-                [ spacing 16
-                , paddingEach { left = 32, right = 0, top = 0, bottom = 0 }
-                ]
-                a
+    , paragraph = p []
+    , blockQuote = column [ spacing 1, paddingEach 2 0 0 0 ]
     , html = Markdown.Html.oneOf []
-    , text =
-        \a ->
-            text a
+    , text = text
     , codeSpan =
         \a ->
             el
-                [ Background.color (rgb255 233 236 239)
-                , Border.rounded 4
-                , padding 2
-                , Font.family
-                    [ Font.typeface "SFMono-Regular"
-                    , Font.typeface "Menlo"
-                    , Font.typeface "Monaco"
-                    , Font.typeface "Consolas"
-                    , Font.typeface "Liberation Mono"
-                    , Font.typeface "Courier New"
-                    , Font.monospace
-                    ]
+                [ padding 0.125
+                , borderRounded 0.25
+                , bgColor gray2
+                , fontFamilyMonospace
                 ]
                 (text a)
-    , strong =
-        \a ->
-            row [ Font.bold ] a
-    , emphasis =
-        \a ->
-            row [ Font.italic ] a
-    , strikethrough =
-        \a ->
-            row [ Font.strike ] a
-    , hardLineBreak =
-        html (Html.br [] [])
+    , strong = p [ fontWeight 7 ]
+    , emphasis = p [ fontItalic ]
+    , strikethrough = p [ fontStrike ]
+    , hardLineBreak = br
     , link =
         \a b ->
             newTabLink []
-                { label = paragraph [ Font.color (rgb255 13 110 253) ] b
+                { label = p [] b
                 , url = a.destination
                 }
     , image =
@@ -93,70 +61,52 @@ renderer =
                 }
     , unorderedList =
         \a ->
-            column [ spacing 16, paddingEach { left = 16, right = 0, top = 0, bottom = 0 } ]
+            column [ spacing 1, paddingEach 1 0 0 0 ]
                 (a
                     |> List.map
                         (\(Block.ListItem b c) ->
-                            row [ spacing 8 ]
-                                [ paragraph [ alignTop ]
-                                    ((case b of
-                                        Block.IncompleteTask ->
-                                            Input.defaultCheckbox False
+                            p []
+                                ((case b of
+                                    Block.IncompleteTask ->
+                                        Input.defaultCheckbox False
 
-                                        Block.CompletedTask ->
-                                            Input.defaultCheckbox True
+                                    Block.CompletedTask ->
+                                        Input.defaultCheckbox True
 
-                                        Block.NoTask ->
-                                            text "•"
-                                     )
-                                        :: text " "
-                                        :: c
-                                    )
-                                ]
+                                    Block.NoTask ->
+                                        text "•"
+                                 )
+                                    :: text " "
+                                    :: c
+                                )
                         )
                 )
     , orderedList =
         \startIndex a ->
-            column [ spacing 16 ]
+            column [ spacing 1, paddingEach 1 0 0 0 ]
                 (a
                     |> List.indexedMap
-                        (\index b ->
-                            row [ spacing 8 ]
-                                [ row [ alignTop ]
-                                    (text (String.fromInt (index + startIndex) ++ " ") :: b)
-                                ]
+                        (\i b ->
+                            p [] (text (String.fromInt (i + startIndex) ++ ". ") :: b)
                         )
                 )
     , codeBlock =
         \{ body } ->
             el
-                [ Background.color (rgb255 233 236 239)
-                , padding 8
-                , width fill
-                , Border.rounded 4
-                , Font.family
-                    [ Font.typeface "SFMono-Regular"
-                    , Font.typeface "Menlo"
-                    , Font.typeface "Monaco"
-                    , Font.typeface "Consolas"
-                    , Font.typeface "Liberation Mono"
-                    , Font.typeface "Courier New"
-                    , Font.monospace
-                    ]
+                [ width fill
+                , padding 0.5
+                , borderRounded 0.25
+                , bgColor gray2
+                , fontFamilyMonospace
                 ]
                 (text body)
-    , thematicBreak =
-        none
+    , thematicBreak = none
     , table = column []
     , tableHeader = column []
     , tableBody = column []
     , tableRow = row []
-    , tableHeaderCell =
-        \_ a ->
-            paragraph [] a
-    , tableCell =
-        \_ a ->
-            paragraph [] a
+    , tableHeaderCell = \_ a -> p [] a
+    , tableCell = \_ a -> p [] a
     }
 
 
