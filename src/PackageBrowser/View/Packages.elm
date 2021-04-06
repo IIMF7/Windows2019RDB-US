@@ -361,17 +361,17 @@ activePackageAndModule view_ a =
 filterPackages : String -> List Package.Package -> List Package.Package
 filterPackages search a =
     let
-        keywords : List String
-        keywords =
-            search |> toKeywords
+        words : List String
+        words =
+            search |> toWords
 
         isRelevant : String -> Bool
         isRelevant b =
             let
                 c =
-                    b |> toKeywords
+                    toWords b ++ toKeywords b
             in
-            keywords |> List.all (\v -> c |> List.any (String.startsWith v))
+            words |> List.all (\v -> c |> List.any (String.startsWith v))
 
         keywordsRegex : Regex.Regex
         keywordsRegex =
@@ -380,6 +380,10 @@ filterPackages search a =
         toKeywords : String -> List String
         toKeywords b =
             b |> String.toLower |> Regex.find keywordsRegex |> List.map .match
+
+        toWords : String -> List String
+        toWords b =
+            b |> String.toLower |> String.words
     in
     a
         |> List.filter
