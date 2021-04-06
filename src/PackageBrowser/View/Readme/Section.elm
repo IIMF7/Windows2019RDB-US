@@ -136,17 +136,17 @@ replaceDocs a =
 --
 
 
-toMember : String -> Maybe { name : String, type_ : String, comment : String }
+toMember : String -> Maybe Member
 toMember b =
     Nothing
-        |> onNothing (\_ -> module_.unions |> Dict.get b |> Maybe.map viewUnion)
-        |> onNothing (\_ -> module_.aliases |> Dict.get b |> Maybe.map viewAlias)
-        |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
-        |> onNothing (\_ -> module_.binops |> Dict.get (b |> String.dropLeft 1 |> String.dropRight 1) |> Maybe.map viewBinop)
+        |> onNothing (\_ -> module_.unions |> Dict.get b |> Maybe.map unionToMember)
+        |> onNothing (\_ -> module_.aliases |> Dict.get b |> Maybe.map aliasToMember)
+        |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map valueToMember)
+        |> onNothing (\_ -> module_.binops |> Dict.get (b |> String.dropLeft 1 |> String.dropRight 1) |> Maybe.map binopToMember)
 
 
-viewUnion : Elm.Docs.Union -> { name : String, type_ : String, comment : String }
-viewUnion a =
+unionToMember : Elm.Docs.Union -> Member
+unionToMember a =
     let
         type_ : String
         type_ =
@@ -182,24 +182,24 @@ viewUnion a =
     }
 
 
-viewAlias : Elm.Docs.Alias -> { name : String, type_ : String, comment : String }
-viewAlias a =
+aliasToMember : Elm.Docs.Alias -> Member
+aliasToMember a =
     { name = a.name
     , type_ = "" :: a.args ++ [ "=" ] ++ typeToString a.tipe |> String.join " "
     , comment = a.comment
     }
 
 
-viewValue : Elm.Docs.Value -> { name : String, type_ : String, comment : String }
-viewValue a =
+valueToMember : Elm.Docs.Value -> Member
+valueToMember a =
     { name = a.name
     , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
     , comment = a.comment
     }
 
 
-viewBinop : Elm.Docs.Binop -> { name : String, type_ : String, comment : String }
-viewBinop a =
+binopToMember : Elm.Docs.Binop -> Member
+binopToMember a =
     { name = "(" ++ a.name ++ ")"
     , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
     , comment = a.comment
