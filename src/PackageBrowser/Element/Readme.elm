@@ -334,7 +334,7 @@ viewMember : { name : String, type_ : String, comment : String } -> Element msg
 viewMember a =
     column [ width fill, spacing 0.5, paddingXY 1.5 0 ]
         [ row [ width fill ]
-            [ link [ id a.name ]
+            [ link [ id a.name, fontWeight 7 ]
                 { label = text a.name
                 , url = "#" ++ a.name
                 }
