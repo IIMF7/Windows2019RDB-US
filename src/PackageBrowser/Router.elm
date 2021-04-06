@@ -77,6 +77,19 @@ viewToPackageName a =
             Just b
 
 
+viewToFragment : View -> Maybe String
+viewToFragment a =
+    case a of
+        DefaultView ->
+            Nothing
+
+        PackageView _ b ->
+            b
+
+        ModuleView _ _ b ->
+            b
+
+
 viewToUrl : View -> String
 viewToUrl a =
     (case a of
