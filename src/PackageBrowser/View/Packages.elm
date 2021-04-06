@@ -298,7 +298,6 @@ viewPackage expand active a =
     column
         [ width fill
         , height fill
-        , spacing 0
         , borderColor gray3
         ]
         [ link [ width fill, paddingXY 1 0.5, packageColor ]
