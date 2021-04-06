@@ -321,13 +321,18 @@ viewMarkdown a =
 
 viewMember : { name : String, type_ : String, comment : String } -> Element msg
 viewMember a =
-    column [ width fill, spacing 0.5, paddingXY 1.5 0 ]
+    column
+        [ width fill
+        , spacing 0.5
+        , paddingXY 1.5 0
+        ]
         [ row [ width fill ]
             [ link [ id a.name, fontWeight 7 ]
                 { label = text a.name
                 , url = "#" ++ a.name
                 }
-            , el [ fontColor gray6 ] (text a.type_)
+            , el [ fontColor gray6 ]
+                (text a.type_)
             ]
         , column [ width fill, paddingXY 1.5 0 ]
             [ column
