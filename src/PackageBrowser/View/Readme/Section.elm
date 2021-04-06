@@ -225,7 +225,15 @@ typeToString a =
             ]
 
         Elm.Type.Lambda b c ->
-            [ b |> typeToString |> maybeWrapInParents
+            [ b
+                |> typeToString
+                |> (\v ->
+                        if v |> List.any ((==) "->") then
+                            "(" ++ String.join " " v ++ ")"
+
+                        else
+                            v |> String.join " "
+                   )
             , "->"
             , c |> typeToString |> String.join " "
             ]
