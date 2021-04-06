@@ -319,7 +319,7 @@ viewMarkdown a =
         ]
 
 
-viewMember : { name : String, type_ : String, comment : String } -> Element msg
+viewMember : Section.Member -> Element msg
 viewMember a =
     column
         [ width fill
