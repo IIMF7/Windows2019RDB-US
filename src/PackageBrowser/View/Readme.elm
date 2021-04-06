@@ -296,9 +296,45 @@ viewSections a =
                     viewMember c
     in
     column [ width fill, spacing 1.5 ]
-        (a |> List.map viewSection)
-                        )
+        (viewIndex a :: column [ paddingXY 0 0.5 ] [] :: (a |> List.map viewSection))
+
+
+viewIndex : List Section.Section -> Element msg
+viewIndex a =
+    let
+        viewSection : Section.Section -> Element.Element msg
+        viewSection b =
+            column [ width fill, spacing 0.25, paddingXY 1.5 0 ]
+                (p []
+                    [ link [ fontColor gray9 ]
+                        { label = text b.name
+                        , url = "#" ++ Markdown.textToId b.name
+                        }
+                    ]
+                    :: (b.items |> List.map viewItem)
                 )
+
+        viewItem : Section.Item -> Element msg
+        viewItem b =
+            case b of
+                Section.MarkdownItem _ ->
+                    none
+
+                Section.MemberItem c ->
+                    row [ width fill, paddingXY 1.5 0 ]
+                        [ link []
+                            { label = text c.name
+                            , url = "#" ++ Markdown.textToId c.name
+                            }
+                        , el [ fontColor gray6 ]
+                            (text c.type_)
+                        ]
+    in
+    column [ width fill, spacing 1 ]
+        (p [ fontWeight 7 ]
+            [ text Strings.index
+            ]
+            :: (a |> List.map viewSection)
         )
 
 
