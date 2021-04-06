@@ -388,10 +388,11 @@ filterPackages search a =
     a
         |> List.filter
             (\v ->
-                v.exposed
-                    |> Package.exposedToList
-                    |> List.map Elm.Module.toString
-                    |> (::) (Elm.Package.toString v.name)
-                    |> String.join " "
-                    |> isRelevant
+                isRelevant
+                    (String.join " "
+                        (Elm.Package.toString v.name
+                            :: (Elm.Package.toString v.name |> String.split "/")
+                            ++ List.map Elm.Module.toString (Package.exposedToList v.exposed)
+                        )
+                    )
             )
