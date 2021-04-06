@@ -3,15 +3,12 @@ module PackageBrowser.View.Readme exposing (..)
 import Browser.Dom
 import Database.Package.Readme as Readme
 import Database.Package.Readme.Decode
-import Dict exposing (Dict)
 import Element
 import Element.Events exposing (onClick)
-import Elm.Docs
 import Elm.Module
 import Elm.Module.NameDict as ModuleNameDict
 import Elm.Package
 import Elm.Package.NameDict as PackageNameDict
-import Elm.Type
 import Http
 import Markdown.Parser
 import Markdown.Renderer
@@ -258,7 +255,7 @@ viewModuleReadme _ b c =
                                                 [ p [ fontWeight 7 ]
                                                     [ text v.name
                                                     ]
-                                                , viewItems e v.items
+                                                , viewItems v.items
                                                 ]
                                         )
                                 )
@@ -284,8 +281,8 @@ viewModuleReadme _ b c =
         ]
 
 
-viewItems : Readme.ModuleReadme -> List Section.Item -> Element msg
-viewItems module_ a =
+viewItems : List Section.Item -> Element msg
+viewItems a =
     let
         viewItem : Section.Item -> Element msg
         viewItem b =
@@ -311,18 +308,7 @@ viewItems module_ a =
                         ]
 
                 Section.Member c ->
-                    c
-                        |> toMember
-                        |> Maybe.map viewMember
-                        |> Maybe.withDefault none
-
-        toMember : String -> Maybe { name : String, type_ : String, comment : String }
-        toMember b =
-            Nothing
-                |> onNothing (\_ -> module_.unions |> Dict.get b |> Maybe.map viewUnion)
-                |> onNothing (\_ -> module_.aliases |> Dict.get b |> Maybe.map viewAlias)
-                |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
-                |> onNothing (\_ -> module_.binops |> Dict.get (b |> String.dropLeft 1 |> String.dropRight 1) |> Maybe.map viewBinop)
+                    viewMember c
     in
     column [ width fill, spacing 1 ]
         (a
@@ -367,144 +353,6 @@ viewMember a =
 --
 
 
-viewUnion : Elm.Docs.Union -> { name : String, type_ : String, comment : String }
-viewUnion a =
-    let
-        type_ : String
-        type_ =
-            (if a.args == [] then
-                []
-
-             else
-                "" :: a.args
-            )
-                ++ (if a.tags == [] then
-                        []
-
-                    else
-                        ""
-                            :: "="
-                            :: [ a.tags
-                                    |> List.map
-                                        (\( vv, vvv ) ->
-                                            vv
-                                                :: (vvv
-                                                        |> List.map (typeToString >> maybeWrapInParents)
-                                                   )
-                                                |> String.join " "
-                                        )
-                                    |> String.join " | "
-                               ]
-                   )
-                |> String.join " "
-    in
-    { name = a.name
-    , type_ = type_
-    , comment = a.comment
-    }
-
-
-viewAlias : Elm.Docs.Alias -> { name : String, type_ : String, comment : String }
-viewAlias a =
-    { name = a.name
-    , type_ = "" :: a.args ++ [ "=" ] ++ typeToString a.tipe |> String.join " "
-    , comment = a.comment
-    }
-
-
-viewValue : Elm.Docs.Value -> { name : String, type_ : String, comment : String }
-viewValue a =
-    { name = a.name
-    , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
-    , comment = a.comment
-    }
-
-
-viewBinop : Elm.Docs.Binop -> { name : String, type_ : String, comment : String }
-viewBinop a =
-    { name = "(" ++ a.name ++ ")"
-    , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
-    , comment = a.comment
-    }
-
-
-typeToString : Elm.Type.Type -> List String
-typeToString a =
-    case a of
-        Elm.Type.Var b ->
-            [ b
-            ]
-
-        Elm.Type.Lambda b c ->
-            [ b |> typeToString |> maybeWrapInParents
-            , "->"
-            , c |> typeToString |> String.join " "
-            ]
-
-        Elm.Type.Tuple b ->
-            if b == [] then
-                [ "()"
-                ]
-
-            else
-                [ "("
-                , b |> List.map (typeToString >> String.join " ") |> String.join ", "
-                , ")"
-                ]
-                    |> String.join " "
-                    |> List.singleton
-
-        Elm.Type.Type b c ->
-            let
-                name : String
-                name =
-                    b |> String.split "." |> List.reverse |> List.head |> Maybe.withDefault ""
-            in
-            if c == [] then
-                [ name
-                ]
-
-            else
-                [ name
-                , c
-                    |> List.map (typeToString >> maybeWrapInParents)
-                    |> String.join " "
-                ]
-
-        Elm.Type.Record b c ->
-            let
-                open : String
-                open =
-                    case c of
-                        Just d ->
-                            "{ " ++ d ++ " |"
-
-                        Nothing ->
-                            "{"
-            in
-            [ open
-            , b
-                |> List.map (\( v, vv ) -> v :: ":" :: typeToString vv |> String.join " ")
-                |> String.join ", "
-            , "}"
-            ]
-                |> String.join " "
-                |> List.singleton
-
-
-maybeWrapInParents : List String -> String
-maybeWrapInParents a =
-    if List.length a > 1 then
-        "(" ++ String.join " " a ++ ")"
-
-    else
-        a |> String.join " "
-
-
-
---
-
-
 viewLoading : (a -> Element msg) -> Maybe (Result Error a) -> Element msg
 viewLoading fn a =
     case a of
@@ -537,13 +385,3 @@ viewLoading fn a =
 
 readmeId =
     "readme-view"
-
-
-onNothing : (() -> Maybe a) -> Maybe a -> Maybe a
-onNothing fn b =
-    case b of
-        Just c ->
-            Just c
-
-        Nothing ->
-            fn ()

@@ -1,5 +1,7 @@
 module PackageBrowser.View.Readme.Section exposing (..)
 
+import Elm.Docs
+import Elm.Type
 import Markdown.Block
 import Markdown.Parser
 import Regex
@@ -13,7 +15,7 @@ type alias Section =
 
 type Item
     = Markdown (List Markdown.Block.Block)
-    | Member String
+    | Member { name : String, type_ : String, comment : String }
 
 
 
@@ -121,3 +123,164 @@ replaceDocs a =
                     |> List.map (\vv -> "\n<docs value=\"" ++ escape vv ++ "\"></docs>")
                     |> String.join ""
             )
+
+
+
+--
+
+
+toMember : String -> Maybe { name : String, type_ : String, comment : String }
+toMember b =
+    Nothing
+        |> onNothing (\_ -> module_.unions |> Dict.get b |> Maybe.map viewUnion)
+        |> onNothing (\_ -> module_.aliases |> Dict.get b |> Maybe.map viewAlias)
+        |> onNothing (\_ -> module_.values |> Dict.get b |> Maybe.map viewValue)
+        |> onNothing (\_ -> module_.binops |> Dict.get (b |> String.dropLeft 1 |> String.dropRight 1) |> Maybe.map viewBinop)
+
+
+viewUnion : Elm.Docs.Union -> { name : String, type_ : String, comment : String }
+viewUnion a =
+    let
+        type_ : String
+        type_ =
+            (if a.args == [] then
+                []
+
+             else
+                "" :: a.args
+            )
+                ++ (if a.tags == [] then
+                        []
+
+                    else
+                        ""
+                            :: "="
+                            :: [ a.tags
+                                    |> List.map
+                                        (\( vv, vvv ) ->
+                                            vv
+                                                :: (vvv
+                                                        |> List.map (typeToString >> maybeWrapInParents)
+                                                   )
+                                                |> String.join " "
+                                        )
+                                    |> String.join " | "
+                               ]
+                   )
+                |> String.join " "
+    in
+    { name = a.name
+    , type_ = type_
+    , comment = a.comment
+    }
+
+
+viewAlias : Elm.Docs.Alias -> { name : String, type_ : String, comment : String }
+viewAlias a =
+    { name = a.name
+    , type_ = "" :: a.args ++ [ "=" ] ++ typeToString a.tipe |> String.join " "
+    , comment = a.comment
+    }
+
+
+viewValue : Elm.Docs.Value -> { name : String, type_ : String, comment : String }
+viewValue a =
+    { name = a.name
+    , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
+    , comment = a.comment
+    }
+
+
+viewBinop : Elm.Docs.Binop -> { name : String, type_ : String, comment : String }
+viewBinop a =
+    { name = "(" ++ a.name ++ ")"
+    , type_ = "" :: ":" :: typeToString a.tipe |> String.join " "
+    , comment = a.comment
+    }
+
+
+typeToString : Elm.Type.Type -> List String
+typeToString a =
+    case a of
+        Elm.Type.Var b ->
+            [ b
+            ]
+
+        Elm.Type.Lambda b c ->
+            [ b |> typeToString |> maybeWrapInParents
+            , "->"
+            , c |> typeToString |> String.join " "
+            ]
+
+        Elm.Type.Tuple b ->
+            if b == [] then
+                [ "()"
+                ]
+
+            else
+                [ "("
+                , b |> List.map (typeToString >> String.join " ") |> String.join ", "
+                , ")"
+                ]
+                    |> String.join " "
+                    |> List.singleton
+
+        Elm.Type.Type b c ->
+            let
+                name : String
+                name =
+                    b |> String.split "." |> List.reverse |> List.head |> Maybe.withDefault ""
+            in
+            if c == [] then
+                [ name
+                ]
+
+            else
+                [ name
+                , c
+                    |> List.map (typeToString >> maybeWrapInParents)
+                    |> String.join " "
+                ]
+
+        Elm.Type.Record b c ->
+            let
+                open : String
+                open =
+                    case c of
+                        Just d ->
+                            "{ " ++ d ++ " |"
+
+                        Nothing ->
+                            "{"
+            in
+            [ open
+            , b
+                |> List.map (\( v, vv ) -> v :: ":" :: typeToString vv |> String.join " ")
+                |> String.join ", "
+            , "}"
+            ]
+                |> String.join " "
+                |> List.singleton
+
+
+maybeWrapInParents : List String -> String
+maybeWrapInParents a =
+    if List.length a > 1 then
+        "(" ++ String.join " " a ++ ")"
+
+    else
+        a |> String.join " "
+
+
+
+--
+
+
+onNothing : (() -> Maybe a) -> Maybe a -> Maybe a
+onNothing fn b =
+    case b of
+        Just c ->
+            Just c
+
+        Nothing ->
+            fn ()
