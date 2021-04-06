@@ -333,7 +333,7 @@ viewPackage expand active a =
 
 
 packagesId =
-    "packages"
+    "packages-view"
 
 
 activePackageAndModule : Router.View -> Package.Package -> Maybe (Maybe Elm.Module.Name)

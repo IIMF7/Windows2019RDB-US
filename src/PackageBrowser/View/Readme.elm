@@ -536,7 +536,7 @@ viewLoading fn a =
 
 
 readmeId =
-    "readme"
+    "readme-view"
 
 
 onNothing : (() -> Maybe a) -> Maybe a -> Maybe a
