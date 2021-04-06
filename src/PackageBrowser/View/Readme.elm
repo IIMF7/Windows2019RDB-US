@@ -277,10 +277,10 @@ viewSections a =
         viewItem : Section.Item -> Element msg
         viewItem b =
             case b of
-                Section.Markdown c ->
+                Section.MarkdownItem c ->
                     viewMarkdown c
 
-                Section.Member c ->
+                Section.MemberItem c ->
                     viewMember c
     in
     column [ width fill, spacing 1.5 ]

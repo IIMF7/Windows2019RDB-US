@@ -14,8 +14,8 @@ type alias Section =
 
 
 type Item
-    = Markdown (List Markdown.Block.Block)
-    | Member { name : String, type_ : String, comment : String }
+    = MarkdownItem (List Markdown.Block.Block)
+    | MemberItem { name : String, type_ : String, comment : String }
 
 
 
@@ -46,7 +46,7 @@ fromMarkdown defaultTitle a =
                 Markdown.Block.HtmlBlock (Markdown.Block.HtmlElement "docs" (attr :: _) _) ->
                     case attr.name of
                         "value" ->
-                            acc |> mapItems (\v -> Member attr.value :: v)
+                            acc |> mapItems (\v -> MemberItem attr.value :: v)
 
                         _ ->
                             acc
@@ -56,11 +56,11 @@ fromMarkdown defaultTitle a =
                         |> mapItems
                             (\v ->
                                 case v of
-                                    (Markdown vv) :: items_ ->
-                                        Markdown (b :: vv) :: items_
+                                    (MarkdownItem vv) :: items_ ->
+                                        MarkdownItem (b :: vv) :: items_
 
                                     _ ->
-                                        Markdown [ b ] :: v
+                                        MarkdownItem [ b ] :: v
                             )
 
         reverse : List Section -> List Section
@@ -74,10 +74,10 @@ fromMarkdown defaultTitle a =
                                     |> List.map
                                         (\vv ->
                                             case vv of
-                                                Markdown vvv ->
-                                                    Markdown (List.reverse vvv)
+                                                MarkdownItem vvv ->
+                                                    MarkdownItem (List.reverse vvv)
 
-                                                Member _ ->
+                                                MemberItem _ ->
                                                     vv
                                         )
                                     |> List.reverse
