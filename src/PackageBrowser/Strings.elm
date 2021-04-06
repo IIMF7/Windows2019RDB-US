@@ -67,6 +67,10 @@ officialDocs =
     "Docs"
 
 
+index =
+    "Index"
+
+
 httpError a =
     case a of
         Http.BadUrl _ ->
