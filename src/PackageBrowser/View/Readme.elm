@@ -248,18 +248,7 @@ viewModuleReadme _ b c =
                     in
                     case e.readme |> Section.fromMarkdown defaultTitle of
                         Ok f ->
-                            column [ width fill, spacing 1.5 ]
-                                (f
-                                    |> List.map
-                                        (\v ->
-                                            column [ width fill, spacing 1 ]
-                                                [ p [ fontWeight 7 ]
-                                                    [ text v.name
-                                                    ]
-                                                , viewItems v.items
-                                                ]
-                                        )
-                                )
+                            viewSections f
 
                         Err _ ->
                             Status.view []
@@ -282,18 +271,29 @@ viewModuleReadme _ b c =
         ]
 
 
-viewItems : List Section.Item -> Element msg
-viewItems a =
-    column [ width fill, spacing 1 ]
+viewSections : List Section.Section -> Element msg
+viewSections a =
+    column [ width fill, spacing 1.5 ]
         (a
             |> List.map
                 (\v ->
-                    case v of
-                        Section.Markdown c ->
-                            viewMarkdown c
+                    column [ width fill, spacing 1 ]
+                        [ p [ fontWeight 7 ]
+                            [ text v.name
+                            ]
+                        , column [ width fill, spacing 1 ]
+                            (v.items
+                                |> List.map
+                                    (\vv ->
+                                        case vv of
+                                            Section.Markdown c ->
+                                                viewMarkdown c
 
-                        Section.Member c ->
-                            viewMember c
+                                            Section.Member c ->
+                                                viewMember c
+                                    )
+                            )
+                        ]
                 )
         )
 
