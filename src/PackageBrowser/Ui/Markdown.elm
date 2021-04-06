@@ -87,7 +87,7 @@ renderer =
                 }
     , image =
         \a ->
-            image []
+            image [ width (shrink |> maximum 512) ]
                 { description = a.alt
                 , src = a.src
                 }
