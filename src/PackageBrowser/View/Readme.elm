@@ -130,12 +130,12 @@ view view_ model =
             Router.DefaultView ->
                 []
 
-            Router.PackageView b ->
+            Router.PackageView b _ ->
                 [ viewPackageHeader b
                 , viewPackageReadme (PackageNameDict.get b model.readmes)
                 ]
 
-            Router.ModuleView b c ->
+            Router.ModuleView b c _ ->
                 [ viewPackageHeader b
                 , viewModuleHeader b c
                 , viewModuleReadme b c (PackageNameDict.get b model.readmes)
@@ -155,7 +155,7 @@ viewPackageHeader a =
         [ h5 []
             [ link [ fontColor gray9, onClick (Reveal a) ]
                 { label = text (Elm.Package.toString a)
-                , url = Router.PackageView a |> Router.viewToUrl
+                , url = Router.PackageView a Nothing |> Router.viewToUrl
                 }
             ]
         , newTabLink []
@@ -181,7 +181,7 @@ viewModuleHeader a b =
         [ h5 []
             [ link [ fontColor gray9, onClick (Reveal a) ]
                 { label = text (Elm.Module.toString b)
-                , url = Router.ModuleView a b |> Router.viewToUrl
+                , url = Router.ModuleView a b Nothing |> Router.viewToUrl
                 }
             ]
         , newTabLink []

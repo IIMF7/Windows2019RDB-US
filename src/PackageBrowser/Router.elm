@@ -37,8 +37,8 @@ init url key =
 
 type View
     = DefaultView
-    | PackageView Elm.Package.Name
-    | ModuleView Elm.Package.Name Elm.Module.Name
+    | PackageView Elm.Package.Name (Maybe String)
+    | ModuleView Elm.Package.Name Elm.Module.Name (Maybe String)
 
 
 viewFromUrl : Url.Url -> View
@@ -55,10 +55,10 @@ viewFromUrl a =
     in
     case a |> (\v -> { v | path = "/" }) |> Parser.parse parser of
         Just ( Just b, Just c ) ->
-            ModuleView b c
+            ModuleView b c a.fragment
 
         Just ( Just b, _ ) ->
-            PackageView b
+            PackageView b a.fragment
 
         _ ->
             DefaultView
@@ -70,10 +70,10 @@ viewToPackageName a =
         DefaultView ->
             Nothing
 
-        PackageView b ->
+        PackageView b _ ->
             Just b
 
-        ModuleView b _ ->
+        ModuleView b _ _ ->
             Just b
 
 
@@ -81,18 +81,29 @@ viewToUrl : View -> String
 viewToUrl a =
     (case a of
         DefaultView ->
-            []
+            Url.Builder.custom
+                Url.Builder.Relative
+                []
+                []
+                Nothing
 
-        PackageView b ->
-            [ Url.Builder.string "package" (Elm.Package.toString b)
-            ]
+        PackageView b c ->
+            Url.Builder.custom
+                Url.Builder.Relative
+                []
+                [ Url.Builder.string "package" (Elm.Package.toString b)
+                ]
+                c
 
-        ModuleView b c ->
-            [ Url.Builder.string "package" (Elm.Package.toString b)
-            , Url.Builder.string "module" (Elm.Module.toString c)
-            ]
+        ModuleView b c d ->
+            Url.Builder.custom
+                Url.Builder.Relative
+                []
+                [ Url.Builder.string "package" (Elm.Package.toString b)
+                , Url.Builder.string "module" (Elm.Module.toString c)
+                ]
+                d
     )
-        |> Url.Builder.toQuery
         |> (++) "./"
 
 

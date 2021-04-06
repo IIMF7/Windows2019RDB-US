@@ -304,7 +304,7 @@ viewPackage expand active a =
         ]
         [ link [ width fill, paddingXY 1 0.5, packageColor ]
             { label = text (Elm.Package.toString a.name)
-            , url = Router.viewToUrl (Router.PackageView a.name)
+            , url = Router.viewToUrl (Router.PackageView a.name Nothing)
             }
         , Element.Keyed.column [ width fill, spacing 0.25 ]
             (modules
@@ -313,7 +313,7 @@ viewPackage expand active a =
                         ( Elm.Module.toString v
                         , link [ width fill, paddingXY 2.5 0, moduleColor v ]
                             { label = text (Elm.Module.toString v)
-                            , url = Router.viewToUrl (Router.ModuleView a.name v)
+                            , url = Router.viewToUrl (Router.ModuleView a.name v Nothing)
                             }
                         )
                     )
@@ -321,7 +321,7 @@ viewPackage expand active a =
         , if shortened then
             link [ width fill, paddingXY 2.5 0, fontColor gray9 ]
                 { label = text Strings.ellipsis
-                , url = Router.viewToUrl (Router.PackageView a.name)
+                , url = Router.viewToUrl (Router.PackageView a.name Nothing)
                 }
 
           else
@@ -343,14 +343,14 @@ activePackageAndModule view_ a =
         Router.DefaultView ->
             Nothing
 
-        Router.PackageView b ->
+        Router.PackageView b _ ->
             if a.name == b then
                 Just Nothing
 
             else
                 Nothing
 
-        Router.ModuleView b c ->
+        Router.ModuleView b c _ ->
             if a.name == b then
                 Just (Just c)
 
