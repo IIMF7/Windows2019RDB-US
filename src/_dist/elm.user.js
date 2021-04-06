@@ -1,5 +1,5 @@
 // ==UserScript==
-// @name         Elm
+// @name         Elm Packages Browser Redirect Script
 // @match        https://package.elm-lang.org/*
 // @run-at       document-start
 // ==/UserScript==
