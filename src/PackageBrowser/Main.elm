@@ -3,7 +3,6 @@ module PackageBrowser.Main exposing (..)
 import Browser
 import Browser.Navigation as Navigation
 import Element
-import Element.Background as Background
 import Element.Lazy as Lazy
 import Html
 import Json.Decode as Decode
