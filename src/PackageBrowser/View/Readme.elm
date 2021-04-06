@@ -273,6 +273,16 @@ viewModuleReadme _ b c =
 
 viewSections : List Section.Section -> Element msg
 viewSections a =
+    let
+        viewItem : Section.Item -> Element msg
+        viewItem b =
+            case b of
+                Section.Markdown c ->
+                    viewMarkdown c
+
+                Section.Member c ->
+                    viewMember c
+    in
     column [ width fill, spacing 1.5 ]
         (a
             |> List.map
@@ -281,17 +291,7 @@ viewSections a =
                         (p [ fontWeight 7 ]
                             [ text v.name
                             ]
-                            :: (v.items
-                                    |> List.map
-                                        (\vv ->
-                                            case vv of
-                                                Section.Markdown c ->
-                                                    viewMarkdown c
-
-                                                Section.Member c ->
-                                                    viewMember c
-                                        )
-                               )
+                            :: (v.items |> List.map viewItem)
                         )
                 )
         )
