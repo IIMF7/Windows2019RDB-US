@@ -1,5 +1,6 @@
 module PackageBrowser.View.Readme.Section exposing (..)
 
+import Dict
 import Elm.Docs
 import Elm.Type
 import Markdown.Block
