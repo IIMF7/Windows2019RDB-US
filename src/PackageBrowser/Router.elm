@@ -25,10 +25,18 @@ init url key =
     ( { key = key
       , baseUrl = { url | query = Nothing, fragment = Nothing }
       , view = DefaultView
-      , recent = NameDict.empty
+      , recent = initialRecent
       }
     , Task.succeed () |> Task.perform (\_ -> UrlChanged url)
     )
+
+
+initialRecent : NameDict.NameDict ()
+initialRecent =
+    [ Elm.Package.fromString "elm/core" ]
+        |> List.filterMap identity
+        |> List.map (\v -> ( v, () ))
+        |> NameDict.fromList
 
 
 
@@ -159,10 +167,7 @@ update msg model =
                 recent : NameDict.NameDict ()
                 recent =
                     if view == DefaultView then
-                        [ Elm.Package.fromString "elm/core" ]
-                            |> List.filterMap identity
-                            |> List.map (\v -> ( v, () ))
-                            |> NameDict.fromList
+                        initialRecent
 
                     else
                         case view |> viewToPackageName of
