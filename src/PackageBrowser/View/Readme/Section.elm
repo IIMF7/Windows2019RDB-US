@@ -15,7 +15,14 @@ type alias Section =
 
 type Item
     = MarkdownItem (List Markdown.Block.Block)
-    | MemberItem { name : String, type_ : String, comment : String }
+    | MemberItem Member
+
+
+type alias Member =
+    { name : String
+    , type_ : String
+    , comment : String
+    }
 
 
 
