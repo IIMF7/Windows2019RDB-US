@@ -149,7 +149,7 @@ viewBody model =
     row
         [ height fill
         , centerX
-        , backgroundColor gray0
+        , bgColor gray0
         , Element.inFront
             (el
                 [ Element.moveDown 16

@@ -309,7 +309,7 @@ danger =
 -- Backgrounds
 
 
-backgroundColor =
+bgColor =
     Background.color
 
 
@@ -484,7 +484,7 @@ id a =
 inputStyle a =
     padding 0.5
         :: spacing 0.5
-        :: backgroundColor gray0
+        :: bgColor gray0
         :: borderColor gray4
         :: borderWidth 1
         :: borderRounded 0.25
@@ -524,7 +524,7 @@ rootStyle a =
     fontSize 1
         :: fontFamilyDefault
         :: fontColor gray9
-        :: backgroundColor gray1
+        :: bgColor gray1
         :: a
 
 

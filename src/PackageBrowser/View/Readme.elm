@@ -359,7 +359,7 @@ viewMarkdown a =
             , padding 1
             , spacing 1
             , fontSize 0.9375
-            , backgroundColor gray1
+            , bgColor gray1
             , borderRounded 0.25
             ]
             (a
@@ -394,7 +394,7 @@ viewMember a =
                 , padding 1
                 , spacing 1
                 , fontSize 0.9375
-                , backgroundColor gray1
+                , bgColor gray1
                 , borderRounded 0.25
                 ]
                 (a.comment
