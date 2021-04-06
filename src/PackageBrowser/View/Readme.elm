@@ -278,9 +278,9 @@ viewSections a =
         viewSection b =
             column [ width fill, spacing 1 ]
                 (p [ fontWeight 7 ]
-                    [ link [ id (Markdown.textToId b.name), fontColor gray9 ]
+                    [ link [ id (Markdown.idFromString b.name), fontColor gray9 ]
                         { label = text b.name
-                        , url = "#" ++ Markdown.textToId b.name
+                        , url = "#" ++ Markdown.idFromString b.name
                         }
                     ]
                     :: (b.items |> List.map viewItem)
@@ -308,7 +308,7 @@ viewIndex a =
                 (p []
                     [ link [ fontColor gray9 ]
                         { label = text b.name
-                        , url = "#" ++ Markdown.textToId b.name
+                        , url = "#" ++ Markdown.idFromString b.name
                         }
                     ]
                     :: (b.items |> List.map viewItem)
@@ -324,7 +324,7 @@ viewIndex a =
                     row [ width fill, paddingXY 1.5 0 ]
                         [ link []
                             { label = text c.name
-                            , url = "#" ++ Markdown.textToId c.name
+                            , url = "#" ++ Markdown.idFromString c.name
                             }
                         , el [ fontColor gray6 ]
                             (text c.type_)
@@ -368,9 +368,9 @@ viewMember a =
         , paddingXY 1.5 0
         ]
         [ row [ width fill ]
-            [ link [ id (Markdown.textToId a.name), fontWeight 7 ]
+            [ link [ id (Markdown.idFromString a.name), fontWeight 7 ]
                 { label = text a.name
-                , url = "#" ++ Markdown.textToId a.name
+                , url = "#" ++ Markdown.idFromString a.name
                 }
             , el [ fontColor gray6 ]
                 (text a.type_)

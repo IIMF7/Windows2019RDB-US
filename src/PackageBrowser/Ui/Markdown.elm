@@ -33,8 +33,8 @@ renderer =
                 , spacing 8
                 , paddingEach { left = 0, right = 0, top = 16, bottom = 0 }
                 , Region.heading (Block.headingLevelToInt level)
-                , htmlAttribute (Html.Attributes.attribute "name" (textToId rawText))
-                , htmlAttribute (Html.Attributes.id (textToId rawText))
+                , htmlAttribute (Html.Attributes.attribute "name" (idFromString rawText))
+                , htmlAttribute (Html.Attributes.id (idFromString rawText))
                 ]
                 children
     , paragraph =
@@ -160,6 +160,6 @@ renderer =
     }
 
 
-textToId : String -> String
-textToId a =
+idFromString : String -> String
+idFromString a =
     a |> String.replace " " "-" |> String.toLower
