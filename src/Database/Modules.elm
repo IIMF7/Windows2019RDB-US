@@ -10,6 +10,7 @@ import Elm.Package.Decode
 import Elm.Package.Encode
 import Json.Decode as Decode
 import Json.Encode as Encode
+import Regex
 import Utils.Json.Decode_ as Decode_
 import Utils.Json.Encode_ as Encode_
 
@@ -27,19 +28,9 @@ fromPackages a =
     let
         fold : ( Package.Name, Module.Name ) -> ModuleDict -> ModuleDict
         fold ( package, module_ ) acc =
-            let
-                key : Module.Name
-                key =
-                    if package |> Package.toString |> String.contains "/elm-review" then
-                        Module.fromString ("Review.Rule." ++ Module.toString module_)
-                            |> Maybe.withDefault module_
-
-                    else
-                        module_
-            in
             acc
                 |> NameDict.update
-                    key
+                    (parentModule module_)
                     (\v ->
                         v |> Maybe.withDefault [] |> (::) ( package, module_ ) |> Just
                     )
@@ -53,6 +44,30 @@ fromPackages a =
         |> NameDict.toList
         |> List.map (Tuple.mapSecond List.reverse)
         |> List.sortBy (Tuple.first >> Module.toString >> String.toLower)
+
+
+parentModule : Module.Name -> Module.Name
+parentModule a =
+    let
+        elmReview : Regex.Regex
+        elmReview =
+            Regex.fromString "^No[A-Z]" |> Maybe.withDefault Regex.never
+    in
+    if a |> Module.toString |> Regex.contains elmReview then
+        Module.fromString "Review"
+            |> Maybe.withDefault a
+
+    else if a |> Module.toString |> String.startsWith "Vector" then
+        Module.fromString "Vector"
+            |> Maybe.withDefault a
+
+    else
+        a
+            |> Module.toString
+            |> String.split "."
+            |> List.head
+            |> Maybe.andThen Module.fromString
+            |> Maybe.withDefault a
 
 
 encode : Encode_.Encoder Modules
