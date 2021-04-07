@@ -4,7 +4,6 @@ import Browser.Dom
 import Database.Package as Package
 import Database.Package.Decode
 import Element
-import Element.Input as Input
 import Element.Keyed
 import Element.Lazy as Lazy
 import Element.Virtualized
@@ -21,12 +20,16 @@ import Regex
 import Task
 
 
-type alias Context a b =
+type alias Context a b c =
     { a
         | router :
             { b
                 | view : Router.View
                 , recent : NameDict.NameDict ()
+            }
+        , header :
+            { c
+                | search : String
             }
     }
 
@@ -37,7 +40,6 @@ type alias Context a b =
 
 type alias Model =
     { packages : Result Error (List Package.Package)
-    , search : String
     , scrollOffset : Float
     }
 
@@ -50,7 +52,6 @@ type Error
 init : ( Model, Cmd Msg )
 init =
     ( { packages = Err Loading
-      , search = ""
       , scrollOffset = 0
       }
     , getPackages
@@ -71,14 +72,13 @@ getPackages =
 
 type Msg
     = GotPackages (Result Http.Error (List Package.Package))
-    | ToggleInfo
     | Reveal Elm.Package.Name
     | ViewportSet (Result Browser.Dom.Error ())
-    | SearchChanged String
+    | SearchChanged
     | ScrollOffsetChanged Float
 
 
-update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
+update : Context a b c -> Msg -> Model -> ( Model, Cmd Msg )
 update ctx msg model =
     case msg of
         GotPackages a ->
@@ -102,11 +102,6 @@ update ctx msg model =
             , package |> Maybe.andThen (scrollToPackage ctx nextModel) |> Maybe.withDefault Cmd.none
             )
 
-        ToggleInfo ->
-            ( model
-            , Cmd.none
-            )
-
         Reveal a ->
             ( model
             , a |> scrollToPackage ctx model |> Maybe.withDefault Cmd.none
@@ -117,16 +112,11 @@ update ctx msg model =
             , Cmd.none
             )
 
-        SearchChanged a ->
-            let
-                nextModel : Model
-                nextModel =
-                    { model | search = a }
-            in
-            ( nextModel
-            , if a |> String.trim |> String.isEmpty then
+        SearchChanged ->
+            ( model
+            , if ctx.header.search |> String.trim |> String.isEmpty then
                 Elm.Package.fromString "elm/core"
-                    |> Maybe.andThen (scrollToPackage ctx nextModel)
+                    |> Maybe.andThen (scrollToPackage ctx model)
                     |> Maybe.withDefault Cmd.none
 
               else
@@ -140,14 +130,14 @@ update ctx msg model =
             )
 
 
-scrollToPackage : Context a b -> Model -> Elm.Package.Name -> Maybe (Cmd Msg)
+scrollToPackage : Context a b c -> Model -> Elm.Package.Name -> Maybe (Cmd Msg)
 scrollToPackage ctx model a =
     model.packages
         |> Result.toMaybe
         |> Maybe.andThen
             (\v ->
                 Element.Virtualized.getScrollOffset
-                    { data = v |> filterPackages model.search
+                    { data = v |> filterPackages ctx.header.search
                     , getKey = .name >> Elm.Package.toString
                     , getSize = \vv -> computeSize (NameDict.member vv.name ctx.router.recent) vv
                     , key = Elm.Package.toString a
@@ -164,59 +154,16 @@ scrollToPackage ctx model a =
 --
 
 
-view : Router.View -> NameDict.NameDict () -> Model -> Element Msg
-view view_ recent model =
-    column [ width fill, height fill ]
-        [ column
-            [ width fill
-            , spacing 0.5
-            , paddingXY 0 0.5
-            , borderColor gray3
-            , borderWidthEach 0 0 0 1
-            ]
-            [ row
-                [ width fill
-                , spacing 1
-                , paddingXY 1 0
-                ]
-                [ h5 []
-                    [ link [ fontColor gray9 ]
-                        { label = text Strings.title
-                        , url = Router.DefaultView |> Router.viewToUrl
-                        }
-                    ]
-                , buttonLink []
-                    { label = text Strings.info
-                    , onPress = Just ToggleInfo
-                    }
-                ]
-            , row
-                [ width fill
-                , spacing 1
-                , paddingXY 1 0
-                ]
-                [ searchInput [ Input.focusedOnLoad ]
-                    { label = labelHidden Strings.searchInput
-                    , placeholder = Just (placeholder [] (text Strings.searchInput))
-                    , text = model.search
-                    , onChange = SearchChanged
-                    }
-                ]
-            ]
-        , viewPackages view_ recent model
-        ]
-
-
 modulesLimit : Int
 modulesLimit =
     6
 
 
-viewPackages : Router.View -> NameDict.NameDict () -> Model -> Element Msg
-viewPackages view_ recent model =
+view : String -> Router.View -> NameDict.NameDict () -> Model -> Element Msg
+view search view_ recent model =
     case model.packages of
         Ok b ->
-            case filterPackages model.search b of
+            case filterPackages search b of
                 [] ->
                     Status.view []
                         [ text Strings.noPackagesFound

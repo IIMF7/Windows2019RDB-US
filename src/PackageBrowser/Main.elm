@@ -9,7 +9,9 @@ import Json.Decode as Decode
 import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui as Ui exposing (..)
+import PackageBrowser.View.Header as Header
 import PackageBrowser.View.Info as Info
+import PackageBrowser.View.Modules as Modules
 import PackageBrowser.View.Packages as Packages
 import PackageBrowser.View.Readme as Readme
 import Url exposing (Url)
@@ -35,6 +37,7 @@ main =
 type alias Model =
     { router : Router.Model
     , info : Info.Model
+    , header : Header.Model
     , packages : Packages.Model
     , readme : Readme.Model
     }
@@ -54,6 +57,7 @@ init _ url key =
     in
     ( { router = router
       , info = Info.init
+      , header = Header.init
       , packages = packages
       , readme = readme
       }
@@ -72,6 +76,7 @@ init _ url key =
 type Msg
     = RouterMsg Router.Msg
     | InfoMsg Info.Msg
+    | HeaderMsg Header.Msg
     | PackagesMsg Packages.Msg
     | ReadmeMsg Readme.Msg
 
@@ -86,6 +91,10 @@ update msg model =
         InfoMsg a ->
             Info.update a model.info
                 |> Tuple.mapBoth (\v -> { model | info = v }) (Cmd.map InfoMsg)
+
+        HeaderMsg a ->
+            Header.update a model.header
+                |> Tuple.mapBoth (\v -> { model | header = v }) (Cmd.map HeaderMsg)
 
         PackagesMsg a ->
             Packages.update model a model.packages
@@ -102,9 +111,13 @@ update msg model =
                         Readme.update v Readme.UrlChanged v.readme
                             |> Tuple.mapBoth (\vv -> { v | readme = vv }) (Cmd.map ReadmeMsg)
 
-                    PackagesMsg Packages.ToggleInfo ->
+                    HeaderMsg Header.ToggleInfo ->
                         Info.update Info.ToggleInfo v.info
                             |> Tuple.mapBoth (\vv -> { v | info = vv }) (Cmd.map InfoMsg)
+
+                    HeaderMsg (Header.SearchChanged _) ->
+                        Packages.update v Packages.SearchChanged v.packages
+                            |> Tuple.mapBoth (\vv -> { v | packages = vv }) (Cmd.map PackagesMsg)
 
                     ReadmeMsg (Readme.Reveal a) ->
                         Packages.update v (Packages.Reveal a) v.packages
@@ -159,10 +172,16 @@ viewBody model =
             )
         ]
         [ border_
-        , el [ width (px 320), height fill ]
-            (Lazy.lazy3 Packages.view model.router.view model.router.recent model.packages
-                |> Element.map PackagesMsg
-            )
+        , column [ width (px 320), height fill ]
+            [ Lazy.lazy Header.view model.header
+                |> Element.map HeaderMsg
+            , if model.header.groupByPackages then
+                Lazy.lazy4 Packages.view model.header.search model.router.view model.router.recent model.packages
+                    |> Element.map PackagesMsg
+
+              else
+                Modules.view
+            ]
         , border_
         , el [ width (px 880), height fill ]
             (Lazy.lazy2 Readme.view model.router.view model.readme
