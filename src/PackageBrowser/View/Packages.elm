@@ -244,10 +244,7 @@ viewPackage expand active a =
             else
                 fontColor gray9
     in
-    column
-        [ width fill
-        , height fill
-        ]
+    column [ width fill, height fill ]
         [ link [ width fill, paddingXY 1 0.5, packageColor ]
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name Nothing)
