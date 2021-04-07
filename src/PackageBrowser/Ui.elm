@@ -525,12 +525,24 @@ placeholder a =
     Input.placeholder (fontSize 0.875 :: a)
 
 
-labelHidden =
-    Input.labelHidden
+labelRight a =
+    Input.labelRight (fontSize 0.875 :: a)
+
+
+labelLeft a =
+    Input.labelLeft (fontSize 0.875 :: a)
 
 
 labelAbove a =
-    Input.labelAbove (fontSize 0.75 :: a)
+    Input.labelAbove (fontSize 0.875 :: a)
+
+
+labelBelow a =
+    Input.labelBelow (fontSize 0.875 :: a)
+
+
+labelHidden =
+    Input.labelHidden
 
 
 
