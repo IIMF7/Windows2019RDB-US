@@ -504,6 +504,23 @@ searchInput a =
     Input.search (inputStyle a)
 
 
+inputCheckbox :
+    List (Element.Attribute msg)
+    ->
+        { icon : Bool -> Element msg
+        , label : Input.Label msg
+        , checked : Bool
+        , onChange : Bool -> msg
+        }
+    -> Element msg
+inputCheckbox a =
+    Input.checkbox (spacing 0.5 :: a)
+
+
+inputDefaultCheckbox =
+    Input.defaultCheckbox
+
+
 placeholder a =
     Input.placeholder (fontSize 0.875 :: a)
 
