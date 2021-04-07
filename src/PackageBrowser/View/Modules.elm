@@ -121,3 +121,59 @@ view search model =
                     HttpError c ->
                         text (Strings.httpError c)
                 ]
+
+
+computeSize : Bool -> ModuleGroup.ModuleGroup -> Int
+computeSize expand a =
+    if expand then
+        32 + (List.length a.modules |> (\v -> v * 16 + (v - 1) * 4)) + 12
+
+    else
+        32
+
+
+viewModuleGroup : Bool -> ModuleGroup.ModuleGroup -> Element Msg
+viewModuleGroup expand a =
+    column [ width fill, height fill ]
+        [ buttonLink [ width fill, paddingXY 1 0.5, fontColor gray6 ]
+            { label = text (Elm.Module.toString a.name)
+            , onPress = Just (ToggleModuleGroup a.name)
+            }
+        , if expand then
+            Element.Keyed.column [ width fill, spacing 0.25 ]
+                (a.modules
+                    |> List.map
+                        (\( v, vv ) ->
+                            ( Elm.Package.toString v ++ Elm.Module.toString vv
+                            , link [ width fill, paddingXY 2.5 0, fontColor gray9 ]
+                                { label = text (Elm.Module.toString vv)
+                                , url = Router.viewToUrl (Router.ModuleView v vv Nothing)
+                                }
+                            )
+                        )
+                )
+
+          else
+            none
+        ]
+
+
+
+--
+
+
+modulesId =
+    "modules-view"
+
+
+filterPackages : String -> List ModuleGroup.ModuleGroup -> List ModuleGroup.ModuleGroup
+filterPackages search a =
+    a
+        |> List.filter
+            (\v ->
+                v
+                    |> .name
+                    |> Elm.Module.toString
+                    |> String.toLower
+                    |> String.startsWith (String.toLower search)
+            )
