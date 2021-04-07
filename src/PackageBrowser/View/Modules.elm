@@ -1,5 +1,6 @@
 module PackageBrowser.View.Modules exposing (..)
 
+import Browser.Dom
 import Database.ModuleGroup as ModuleGroup
 import Database.ModuleGroup.Decode
 import Element.Keyed
@@ -14,6 +15,7 @@ import PackageBrowser.Router as Router
 import PackageBrowser.Strings as Strings
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Status as Status
+import Task
 
 
 type alias Model =
@@ -54,6 +56,8 @@ type Msg
     = GotModules (Result Http.Error (List ModuleGroup.ModuleGroup))
     | ScrollOffsetChanged Float
     | ToggleModuleGroup Elm.Module.Name
+    | SearchChanged
+    | ViewportSet (Result Browser.Dom.Error ())
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -82,6 +86,17 @@ update msg model =
                                     Nothing
                             )
               }
+            , Cmd.none
+            )
+
+        SearchChanged ->
+            ( model
+            , Browser.Dom.setViewportOf modulesId 0 0
+                |> Task.attempt ViewportSet
+            )
+
+        ViewportSet _ ->
+            ( model
             , Cmd.none
             )
 

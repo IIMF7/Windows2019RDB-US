@@ -129,6 +129,11 @@ update msg model =
                     HeaderMsg (Header.SearchChanged _) ->
                         Packages.update v Packages.SearchChanged v.packages
                             |> Tuple.mapBoth (\vv -> { v | packages = vv }) (Cmd.map PackagesMsg)
+                            |> Update.andThen
+                                (\vv ->
+                                    Modules.update Modules.SearchChanged vv.modules
+                                        |> Tuple.mapBoth (\vvv -> { vv | modules = vvv }) (Cmd.map ModulesMsg)
+                                )
 
                     ReadmeMsg (Readme.Reveal a) ->
                         Packages.update v (Packages.Reveal a) v.packages
