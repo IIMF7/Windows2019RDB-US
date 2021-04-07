@@ -53,8 +53,12 @@ view model =
                     [ text Strings.infoText2
                     ]
                 , p []
-                    [ text Strings.infoText3
-                    ]
+                    (Strings.infoText3
+                        |> String.trim
+                        |> String.lines
+                        |> List.map text
+                        |> List.intersperse br
+                    )
                 , p []
                     [ newTabLink []
                         { label = text Strings.source

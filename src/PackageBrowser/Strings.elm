@@ -20,7 +20,11 @@ infoText2 =
 
 
 infoText3 =
-    "Use prefix search. For \"mdgriffith/elm-ui\" type \"e ui md\"."
+    """
+Search tips:
+User search: for "elm" type "elm/".
+Prefix search: for "mdgriffith/elm-ui" type "e ui md".
+"""
 
 
 tampermonkey =
