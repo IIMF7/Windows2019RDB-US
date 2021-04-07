@@ -57,6 +57,7 @@ sorter a =
                 |> List.head
                 |> Maybe.map Module.toString
                 |> Maybe.withDefault ""
+                |> String.toLower
 
         Project.ExposedDict b ->
             b
@@ -66,3 +67,4 @@ sorter a =
                 |> List.head
                 |> Maybe.map Module.toString
                 |> Maybe.withDefault ""
+                |> String.toLower
