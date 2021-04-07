@@ -161,7 +161,13 @@ viewModuleGroup expand a =
                         (\( v, vv ) ->
                             ( Elm.Package.toString v ++ Elm.Module.toString vv
                             , link [ width fill, paddingXY 2.5 0, fontColor gray9 ]
-                                { label = text (Elm.Module.toString vv)
+                                { label =
+                                    row []
+                                        [ text (Elm.Module.toString vv)
+                                        , text " "
+                                        , el [ fontColor gray5, fontSize 0.75 ]
+                                            (text (Elm.Package.toString v))
+                                        ]
                                 , url = Router.viewToUrl (Router.ModuleView v vv Nothing)
                                 }
                             )
