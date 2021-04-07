@@ -39,6 +39,7 @@ type alias Model =
     , info : Info.Model
     , header : Header.Model
     , packages : Packages.Model
+    , modules : Modules.Model
     , readme : Readme.Model
     }
 
@@ -52,6 +53,9 @@ init _ url key =
         ( packages, packagesCmd ) =
             Packages.init
 
+        ( modules, modulesCmd ) =
+            Modules.init
+
         ( readme, readmeCmd ) =
             Readme.init
     in
@@ -59,11 +63,13 @@ init _ url key =
       , info = Info.init
       , header = Header.init
       , packages = packages
+      , modules = modules
       , readme = readme
       }
     , Cmd.batch
         [ routerCmd |> Cmd.map RouterMsg
         , packagesCmd |> Cmd.map PackagesMsg
+        , modulesCmd |> Cmd.map ModulesMsg
         , readmeCmd |> Cmd.map ReadmeMsg
         ]
     )
@@ -78,6 +84,7 @@ type Msg
     | InfoMsg Info.Msg
     | HeaderMsg Header.Msg
     | PackagesMsg Packages.Msg
+    | ModulesMsg Modules.Msg
     | ReadmeMsg Readme.Msg
 
 
@@ -99,6 +106,10 @@ update msg model =
         PackagesMsg a ->
             Packages.update model a model.packages
                 |> Tuple.mapBoth (\v -> { model | packages = v }) (Cmd.map PackagesMsg)
+
+        ModulesMsg a ->
+            Modules.update a model.modules
+                |> Tuple.mapBoth (\v -> { model | modules = v }) (Cmd.map ModulesMsg)
 
         ReadmeMsg a ->
             Readme.update model a model.readme
@@ -180,7 +191,8 @@ viewBody model =
                     |> Element.map PackagesMsg
 
               else
-                Modules.view
+                Lazy.lazy2 Modules.view model.header.search model.modules
+                    |> Element.map ModulesMsg
             ]
         , border_
         , el [ width (px 880), height fill ]
