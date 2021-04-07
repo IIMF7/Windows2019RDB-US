@@ -51,7 +51,7 @@ fromPackages a =
         |> List.sortBy (Tuple.first >> Module.toString >> String.toLower)
 
 
-encode : Modules -> Encode.Value
+encode : Encode_.Encoder Modules
 encode =
     Encode.list
         (Encode_.tuple Elm.Module.Encode.name
