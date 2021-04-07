@@ -31,6 +31,10 @@ tampermonkey =
     "Redirect Script for Tampermonkey"
 
 
+groupByPackages =
+    "Group by Packages"
+
+
 ok =
     "OK"
 

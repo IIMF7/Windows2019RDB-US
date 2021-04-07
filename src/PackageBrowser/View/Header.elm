@@ -78,16 +78,22 @@ view model =
                 , onPress = Just ToggleInfo
                 }
             ]
-        , row
+        , column
             [ width fill
-            , spacing 1
             , paddingXY 1 0
+            , spacing 0.5
             ]
             [ searchInput [ Input.focusedOnLoad ]
                 { label = labelHidden Strings.searchInput
                 , placeholder = Just (placeholder [] (text Strings.searchInput))
                 , text = model.search
                 , onChange = SearchChanged
+                }
+            , inputCheckbox []
+                { icon = inputDefaultCheckbox
+                , label = labelRight [] (text Strings.groupByPackages)
+                , checked = model.groupByPackages
+                , onChange = always ToggleGroupByPackages
                 }
             ]
         ]
