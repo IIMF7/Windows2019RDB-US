@@ -217,7 +217,7 @@ viewPackageReadme a =
     let
         view_ : Readme.Readme -> Element msg
         view_ b =
-            column [ width fill, spacing 1 ]
+            textColumn [ spacing 1 ]
                 (b.readme
                     |> Markdown.Parser.parse
                     |> Result.toMaybe
@@ -354,9 +354,8 @@ viewIndex a =
 viewMarkdown : List Markdown.Block.Block -> Element msg
 viewMarkdown a =
     column [ width fill, paddingXY 3 0 ]
-        [ column
-            [ width fill
-            , padding 1
+        [ textColumn
+            [ padding 1
             , spacing 1
             , fontSize 0.9375
             , bgColor gray1
@@ -389,9 +388,8 @@ viewMember a =
                 (text a.type_)
             ]
         , column [ width fill, paddingXY 1.5 0 ]
-            [ column
-                [ width fill
-                , padding 1
+            [ textColumn
+                [ padding 1
                 , spacing 1
                 , fontSize 0.9375
                 , bgColor gray1
