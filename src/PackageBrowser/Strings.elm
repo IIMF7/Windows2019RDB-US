@@ -55,6 +55,10 @@ noPackagesFound =
     "No packages found."
 
 
+noModulesFound =
+    "No modules found."
+
+
 packageNotFound =
     "Package not found."
 
