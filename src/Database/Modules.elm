@@ -2,11 +2,15 @@ module Database.Modules exposing (..)
 
 import Database.Package as Package
 import Elm.Module as Module
+import Elm.Module.Decode
 import Elm.Module.Encode
 import Elm.Module.NameDict as NameDict
 import Elm.Package as Package
+import Elm.Package.Decode
 import Elm.Package.Encode
+import Json.Decode as Decode
 import Json.Encode as Encode
+import Utils.Json.Decode_ as Decode_
 import Utils.Json.Encode_ as Encode_
 
 
@@ -56,4 +60,12 @@ encode =
     Encode.list
         (Encode_.tuple Elm.Module.Encode.name
             (Encode.list (Encode_.tuple Elm.Package.Encode.name Elm.Module.Encode.name))
+        )
+
+
+decoder : Decode.Decoder Modules
+decoder =
+    Decode.list
+        (Decode_.tuple Elm.Module.Decode.name
+            (Decode.list (Decode_.tuple Elm.Package.Decode.name Elm.Module.Decode.name))
         )
