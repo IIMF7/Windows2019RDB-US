@@ -247,7 +247,6 @@ viewPackage expand active a =
     column
         [ width fill
         , height fill
-        , borderColor gray3
         ]
         [ link [ width fill, paddingXY 1 0.5, packageColor ]
             { label = text (Elm.Package.toString a.name)
