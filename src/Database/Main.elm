@@ -9,6 +9,7 @@ import Elm.Package
 import Elm.Project
 import Http
 import Json.Decode as Decode exposing (Decoder)
+import Json.Encode as Encode
 import Task exposing (Task)
 import Utils.Resolver as Resolver
 
@@ -37,9 +38,7 @@ type alias Model =
 
 
 type alias Output =
-    ( List Decode.Value
-    , List ( String, Decode.Value )
-    )
+    List ( String, Decode.Value )
 
 
 type Error
@@ -59,9 +58,13 @@ init _ =
                 |> Task.andThen (List.map packageTask >> Task.sequence)
                 |> Task.map (List.filterMap identity >> List.unzip)
                 |> Task.map
-                    (Tuple.mapBoth
-                        (List.sortBy Package.sorter >> List.map Database.Package.Encode.package)
-                        (List.map (Tuple.mapBoth Elm.Package.toString Database.Package.Readme.Encode.readme))
+                    (\( v, vv ) ->
+                        ( "packages"
+                        , v
+                            |> List.sortBy Package.sorter
+                            |> Encode.list Database.Package.Encode.package
+                        )
+                            :: (vv |> List.map (Tuple.mapBoth Elm.Package.toString Database.Package.Readme.Encode.readme))
                     )
 
         packageTask : Elm.Package.Name -> Task Error (Maybe ( Package.Package, ( Elm.Package.Name, Readme.Readme ) ))
