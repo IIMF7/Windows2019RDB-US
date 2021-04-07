@@ -16,7 +16,7 @@ infoText1 =
 
 
 infoText2 =
-    "Showing package latest version from 1 Apr 2021."
+    "Showing package latest version from 7 Apr 2021."
 
 
 infoText3 =
