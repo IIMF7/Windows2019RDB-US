@@ -1,6 +1,7 @@
 port module Database.Main exposing (..)
 
-import Database.Modules as Modules
+import Database.ModuleGroup as ModuleGroup
+import Database.ModuleGroup.Encode
 import Database.Package as Package
 import Database.Package.Encode
 import Database.Package.Readme as Readme
@@ -67,8 +68,8 @@ init _ =
                         )
                             :: ( "modules"
                                , v
-                                    |> Modules.fromPackages
-                                    |> Modules.encode
+                                    |> ModuleGroup.fromPackages
+                                    |> Encode.list Database.ModuleGroup.Encode.moduleGroup
                                )
                             :: (vv |> List.map (Tuple.mapBoth Elm.Package.toString Database.Package.Readme.Encode.readme))
                     )
