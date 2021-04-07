@@ -23,7 +23,7 @@ infoText3 =
     """
 Search tips:
 User search: for "elm" type "elm/".
-Prefix search: for "mdgriffith/elm-ui" type "e ui md".
+Prefix search: for "mdgriffith/elm-ui" type "md u".
 """
 
 
