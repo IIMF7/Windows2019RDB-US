@@ -61,33 +61,37 @@ renderer =
                 }
     , unorderedList =
         \a ->
-            column [ spacing 1, paddingEach 1 0 0 0 ]
+            column [ spacing 1, paddingEach 0.25 0 0 0 ]
                 (a
                     |> List.map
                         (\(Block.ListItem b c) ->
-                            p []
-                                ((case b of
-                                    Block.IncompleteTask ->
-                                        Input.defaultCheckbox False
+                            row [ spacing 0.5 ]
+                                [ el [ alignTop ]
+                                    (case b of
+                                        Block.IncompleteTask ->
+                                            Input.defaultCheckbox False
 
-                                    Block.CompletedTask ->
-                                        Input.defaultCheckbox True
+                                        Block.CompletedTask ->
+                                            Input.defaultCheckbox True
 
-                                    Block.NoTask ->
-                                        text "•"
-                                 )
-                                    :: text " "
-                                    :: c
-                                )
+                                        Block.NoTask ->
+                                            text "•"
+                                    )
+                                , p [] c
+                                ]
                         )
                 )
     , orderedList =
         \startIndex a ->
-            column [ spacing 1, paddingEach 1 0 0 0 ]
+            column [ spacing 1, paddingEach 0.25 0 0 0 ]
                 (a
                     |> List.indexedMap
                         (\i b ->
-                            p [] (text (String.fromInt (i + startIndex) ++ ". ") :: b)
+                            row [ spacing 0.5 ]
+                                [ el [ alignTop ]
+                                    (text (String.fromInt (i + startIndex) ++ "."))
+                                , p [] b
+                                ]
                         )
                 )
     , codeBlock =
