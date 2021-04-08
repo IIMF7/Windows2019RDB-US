@@ -102,18 +102,18 @@ viewToFragment a =
 
 viewToUrl : View -> String
 viewToUrl a =
-    (case a of
+    case a of
         DefaultView ->
             Url.Builder.custom
                 Url.Builder.Relative
-                []
+                [ "." ]
                 []
                 Nothing
 
         PackageView b c ->
             Url.Builder.custom
                 Url.Builder.Relative
-                []
+                [ "." ]
                 [ Url.Builder.string "package" (Elm.Package.toString b)
                 ]
                 c
@@ -121,13 +121,11 @@ viewToUrl a =
         ModuleView b c d ->
             Url.Builder.custom
                 Url.Builder.Relative
-                []
+                [ "." ]
                 [ Url.Builder.string "package" (Elm.Package.toString b)
                 , Url.Builder.string "module" (Elm.Module.toString c)
                 ]
                 d
-    )
-        |> (++) "./"
 
 
 
