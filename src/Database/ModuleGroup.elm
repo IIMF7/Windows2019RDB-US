@@ -62,6 +62,11 @@ parentModule a =
         Module.fromString "GraphQl"
             |> Maybe.withDefault a
 
+    else if a |> Module.toString |> (==) "BinaryBase64" then
+        -- https://github.com/newlandsvalley/elm-binary-base64/issues/10
+        Module.fromString "Base64"
+            |> Maybe.withDefault a
+
     else if a |> Module.toString |> String.startsWith "Vector" then
         Module.fromString "Vector"
             |> Maybe.withDefault a
