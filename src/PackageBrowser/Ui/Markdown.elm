@@ -6,6 +6,7 @@ import Markdown.Block as Block
 import Markdown.Html
 import Markdown.Renderer
 import PackageBrowser.Ui exposing (..)
+import Url.Builder
 
 
 renderer : Markdown.Renderer.Renderer (Element msg)
@@ -117,3 +118,12 @@ renderer =
 idFromString : String -> String
 idFromString a =
     a |> String.replace " " "-"
+
+
+idToUrl : String -> String
+idToUrl a =
+    Url.Builder.custom
+        Url.Builder.Relative
+        []
+        []
+        (Just (idFromString a))

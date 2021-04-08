@@ -293,7 +293,7 @@ viewSections a =
                 (p [ fontWeight 7 ]
                     [ link [ id (Markdown.idFromString b.name), fontColor gray9 ]
                         { label = text b.name
-                        , url = "#" ++ Markdown.idFromString b.name
+                        , url = Markdown.idToUrl b.name
                         }
                     ]
                     :: (b.items |> List.map viewItem)
@@ -321,7 +321,7 @@ viewIndex a =
                 (p []
                     [ link [ fontColor gray9 ]
                         { label = text b.name
-                        , url = "#" ++ Markdown.idFromString b.name
+                        , url = Markdown.idToUrl b.name
                         }
                     ]
                     :: (b.items |> List.map viewItem)
@@ -337,7 +337,7 @@ viewIndex a =
                     row [ width fill, paddingXY 1.5 0 ]
                         [ link []
                             { label = text c.name
-                            , url = "#" ++ Markdown.idFromString c.name
+                            , url = Markdown.idToUrl c.name
                             }
                         , el [ fontColor gray6 ]
                             (text c.type_)
@@ -382,7 +382,7 @@ viewMember a =
         [ row [ width fill ]
             [ link [ id (Markdown.idFromString a.name), fontWeight 7 ]
                 { label = text a.name
-                , url = "#" ++ Markdown.idFromString a.name
+                , url = Markdown.idToUrl a.name
                 }
             , el [ fontColor gray6 ]
                 (text a.type_)
