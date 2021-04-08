@@ -36,7 +36,12 @@ fromPackages a =
             )
         |> List.foldl fold NameDict.empty
         |> NameDict.toList
-        |> List.map (\( v, vv ) -> { name = v, modules = List.reverse vv })
+        |> List.map
+            (\( v, vv ) ->
+                { name = v
+                , modules = vv |> List.sortBy (Tuple.second >> Module.toString >> String.toLower)
+                }
+            )
         |> List.sortBy (.name >> Module.toString >> String.toLower)
 
 
