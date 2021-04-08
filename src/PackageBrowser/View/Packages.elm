@@ -92,25 +92,26 @@ update : Context a b c -> Msg -> Model -> ( Model, Cmd Msg )
 update ctx msg model =
     case msg of
         UrlChanged ->
-            if ctx.router.view == Router.DefaultView then
-                ( { model | expanded = initialExpanded }
-                , scrollToTop ctx model
-                )
+            case ctx.router.view of
+                Router.DefaultView ->
+                    ( { model | expanded = initialExpanded }
+                    , scrollToTop ctx model
+                    )
 
-            else
-                let
-                    expanded : NameDict.NameDict ()
-                    expanded =
-                        case ctx.router.view |> Router.viewToPackageName of
-                            Just b ->
-                                model.expanded |> NameDict.insert b ()
+                _ ->
+                    let
+                        expanded : NameDict.NameDict ()
+                        expanded =
+                            case ctx.router.view |> Router.viewToPackageName of
+                                Just b ->
+                                    model.expanded |> NameDict.insert b ()
 
-                            Nothing ->
-                                model.expanded
-                in
-                ( { model | expanded = expanded }
-                , Cmd.none
-                )
+                                Nothing ->
+                                    model.expanded
+                    in
+                    ( { model | expanded = expanded }
+                    , Cmd.none
+                    )
 
         GotPackages a ->
             let
