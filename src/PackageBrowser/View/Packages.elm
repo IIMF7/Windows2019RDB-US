@@ -235,19 +235,18 @@ view search view_ model =
 computeSize : Bool -> Package.Package -> Int
 computeSize expand a =
     let
-        len =
+        modulesCount : Int
+        modulesCount =
             a.exposed |> Package.exposedToList |> List.length
-    in
-    32
-        + ((if not expand && len > modulesLimit then
+
+        count =
+            if not expand && modulesCount > modulesLimit then
                 modulesLimit
 
             else
-                len
-           )
-            |> (\v -> v * 16 + (v - 1) * 4)
-          )
-        + 12
+                modulesCount
+    in
+    24 + count * 20 + 12
 
 
 viewPackage : Bool -> Maybe (Maybe Elm.Module.Name) -> Package.Package -> Element msg
@@ -282,16 +281,16 @@ viewPackage expand active a =
                 fontColor gray9
     in
     column [ width fill, height fill ]
-        [ link [ width fill, paddingXY 1 0.5, packageColor ]
+        [ link [ width fill, paddingXY 1 0.25, packageColor ]
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name Nothing)
             }
-        , Element.Keyed.column [ width fill, spacing 0.25 ]
+        , Element.Keyed.column [ width fill ]
             (modules
                 |> List.map
                     (\v ->
                         ( Elm.Module.toString v
-                        , link [ width fill, paddingXY 2.5 0, moduleColor v ]
+                        , link [ width fill, paddingXY 2.5 0.125, moduleColor v ]
                             { label = text (Elm.Module.toString v)
                             , url = Router.viewToUrl (Router.ModuleView a.name v Nothing)
                             }
