@@ -105,7 +105,7 @@ renderer =
                 , fontFamilyMonospace
                 ]
                 (text body)
-    , thematicBreak = none
+    , thematicBreak = hr
     , table = column []
     , tableHeader = column []
     , tableBody = column []

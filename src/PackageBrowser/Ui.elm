@@ -469,6 +469,12 @@ br =
     Element.html (Html.br [] [])
 
 
+hr =
+    row [ width fill, paddingXY 0 1 ]
+        [ el [ width fill, borderWidthEach 0 0 0 1, borderColor gray3 ] none
+        ]
+
+
 noneAttribute =
     Element.htmlAttribute (Html.Attributes.classList [])
 
