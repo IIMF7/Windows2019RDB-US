@@ -20,6 +20,7 @@ import PackageBrowser.Ui.Markdown as Markdown
 import PackageBrowser.Ui.Status as Status
 import PackageBrowser.View.Readme.Section as Section
 import Task
+import Url.Builder
 
 
 type alias Context a b =
@@ -158,6 +159,23 @@ view view_ model =
 
 viewPackageHeader : Elm.Package.Name -> Element Msg
 viewPackageHeader a =
+    let
+        docsUrl : String
+        docsUrl =
+            Url.Builder.custom
+                (Url.Builder.CrossOrigin "https://package.elm-lang.org")
+                ("packages" :: (a |> Elm.Package.toString |> String.split "/") ++ [ "latest" ])
+                []
+                Nothing
+
+        gitHubUrl : String
+        gitHubUrl =
+            Url.Builder.custom
+                (Url.Builder.CrossOrigin "https://github.com")
+                (a |> Elm.Package.toString |> String.split "/")
+                []
+                Nothing
+    in
     row
         [ width fill
         , spacing 1
@@ -173,17 +191,42 @@ viewPackageHeader a =
             ]
         , newTabLink []
             { label = text Strings.officialDocs
-            , url = "https://package.elm-lang.org/packages/" ++ Elm.Package.toString a ++ "/latest/"
+            , url = docsUrl
             }
         , newTabLink []
             { label = text Strings.source
-            , url = "https://github.com/" ++ Elm.Package.toString a
+            , url = gitHubUrl
             }
         ]
 
 
 viewModuleHeader : Elm.Package.Name -> Elm.Module.Name -> Element Msg
 viewModuleHeader a b =
+    let
+        docsUrl : String
+        docsUrl =
+            Url.Builder.custom
+                (Url.Builder.CrossOrigin "https://package.elm-lang.org")
+                ("packages"
+                    :: (a |> Elm.Package.toString |> String.split "/")
+                    ++ [ "latest"
+                       , b |> Elm.Module.toString |> String.replace "." "-"
+                       ]
+                )
+                []
+                Nothing
+
+        gitHubUrl : String
+        gitHubUrl =
+            Url.Builder.custom
+                (Url.Builder.CrossOrigin "https://github.com")
+                ((a |> Elm.Package.toString |> String.split "/")
+                    ++ [ "blob", "master", "src" ]
+                    ++ (b |> Elm.Module.toString |> String.replace "." "/" |> (\v -> v ++ ".elm") |> String.split "/")
+                )
+                []
+                (Just "L1")
+    in
     row
         [ width fill
         , spacing 1
@@ -199,11 +242,11 @@ viewModuleHeader a b =
             ]
         , newTabLink []
             { label = text Strings.officialDocs
-            , url = "https://package.elm-lang.org/packages/" ++ Elm.Package.toString a ++ "/latest/" ++ (Elm.Module.toString b |> String.replace "." "-")
+            , url = docsUrl
             }
         , newTabLink []
             { label = text Strings.source
-            , url = "https://github.com/" ++ Elm.Package.toString a ++ "/blob/master/src/" ++ (Elm.Module.toString b |> String.replace "." "/") ++ ".elm"
+            , url = gitHubUrl
             }
         ]
 
