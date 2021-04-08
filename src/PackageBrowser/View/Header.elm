@@ -97,8 +97,8 @@ view model =
             , inputRadioRow []
                 { label = labelLeft [] (text (Strings.groupBy ++ " "))
                 , options =
-                    [ inputOption GroupByPackages (text (Strings.packages ++ " "))
-                    , inputOption GroupByModules (text (Strings.modules ++ " "))
+                    [ inputOption GroupByPackages (text (Strings.packageOption ++ " "))
+                    , inputOption GroupByModules (text (Strings.moduleOption ++ " "))
                     ]
                 , selected = Just model.groupBy
                 , onChange = GroupByChanged

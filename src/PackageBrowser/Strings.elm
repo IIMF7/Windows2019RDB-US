@@ -35,12 +35,12 @@ groupBy =
     "Group by:"
 
 
-packages =
-    "Packages"
+packageOption =
+    "Package"
 
 
-modules =
-    "Modules"
+moduleOption =
+    "Module"
 
 
 ok =
