@@ -3,6 +3,7 @@ module PackageBrowser.View.Modules exposing (..)
 import Browser.Dom
 import Database.ModuleGroup as ModuleGroup
 import Database.ModuleGroup.Decode
+import Element
 import Element.Keyed
 import Element.Lazy as Lazy
 import Element.Virtualized
@@ -105,8 +106,8 @@ update msg model =
 --
 
 
-view : String -> Model -> Element Msg
-view search model =
+view : Router.View -> String -> Model -> Element Msg
+view view_ search model =
     case model.modules of
         Ok b ->
             case filterPackages search b of
@@ -123,7 +124,7 @@ view search model =
                         , scrollOffset = model.scrollOffset
                         , view =
                             \v ->
-                                Lazy.lazy2 viewModuleGroup (NameDict.member v.name model.expanded) v
+                                Lazy.lazy3 viewModuleGroup (Router.viewToModuleName view_) (NameDict.member v.name model.expanded) v
                         , onScroll = ScrollOffsetChanged
                         }
 
@@ -147,8 +148,17 @@ computeSize expand a =
         32
 
 
-viewModuleGroup : Bool -> ModuleGroup.ModuleGroup -> Element Msg
-viewModuleGroup expand a =
+viewModuleGroup : Maybe ( Elm.Package.Name, Elm.Module.Name ) -> Bool -> ModuleGroup.ModuleGroup -> Element Msg
+viewModuleGroup active expand a =
+    let
+        linkColor : Elm.Package.Name -> Elm.Module.Name -> Element.Attribute msg
+        linkColor b c =
+            if Just ( b, c ) == active then
+                noneAttribute
+
+            else
+                fontColor gray9
+    in
     column [ width fill, height fill ]
         [ buttonLink [ width fill, paddingXY 1 0.5, fontColor gray6 ]
             { label = text (Elm.Module.toString a.name)
@@ -160,7 +170,7 @@ viewModuleGroup expand a =
                     |> List.map
                         (\( v, vv ) ->
                             ( Elm.Package.toString v ++ Elm.Module.toString vv
-                            , link [ width fill, paddingXY 2.5 0, fontColor gray9 ]
+                            , link [ width fill, paddingXY 2.5 0, linkColor v vv ]
                                 { label =
                                     row []
                                         [ text (Elm.Module.toString vv)

@@ -196,7 +196,7 @@ viewBody model =
                     |> Element.map PackagesMsg
 
               else
-                Lazy.lazy2 Modules.view model.header.search model.modules
+                Lazy.lazy3 Modules.view model.router.view model.header.search model.modules
                     |> Element.map ModulesMsg
             ]
         , border_
