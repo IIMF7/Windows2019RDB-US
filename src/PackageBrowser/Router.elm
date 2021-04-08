@@ -85,6 +85,19 @@ viewToPackageName a =
             Just b
 
 
+viewToModuleName : View -> Maybe ( Elm.Package.Name, Elm.Module.Name )
+viewToModuleName a =
+    case a of
+        DefaultView ->
+            Nothing
+
+        PackageView _ _ ->
+            Nothing
+
+        ModuleView b c _ ->
+            Just ( b, c )
+
+
 viewToFragment : View -> Maybe String
 viewToFragment a =
     case a of
