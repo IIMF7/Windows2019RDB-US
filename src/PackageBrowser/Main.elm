@@ -108,7 +108,7 @@ update msg model =
                 |> Tuple.mapBoth (\v -> { model | packages = v }) (Cmd.map PackagesMsg)
 
         ModulesMsg a ->
-            Modules.update a model.modules
+            Modules.update model a model.modules
                 |> Tuple.mapBoth (\v -> { model | modules = v }) (Cmd.map ModulesMsg)
 
         ReadmeMsg a ->
@@ -136,7 +136,7 @@ update msg model =
                             |> Tuple.mapBoth (\vv -> { v | packages = vv }) (Cmd.map PackagesMsg)
                             |> Update.andThen
                                 (\vv ->
-                                    Modules.update Modules.SearchChanged vv.modules
+                                    Modules.update vv Modules.SearchChanged vv.modules
                                         |> Tuple.mapBoth (\vvv -> { vv | modules = vvv }) (Cmd.map ModulesMsg)
                                 )
 

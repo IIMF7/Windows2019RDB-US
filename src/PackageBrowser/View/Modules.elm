@@ -19,6 +19,19 @@ import PackageBrowser.Ui.Status as Status
 import Task
 
 
+type alias Context a b =
+    { a
+        | router :
+            { b
+                | view : Router.View
+            }
+    }
+
+
+
+--
+
+
 type alias Model =
     { modules : Result Error (List ModuleGroup.ModuleGroup)
     , scrollOffset : Float
@@ -54,16 +67,29 @@ getModules =
 
 
 type Msg
-    = GotModules (Result Http.Error (List ModuleGroup.ModuleGroup))
+    = UrlChanged
+    | GotModules (Result Http.Error (List ModuleGroup.ModuleGroup))
     | ScrollOffsetChanged Float
     | ToggleModuleGroup Elm.Module.Name
     | SearchChanged
     | ViewportSet (Result Browser.Dom.Error ())
 
 
-update : Msg -> Model -> ( Model, Cmd Msg )
-update msg model =
+update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
+update ctx msg model =
     case msg of
+        UrlChanged ->
+            case ctx.router.view of
+                Router.DefaultView ->
+                    ( { model | expanded = NameDict.empty }
+                    , scrollToTop
+                    )
+
+                _ ->
+                    ( model
+                    , Cmd.none
+                    )
+
         GotModules a ->
             ( { model | modules = a |> Result.mapError HttpError }
             , Cmd.none
@@ -92,14 +118,19 @@ update msg model =
 
         SearchChanged ->
             ( model
-            , Browser.Dom.setViewportOf modulesId 0 0
-                |> Task.attempt ViewportSet
+            , scrollToTop
             )
 
         ViewportSet _ ->
             ( model
             , Cmd.none
             )
+
+
+scrollToTop : Cmd Msg
+scrollToTop =
+    Browser.Dom.setViewportOf modulesId 0 0
+        |> Task.attempt ViewportSet
 
 
 
