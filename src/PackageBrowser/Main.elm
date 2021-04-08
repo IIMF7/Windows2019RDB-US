@@ -90,7 +90,12 @@ type Msg
 
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
-    (case msg of
+    model |> Update.multiple (msg :: forwardMsg msg) update_
+
+
+update_ : Msg -> Model -> ( Model, Cmd Msg )
+update_ msg model =
+    case msg of
         RouterMsg a ->
             Router.update a model.router
                 |> Tuple.mapBoth (\v -> { model | router = v }) (Cmd.map RouterMsg)
@@ -114,41 +119,32 @@ update msg model =
         ReadmeMsg a ->
             Readme.update model a model.readme
                 |> Tuple.mapBoth (\v -> { model | readme = v }) (Cmd.map ReadmeMsg)
-    )
-        |> Update.andThen
-            (\v ->
-                case msg of
-                    RouterMsg (Router.UrlChanged _) ->
-                        Readme.update v Readme.UrlChanged v.readme
-                            |> Tuple.mapBoth (\vv -> { v | readme = vv }) (Cmd.map ReadmeMsg)
-                            |> Update.andThen
-                                (\vv ->
-                                    Packages.update vv Packages.UrlChanged vv.packages
-                                        |> Tuple.mapBoth (\vvv -> { vv | packages = vvv }) (Cmd.map PackagesMsg)
-                                )
 
-                    HeaderMsg Header.ToggleInfo ->
-                        Info.update Info.ToggleInfo v.info
-                            |> Tuple.mapBoth (\vv -> { v | info = vv }) (Cmd.map InfoMsg)
 
-                    HeaderMsg (Header.SearchChanged _) ->
-                        Packages.update v Packages.SearchChanged v.packages
-                            |> Tuple.mapBoth (\vv -> { v | packages = vv }) (Cmd.map PackagesMsg)
-                            |> Update.andThen
-                                (\vv ->
-                                    Modules.update vv Modules.SearchChanged vv.modules
-                                        |> Tuple.mapBoth (\vvv -> { vv | modules = vvv }) (Cmd.map ModulesMsg)
-                                )
+forwardMsg : Msg -> List Msg
+forwardMsg msg =
+    case msg of
+        RouterMsg (Router.UrlChanged _) ->
+            [ PackagesMsg Packages.UrlChanged
+            , ModulesMsg Modules.UrlChanged
+            , ReadmeMsg Readme.UrlChanged
+            ]
 
-                    ReadmeMsg (Readme.Reveal a) ->
-                        Packages.update v (Packages.Reveal a) v.packages
-                            |> Tuple.mapBoth (\vv -> { v | packages = vv }) (Cmd.map PackagesMsg)
+        HeaderMsg Header.ToggleInfo ->
+            [ InfoMsg Info.ToggleInfo
+            ]
 
-                    _ ->
-                        ( v
-                        , Cmd.none
-                        )
-            )
+        HeaderMsg (Header.SearchChanged _) ->
+            [ PackagesMsg Packages.SearchChanged
+            , ModulesMsg Modules.SearchChanged
+            ]
+
+        ReadmeMsg (Readme.Reveal a) ->
+            [ PackagesMsg (Packages.Reveal a)
+            ]
+
+        _ ->
+            []
 
 
 
