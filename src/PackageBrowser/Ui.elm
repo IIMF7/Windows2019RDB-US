@@ -571,20 +571,24 @@ inputOption a b =
 --
 
 
+labelStyle a =
+    fontSize 0.875 :: fontColor gray6 :: a
+
+
 labelRight a =
-    Input.labelRight (fontSize 0.875 :: fontColor gray6 :: a)
+    Input.labelRight (labelStyle a)
 
 
 labelLeft a =
-    Input.labelLeft (fontSize 0.875 :: fontColor gray6 :: a)
+    Input.labelLeft (labelStyle a)
 
 
 labelAbove a =
-    Input.labelAbove (fontSize 0.875 :: fontColor gray6 :: a)
+    Input.labelAbove (labelStyle a)
 
 
 labelBelow a =
-    Input.labelBelow (fontSize 0.875 :: fontColor gray6 :: a)
+    Input.labelBelow (labelStyle a)
 
 
 labelHidden =
