@@ -509,6 +509,14 @@ searchInput a =
     Input.search (inputStyle a)
 
 
+placeholder a =
+    Input.placeholder (fontSize 0.875 :: a)
+
+
+
+--
+
+
 inputCheckbox :
     List (Element.Attribute msg)
     ->
@@ -526,8 +534,8 @@ inputDefaultCheckbox =
     Input.defaultCheckbox
 
 
-placeholder a =
-    Input.placeholder (fontSize 0.875 :: a)
+
+--
 
 
 labelRight a =
