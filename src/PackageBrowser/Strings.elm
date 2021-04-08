@@ -44,7 +44,7 @@ ellipsis =
 
 
 searchInput =
-    "Search in package and module names"
+    "Search"
 
 
 loading =
