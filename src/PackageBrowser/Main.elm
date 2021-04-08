@@ -192,7 +192,7 @@ viewBody model =
             [ Lazy.lazy Header.view model.header
                 |> Element.map HeaderMsg
             , if model.header.groupByPackages then
-                Lazy.lazy4 Packages.view model.header.search model.router.view model.router.recent model.packages
+                Lazy.lazy3 Packages.view model.header.search model.router.view model.packages
                     |> Element.map PackagesMsg
 
               else

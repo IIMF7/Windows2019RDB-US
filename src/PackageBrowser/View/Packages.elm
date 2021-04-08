@@ -25,7 +25,6 @@ type alias Context a b c =
         | router :
             { b
                 | view : Router.View
-                , recent : NameDict.NameDict ()
             }
         , header :
             { c
@@ -41,6 +40,7 @@ type alias Context a b c =
 type alias Model =
     { packages : Result Error (List Package.Package)
     , scrollOffset : Float
+    , expanded : NameDict.NameDict ()
     }
 
 
@@ -53,9 +53,18 @@ init : ( Model, Cmd Msg )
 init =
     ( { packages = Err Loading
       , scrollOffset = 0
+      , expanded = initialExpanded
       }
     , getPackages
     )
+
+
+initialExpanded : NameDict.NameDict ()
+initialExpanded =
+    [ Elm.Package.fromString "elm/core" ]
+        |> List.filterMap identity
+        |> List.map (\v -> ( v, () ))
+        |> NameDict.fromList
 
 
 getPackages : Cmd Msg
@@ -139,7 +148,7 @@ scrollToPackage ctx model a =
                 Element.Virtualized.getScrollOffset
                     { data = v |> filterPackages ctx.header.search
                     , getKey = .name >> Elm.Package.toString
-                    , getSize = \vv -> computeSize (NameDict.member vv.name ctx.router.recent) vv
+                    , getSize = \vv -> computeSize (NameDict.member vv.name model.expanded) vv
                     , key = Elm.Package.toString a
                     }
             )
@@ -159,8 +168,8 @@ modulesLimit =
     6
 
 
-view : String -> Router.View -> NameDict.NameDict () -> Model -> Element Msg
-view search view_ recent model =
+view : String -> Router.View -> Model -> Element Msg
+view search view_ model =
     case model.packages of
         Ok b ->
             case filterPackages search b of
@@ -173,12 +182,12 @@ view search view_ recent model =
                     Element.Virtualized.column [ paddingXY 0 4, id packagesId ]
                         { data = c
                         , getKey = .name >> Elm.Package.toString
-                        , getSize = \v -> computeSize (NameDict.member v.name recent) v
+                        , getSize = \v -> computeSize (NameDict.member v.name model.expanded) v
                         , scrollOffset = model.scrollOffset
                         , view =
                             \v ->
                                 Lazy.lazy3 viewPackage
-                                    (NameDict.member v.name recent)
+                                    (NameDict.member v.name model.expanded)
                                     (activePackageAndModule view_ v)
                                     v
                         , onScroll = ScrollOffsetChanged
