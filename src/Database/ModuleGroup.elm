@@ -57,7 +57,7 @@ parentModule a =
         Module.fromString "Review"
             |> Maybe.withDefault a
 
-    else if a |> Module.toString |> String.toLower |> (==) "graphql" then
+    else if a |> Module.toString |> String.toLower |> String.startsWith "graphql." then
         -- https://github.com/dillonkearns/elm-graphql/issues/494
         Module.fromString "GraphQl"
             |> Maybe.withDefault a
