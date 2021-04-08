@@ -496,6 +496,7 @@ buttonLink a =
     Input.button
         (fontColor primary
             :: borderRounded 0.25
+            :: Element.focused [ borderColor (Element.rgba 0 0 0 1) ]
             :: a
         )
 
