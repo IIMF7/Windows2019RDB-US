@@ -196,13 +196,14 @@ viewBody model =
         , column [ width (px 320), height fill ]
             [ Lazy.lazy Header.view model.header
                 |> Element.map HeaderMsg
-            , if model.header.groupByPackages then
-                Lazy.lazy3 Packages.view model.header.search model.router.view model.packages
-                    |> Element.map PackagesMsg
+            , case model.header.groupBy of
+                Header.GroupByPackages ->
+                    Lazy.lazy3 Packages.view model.header.search model.router.view model.packages
+                        |> Element.map PackagesMsg
 
-              else
-                Lazy.lazy3 Modules.view model.router.view model.header.search model.modules
-                    |> Element.map ModulesMsg
+                Header.GroupByModules ->
+                    Lazy.lazy3 Modules.view model.router.view model.header.search model.modules
+                        |> Element.map ModulesMsg
             ]
         , border_
         , el [ width (px 880), height fill ]

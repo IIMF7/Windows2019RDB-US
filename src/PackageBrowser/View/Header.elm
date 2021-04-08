@@ -9,14 +9,19 @@ import PackageBrowser.Ui exposing (..)
 
 type alias Model =
     { search : String
-    , groupByPackages : Bool
+    , groupBy : GroupBy
     }
+
+
+type GroupBy
+    = GroupByPackages
+    | GroupByModules
 
 
 init : Model
 init =
     { search = ""
-    , groupByPackages = True
+    , groupBy = GroupByPackages
     }
 
 
@@ -27,7 +32,7 @@ init =
 type Msg
     = ToggleInfo
     | SearchChanged String
-    | ToggleGroupByPackages
+    | GroupByChanged GroupBy
 
 
 update : Msg -> Model -> ( Model, Cmd msg )
@@ -43,8 +48,8 @@ update msg model =
             , Cmd.none
             )
 
-        ToggleGroupByPackages ->
-            ( { model | groupByPackages = not model.groupByPackages }
+        GroupByChanged a ->
+            ( { model | groupBy = a }
             , Cmd.none
             )
 
@@ -89,11 +94,14 @@ view model =
                 , text = model.search
                 , onChange = SearchChanged
                 }
-            , inputCheckbox []
-                { icon = inputDefaultCheckbox
-                , label = labelRight [] (text Strings.groupByPackages)
-                , checked = model.groupByPackages
-                , onChange = always ToggleGroupByPackages
+            , inputRadioRow []
+                { label = labelLeft [] (text (Strings.groupBy ++ " "))
+                , options =
+                    [ inputOption GroupByPackages (text (Strings.packages ++ " "))
+                    , inputOption GroupByModules (text (Strings.modules ++ " "))
+                    ]
+                , selected = Just model.groupBy
+                , onChange = GroupByChanged
                 }
             ]
         ]
