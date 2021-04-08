@@ -53,6 +53,7 @@ parentModule a =
             Regex.fromString "^No[A-Z]" |> Maybe.withDefault Regex.never
     in
     if a |> Module.toString |> Regex.contains elmReview then
+        -- https://github.com/jfmengels/elm-review/issues/98
         Module.fromString "Review"
             |> Maybe.withDefault a
 
