@@ -123,20 +123,25 @@ update ctx msg model =
 
         SearchChanged ->
             ( model
-            , if ctx.header.search |> String.trim |> String.isEmpty then
-                Elm.Package.fromString "elm/core"
-                    |> Maybe.andThen (scrollToPackage ctx model)
-                    |> Maybe.withDefault Cmd.none
-
-              else
-                Browser.Dom.setViewportOf packagesId 0 0
-                    |> Task.attempt ViewportSet
+            , scrollToTop ctx model
             )
 
         ScrollOffsetChanged a ->
             ( { model | scrollOffset = a }
             , Cmd.none
             )
+
+
+scrollToTop : Context a b c -> Model -> Cmd Msg
+scrollToTop ctx model =
+    if ctx.header.search |> String.trim |> String.isEmpty then
+        Elm.Package.fromString "elm/core"
+            |> Maybe.andThen (scrollToPackage ctx model)
+            |> Maybe.withDefault Cmd.none
+
+    else
+        Browser.Dom.setViewportOf packagesId 0 0
+            |> Task.attempt ViewportSet
 
 
 scrollToPackage : Context a b c -> Model -> Elm.Package.Name -> Maybe (Cmd Msg)
