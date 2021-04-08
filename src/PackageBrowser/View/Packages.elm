@@ -381,10 +381,10 @@ toKeywords a =
     let
         keywordsRegex : Regex.Regex
         keywordsRegex =
-            Regex.fromString "[A-Za-z0-9]+" |> Maybe.withDefault Regex.never
+            Regex.fromString "[A-Z]?[a-z0-9]+" |> Maybe.withDefault Regex.never
     in
     a
-        |> String.toLower
         |> Regex.find keywordsRegex
         |> List.map .match
-        |> (::) (String.toLower a)
+        |> (::) a
+        |> List.map String.toLower
