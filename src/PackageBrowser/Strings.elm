@@ -31,8 +31,16 @@ tampermonkey =
     "Redirect Script for Tampermonkey"
 
 
-groupByPackages =
-    "Group by Packages"
+groupBy =
+    "Group by:"
+
+
+packages =
+    "Packages"
+
+
+modules =
+    "Modules"
 
 
 ok =
