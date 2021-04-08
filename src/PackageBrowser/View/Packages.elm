@@ -347,38 +347,44 @@ activePackageAndModule view_ a =
 filterPackages : String -> List Package.Package -> List Package.Package
 filterPackages search a =
     let
-        words : List String
-        words =
-            search |> toWords
+        searchWords : List String
+        searchWords =
+            search |> String.toLower |> String.words
 
-        isRelevant : String -> Bool
-        isRelevant b =
-            let
-                c =
-                    toWords b ++ toKeywords b
-            in
-            words |> List.all (\v -> c |> List.any (String.startsWith v))
+        isRelevant : List String -> Bool
+        isRelevant c =
+            searchWords |> List.all (\v -> c |> List.any (String.startsWith v))
+    in
+    a |> List.filter (keywordsFromPackage >> isRelevant)
 
+
+keywordsFromPackage : Package.Package -> List String
+keywordsFromPackage a =
+    let
+        ( user, project ) =
+            case a.name |> Elm.Package.toString |> String.split "/" of
+                b :: c :: _ ->
+                    ( b, c )
+
+                _ ->
+                    ( Elm.Package.toString a.name, "" )
+    in
+    user
+        :: project
+        :: (user ++ "/" ++ project)
+        :: List.map Elm.Module.toString (Package.exposedToList a.exposed)
+        |> List.concatMap toKeywords
+
+
+toKeywords : String -> List String
+toKeywords a =
+    let
         keywordsRegex : Regex.Regex
         keywordsRegex =
             Regex.fromString "[A-Za-z0-9]+" |> Maybe.withDefault Regex.never
-
-        toKeywords : String -> List String
-        toKeywords b =
-            b |> String.toLower |> Regex.find keywordsRegex |> List.map .match
-
-        toWords : String -> List String
-        toWords b =
-            b |> String.toLower |> String.words
     in
     a
-        |> List.filter
-            (\v ->
-                isRelevant
-                    (String.join " "
-                        (Elm.Package.toString v.name
-                            :: (Elm.Package.toString v.name |> String.split "/")
-                            ++ List.map Elm.Module.toString (Package.exposedToList v.exposed)
-                        )
-                    )
-            )
+        |> String.toLower
+        |> Regex.find keywordsRegex
+        |> List.map .match
+        |> (::) (String.toLower a)
