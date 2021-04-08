@@ -121,6 +121,11 @@ update msg model =
                     RouterMsg (Router.UrlChanged _) ->
                         Readme.update v Readme.UrlChanged v.readme
                             |> Tuple.mapBoth (\vv -> { v | readme = vv }) (Cmd.map ReadmeMsg)
+                            |> Update.andThen
+                                (\vv ->
+                                    Packages.update vv Packages.UrlChanged vv.packages
+                                        |> Tuple.mapBoth (\vvv -> { vv | packages = vvv }) (Cmd.map PackagesMsg)
+                                )
 
                     HeaderMsg Header.ToggleInfo ->
                         Info.update Info.ToggleInfo v.info
