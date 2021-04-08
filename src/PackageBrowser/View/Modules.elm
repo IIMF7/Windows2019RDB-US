@@ -173,10 +173,10 @@ view view_ search model =
 computeSize : Bool -> ModuleGroup.ModuleGroup -> Int
 computeSize expand a =
     if expand then
-        32 + (List.length a.modules |> (\v -> v * 16 + (v - 1) * 4)) + 12
+        24 + (List.length a.modules * 20) + 12
 
     else
-        32
+        24
 
 
 viewModuleGroup : Maybe ( Elm.Package.Name, Elm.Module.Name ) -> Bool -> ModuleGroup.ModuleGroup -> Element Msg
@@ -191,17 +191,17 @@ viewModuleGroup active expand a =
                 fontColor gray9
     in
     column [ width fill, height fill ]
-        [ buttonLink [ width fill, paddingXY 1 0.5, fontColor gray6 ]
+        [ buttonLink [ width fill, paddingXY 1 0.25, fontColor gray6 ]
             { label = text (Elm.Module.toString a.name)
             , onPress = Just (ToggleModuleGroup a.name)
             }
         , if expand then
-            Element.Keyed.column [ width fill, spacing 0.25 ]
+            Element.Keyed.column [ width fill ]
                 (a.modules
                     |> List.map
                         (\( v, vv ) ->
                             ( Elm.Package.toString v ++ Elm.Module.toString vv
-                            , link [ width fill, paddingXY 2.5 0, linkColor v vv ]
+                            , link [ width fill, paddingXY 2.5 0.125, linkColor v vv ]
                                 { label =
                                     row []
                                         [ text (Elm.Module.toString vv)
