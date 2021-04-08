@@ -538,6 +538,39 @@ inputDefaultCheckbox =
 --
 
 
+inputRadioRow :
+    List (Element.Attribute msg)
+    ->
+        { label : Input.Label msg
+        , options : List (Input.Option a msg)
+        , selected : Maybe a
+        , onChange : a -> msg
+        }
+    -> Element msg
+inputRadioRow a =
+    Input.radioRow (fontSize 0.875 :: a)
+
+
+inputOption : a -> Element msg -> Input.Option a msg
+inputOption a b =
+    Input.optionWith a
+        (\v ->
+            case v of
+                Input.Idle ->
+                    el [] b
+
+                Input.Focused ->
+                    el [] b
+
+                Input.Selected ->
+                    el [ fontColor primary ] b
+        )
+
+
+
+--
+
+
 labelRight a =
     Input.labelRight (fontSize 0.875 :: a)
 
