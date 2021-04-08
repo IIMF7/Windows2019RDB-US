@@ -86,6 +86,7 @@ type Msg
     | ViewportSet (Result Browser.Dom.Error ())
     | SearchChanged
     | ScrollOffsetChanged Float
+    | RestoreScrollOffset
 
 
 update : Context a b c -> Msg -> Model -> ( Model, Cmd Msg )
@@ -152,6 +153,12 @@ update ctx msg model =
         ScrollOffsetChanged a ->
             ( { model | scrollOffset = a }
             , Cmd.none
+            )
+
+        RestoreScrollOffset ->
+            ( model
+            , Browser.Dom.setViewportOf packagesId 0 model.scrollOffset
+                |> Task.attempt ViewportSet
             )
 
 

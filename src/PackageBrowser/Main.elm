@@ -139,6 +139,11 @@ forwardMsg msg =
             , ModulesMsg Modules.SearchChanged
             ]
 
+        HeaderMsg (Header.GroupByChanged _) ->
+            [ PackagesMsg Packages.RestoreScrollOffset
+            , ModulesMsg Modules.RestoreScrollOffset
+            ]
+
         ReadmeMsg (Readme.Reveal a) ->
             [ PackagesMsg (Packages.Reveal a)
             ]

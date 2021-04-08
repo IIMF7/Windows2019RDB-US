@@ -73,6 +73,7 @@ type Msg
     | ToggleModuleGroup Elm.Module.Name
     | SearchChanged
     | ViewportSet (Result Browser.Dom.Error ())
+    | RestoreScrollOffset
 
 
 update : Context a b -> Msg -> Model -> ( Model, Cmd Msg )
@@ -124,6 +125,12 @@ update ctx msg model =
         ViewportSet _ ->
             ( model
             , Cmd.none
+            )
+
+        RestoreScrollOffset ->
+            ( model
+            , Browser.Dom.setViewportOf modulesId 0 model.scrollOffset
+                |> Task.attempt ViewportSet
             )
 
 
