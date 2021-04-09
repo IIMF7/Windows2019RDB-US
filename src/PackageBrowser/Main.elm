@@ -178,6 +178,7 @@ view model =
 viewBody : Model -> Element Msg
 viewBody model =
     let
+        border_ : Element msg
         border_ =
             el [ height fill, borderColor gray3, borderWidthEach 1 0 0 0 ] none
     in
