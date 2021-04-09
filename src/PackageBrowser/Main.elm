@@ -181,21 +181,25 @@ viewBody model =
         border_ : Element msg
         border_ =
             el [ height fill, borderColor gray3, borderWidthEach 1 0 0 0 ] none
+
+        infoView : Element.Attribute Msg
+        infoView =
+            Element.inFront
+                (el
+                    [ Element.moveDown 16
+                    , Element.moveRight 16
+                    ]
+                    (Info.view model.info |> Element.map InfoMsg)
+                )
     in
     row
-        [ height fill
-        , centerX
-        , bgColor gray0
-        , Element.inFront
-            (el
-                [ Element.moveDown 16
-                , Element.moveRight 16
-                ]
-                (Info.view model.info |> Element.map InfoMsg)
-            )
+        [ width fill
+        , height fill
+        , infoView
         ]
-        [ border_
-        , column [ width (px 320), height fill ]
+        [ el [ width fill ] none
+        , border_
+        , column [ width (px 320), height fill, bgColor gray0 ]
             [ Lazy.lazy Header.view model.header
                 |> Element.map HeaderMsg
             , case model.header.groupBy of
@@ -208,11 +212,12 @@ viewBody model =
                         |> Element.map ModulesMsg
             ]
         , border_
-        , el [ width (px 880), height fill ]
+        , el [ width (px 880), height fill, bgColor gray0 ]
             (Lazy.lazy2 Readme.view model.router.view model.readme
                 |> Element.map ReadmeMsg
             )
         , border_
+        , el [ width fill ] none
         ]
 
 
