@@ -4,6 +4,8 @@ import Browser
 import Browser.Navigation as Navigation
 import Element
 import Element.Lazy as Lazy
+import Elm.Module
+import Elm.Package
 import Html
 import Json.Decode as Decode
 import PackageBrowser.Router as Router
@@ -167,7 +169,17 @@ subscriptions _ =
 
 view : Model -> Browser.Document Msg
 view model =
-    { title = Strings.title
+    let
+        title : String
+        title =
+            [ model.router.view |> Router.viewToPackageName |> Maybe.map Elm.Package.toString
+            , model.router.view |> Router.viewToPackageAndModuleName |> Maybe.map (Tuple.second >> Elm.Module.toString)
+            , Strings.title |> Just
+            ]
+                |> List.filterMap identity
+                |> String.join " – "
+    in
+    { title = title
     , body =
         [ Element.layout (Ui.rootStyle []) (viewBody model)
         , scaleUi
