@@ -162,7 +162,7 @@ view view_ search model =
                         , scrollOffset = model.scrollOffset
                         , view =
                             \v ->
-                                Lazy.lazy3 viewModuleGroup (Router.viewToModuleName view_) (NameDict.member v.name model.expanded) v
+                                Lazy.lazy3 viewModuleGroup (Router.viewToPackageAndModuleName view_) (NameDict.member v.name model.expanded) v
                         , onScroll = ScrollOffsetChanged
                         }
 

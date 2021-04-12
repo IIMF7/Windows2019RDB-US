@@ -74,8 +74,8 @@ viewToPackageName a =
             Just b
 
 
-viewToModuleName : View -> Maybe ( Elm.Package.Name, Elm.Module.Name )
-viewToModuleName a =
+viewToPackageAndModuleName : View -> Maybe ( Elm.Package.Name, Elm.Module.Name )
+viewToPackageAndModuleName a =
     case a of
         DefaultView ->
             Nothing
