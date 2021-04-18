@@ -16,11 +16,11 @@ multiple messages fn initialModal =
         fold : msg -> ( model, Cmd msg ) -> ( model, Cmd msg )
         fold msg ( model, cmd ) =
             let
-                ( nextModel, nextMsg ) =
+                ( nextModel, nextCmd ) =
                     fn msg model
             in
             ( nextModel
-            , Cmd.batch [ nextMsg, cmd ]
+            , Cmd.batch [ nextCmd, cmd ]
             )
     in
     messages |> List.foldl fold ( initialModal, Cmd.none )
