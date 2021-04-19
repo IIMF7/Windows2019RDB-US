@@ -1,6 +1,6 @@
 module PackageBrowser.View.Readme.Section exposing (..)
 
-import Database.Package.Readme
+import Database.PackageReadme
 import Dict
 import Elm.Docs
 import Elm.Type
@@ -31,7 +31,7 @@ type alias Member =
 --
 
 
-fromMarkdown : Database.Package.Readme.ModuleReadme -> String -> String -> Result String (List Section)
+fromMarkdown : Database.PackageReadme.ModuleReadme -> String -> String -> Result String (List Section)
 fromMarkdown module_ defaultTitle a =
     let
         mapItems : (List Item -> List Item) -> List Section -> List Section
@@ -143,7 +143,7 @@ replaceDocs a =
 --
 
 
-toMember : Database.Package.Readme.ModuleReadme -> String -> Maybe Member
+toMember : Database.PackageReadme.ModuleReadme -> String -> Maybe Member
 toMember module_ a =
     Nothing
         |> onNothing (\_ -> module_.unions |> Dict.get a |> Maybe.map unionToMember)

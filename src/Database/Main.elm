@@ -4,8 +4,8 @@ import Database.ModuleGroup as ModuleGroup
 import Database.ModuleGroup.Encode
 import Database.Package as Package
 import Database.Package.Encode
-import Database.Package.Readme as Readme
-import Database.Package.Readme.Encode
+import Database.PackageReadme as PackageReadme
+import Database.PackageReadme.Encode
 import Elm.Docs
 import Elm.Package
 import Elm.Project
@@ -71,10 +71,10 @@ init _ =
                                     |> ModuleGroup.fromPackages
                                     |> Encode.list Database.ModuleGroup.Encode.moduleGroup
                                )
-                            :: (vv |> List.map (Tuple.mapBoth Elm.Package.toString Database.Package.Readme.Encode.readme))
+                            :: (vv |> List.map (Tuple.mapBoth Elm.Package.toString Database.PackageReadme.Encode.packageReadme))
                     )
 
-        packageTask : Elm.Package.Name -> Task Error (Maybe ( Package.Package, ( Elm.Package.Name, Readme.Readme ) ))
+        packageTask : Elm.Package.Name -> Task Error (Maybe ( Package.Package, ( Elm.Package.Name, PackageReadme.PackageReadme ) ))
         packageTask name =
             getProject name
                 |> Task.mapError (GetProjectError name)
@@ -90,7 +90,7 @@ init _ =
                                     (\v vv ->
                                         Just
                                             ( package
-                                            , ( name, Readme.fromReadmeAndDocs v vv )
+                                            , ( name, PackageReadme.fromReadmeAndDocs v vv )
                                             )
                                     )
                                     (name |> getReadme |> Task.mapError (GetReadmeError name))

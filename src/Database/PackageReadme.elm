@@ -1,4 +1,4 @@
-module Database.Package.Readme exposing (..)
+module Database.PackageReadme exposing (..)
 
 import Dict exposing (Dict)
 import Elm.Docs
@@ -6,7 +6,7 @@ import Elm.Module
 import Elm.Module.NameDict as PackageNameDict
 
 
-type alias Readme =
+type alias PackageReadme =
     { readme : String
     , modules : PackageNameDict.NameDict ModuleReadme
     }
@@ -21,7 +21,7 @@ type alias ModuleReadme =
     }
 
 
-fromReadmeAndDocs : String -> List Elm.Docs.Module -> Readme
+fromReadmeAndDocs : String -> List Elm.Docs.Module -> PackageReadme
 fromReadmeAndDocs a b =
     let
         toDict : List { a | name : String } -> Dict String { a | name : String }

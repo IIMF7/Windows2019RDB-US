@@ -1,8 +1,8 @@
 module PackageBrowser.View.Readme exposing (..)
 
 import Browser.Dom
-import Database.Package.Readme as Readme
-import Database.Package.Readme.Decode
+import Database.PackageReadme as PackageReadme
+import Database.PackageReadme.Decode
 import Element
 import Element.Events exposing (onClick)
 import Elm.Module
@@ -37,7 +37,7 @@ type alias Context a b =
 
 
 type alias Model =
-    { readmes : PackageNameDict.NameDict (Result Error Readme.Readme)
+    { readmes : PackageNameDict.NameDict (Result Error PackageReadme.PackageReadme)
     }
 
 
@@ -58,7 +58,7 @@ getPackage : Elm.Package.Name -> Cmd Msg
 getPackage a =
     Http.get
         { url = "db/" ++ (a |> Elm.Package.toString |> String.replace "/" " ") ++ ".json"
-        , expect = Http.expectJson (GotReadme a) Database.Package.Readme.Decode.readme
+        , expect = Http.expectJson (GotReadme a) Database.PackageReadme.Decode.packageReadme
         }
 
 
@@ -68,7 +68,7 @@ getPackage a =
 
 type Msg
     = UrlChanged
-    | GotReadme Elm.Package.Name (Result Http.Error Readme.Readme)
+    | GotReadme Elm.Package.Name (Result Http.Error PackageReadme.PackageReadme)
     | Reveal Elm.Package.Name
     | ViewportSet (Result Browser.Dom.Error ())
 
@@ -255,10 +255,10 @@ viewModuleHeader a b =
 --
 
 
-viewPackageReadme : Maybe (Result Error Readme.Readme) -> Element msg
+viewPackageReadme : Maybe (Result Error PackageReadme.PackageReadme) -> Element msg
 viewPackageReadme a =
     let
-        view_ : Readme.Readme -> Element msg
+        view_ : PackageReadme.PackageReadme -> Element msg
         view_ b =
             textColumn [ spacing 1 ]
                 (b.readme
@@ -287,7 +287,7 @@ viewPackageReadme a =
 --
 
 
-viewModuleReadme : Elm.Package.Name -> Elm.Module.Name -> Maybe (Result Error Readme.Readme) -> Element Msg
+viewModuleReadme : Elm.Package.Name -> Elm.Module.Name -> Maybe (Result Error PackageReadme.PackageReadme) -> Element Msg
 viewModuleReadme _ b c =
     let
         defaultTitle : String
@@ -298,7 +298,7 @@ viewModuleReadme _ b c =
                 |> List.head
                 |> Maybe.withDefault ""
 
-        view_ : Readme.Readme -> Element Msg
+        view_ : PackageReadme.PackageReadme -> Element Msg
         view_ d =
             case d.modules |> ModuleNameDict.get b of
                 Just e ->
