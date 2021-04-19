@@ -13,7 +13,7 @@ import Elm.Package.NameDict as NameDict
 import Http
 import Json.Decode as Decode
 import PackageBrowser.Router as Router
-import PackageBrowser.Strings as Strings
+import PackageBrowser.Translation as Translation
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Status as Status
 import Regex
@@ -210,7 +210,7 @@ view search view_ model =
             case filterPackages search b of
                 [] ->
                     Status.view []
-                        [ text Strings.noPackagesFound
+                        [ text Translation.noPackagesFound
                         ]
 
                 c ->
@@ -232,10 +232,10 @@ view search view_ model =
             Status.view []
                 [ case b of
                     Loading ->
-                        text Strings.loading
+                        text Translation.loading
 
                     HttpError c ->
-                        text (Strings.httpError c)
+                        text (Translation.httpError c)
                 ]
 
 
@@ -306,7 +306,7 @@ viewPackage expand active a =
             )
         , if shortened then
             link [ width fill, paddingXY 2.5 0, fontColor gray9 ]
-                { label = text Strings.ellipsis
+                { label = text Translation.ellipsis
                 , url = Router.viewToUrl (Router.PackageView a.name Nothing)
                 }
 

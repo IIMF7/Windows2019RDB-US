@@ -3,7 +3,7 @@ module PackageBrowser.View.Header exposing (..)
 import Element
 import Element.Input as Input
 import PackageBrowser.Router as Router
-import PackageBrowser.Strings as Strings
+import PackageBrowser.Translation as Translation
 import PackageBrowser.Ui exposing (..)
 
 
@@ -74,12 +74,12 @@ view model =
             ]
             [ h5 []
                 [ link [ fontColor gray9 ]
-                    { label = text Strings.title
+                    { label = text Translation.title
                     , url = Router.DefaultView |> Router.viewToUrl
                     }
                 ]
             , buttonLink []
-                { label = text Strings.info
+                { label = text Translation.info
                 , onPress = Just ToggleInfo
                 }
             ]
@@ -89,16 +89,16 @@ view model =
             , spacing 0.5
             ]
             [ searchInput [ Input.focusedOnLoad ]
-                { label = labelHidden Strings.searchInput
-                , placeholder = Just (placeholder [] (text Strings.searchInput))
+                { label = labelHidden Translation.searchInput
+                , placeholder = Just (placeholder [] (text Translation.searchInput))
                 , text = model.search
                 , onChange = SearchChanged
                 }
             , inputRadioRow []
-                { label = labelLeft [] (text (Strings.groupBy ++ " "))
+                { label = labelLeft [] (text (Translation.groupBy ++ " "))
                 , options =
-                    [ inputOption GroupByPackages (text (Strings.packageOption ++ " "))
-                    , inputOption GroupByModules (text (Strings.moduleOption ++ " "))
+                    [ inputOption GroupByPackages (text (Translation.packageOption ++ " "))
+                    , inputOption GroupByModules (text (Translation.moduleOption ++ " "))
                     ]
                 , selected = Just model.groupBy
                 , onChange = GroupByChanged

@@ -13,7 +13,7 @@ import Elm.Package
 import Http
 import Json.Decode as Decode
 import PackageBrowser.Router as Router
-import PackageBrowser.Strings as Strings
+import PackageBrowser.Translation as Translation
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Status as Status
 import Task
@@ -151,7 +151,7 @@ view view_ search model =
             case filterPackages search b of
                 [] ->
                     Status.view []
-                        [ text Strings.noModulesFound
+                        [ text Translation.noModulesFound
                         ]
 
                 c ->
@@ -170,10 +170,10 @@ view view_ search model =
             Status.view []
                 [ case b of
                     Loading ->
-                        text Strings.loading
+                        text Translation.loading
 
                     HttpError c ->
-                        text (Strings.httpError c)
+                        text (Translation.httpError c)
                 ]
 
 

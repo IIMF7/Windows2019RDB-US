@@ -1,4 +1,4 @@
-module PackageBrowser.Strings exposing (..)
+module PackageBrowser.Translation exposing (..)
 
 import Http
 

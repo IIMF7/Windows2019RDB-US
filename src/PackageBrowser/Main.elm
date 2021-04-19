@@ -9,7 +9,7 @@ import Elm.Package
 import Html
 import Json.Decode as Decode
 import PackageBrowser.Router as Router
-import PackageBrowser.Strings as Strings
+import PackageBrowser.Translation as Translation
 import PackageBrowser.Ui as Ui exposing (..)
 import PackageBrowser.View.Header as Header
 import PackageBrowser.View.Info as Info
@@ -174,7 +174,7 @@ view model =
         title =
             [ model.router.view |> Router.viewToPackageName |> Maybe.map Elm.Package.toString
             , model.router.view |> Router.viewToPackageAndModuleName |> Maybe.map (Tuple.second >> Elm.Module.toString)
-            , Strings.title |> Just
+            , Translation.title |> Just
             ]
                 |> List.filterMap identity
                 |> String.join " – "

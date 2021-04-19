@@ -1,7 +1,7 @@
 module PackageBrowser.View.Info exposing (..)
 
 import Element.Font as Font
-import PackageBrowser.Strings as Strings
+import PackageBrowser.Translation as Translation
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Modal as Modal
 
@@ -43,17 +43,17 @@ view model =
     if model.show then
         Modal.view [ padding 2 ]
             [ h5 [ Font.center ]
-                [ text Strings.info
+                [ text Translation.info
                 ]
             , column [ width fill, spacing 1 ]
                 [ p []
-                    [ text Strings.infoText1
+                    [ text Translation.infoText1
                     ]
                 , p []
-                    [ text Strings.infoText2
+                    [ text Translation.infoText2
                     ]
                 , p []
-                    (Strings.infoText3
+                    (Translation.infoText3
                         |> String.trim
                         |> String.lines
                         |> List.map text
@@ -61,19 +61,19 @@ view model =
                     )
                 , p []
                     [ newTabLink []
-                        { label = text Strings.source
+                        { label = text Translation.source
                         , url = "https://github.com/pravdomil/Elm-Packages"
                         }
                     , text ". "
                     , newTabLink []
-                        { label = text Strings.tampermonkey
+                        { label = text Translation.tampermonkey
                         , url = "elm.user.js"
                         }
                     , text "."
                     ]
                 ]
             , buttonLink [ centerX, padding 0.5 ]
-                { label = text Strings.ok
+                { label = text Translation.ok
                 , onPress = Just ToggleInfo
                 }
             ]

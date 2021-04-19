@@ -14,7 +14,7 @@ import Markdown.Block
 import Markdown.Parser
 import Markdown.Renderer
 import PackageBrowser.Router as Router
-import PackageBrowser.Strings as Strings
+import PackageBrowser.Translation as Translation
 import PackageBrowser.Ui exposing (..)
 import PackageBrowser.Ui.Markdown as Markdown
 import PackageBrowser.Ui.Status as Status
@@ -190,11 +190,11 @@ viewPackageHeader a =
                 }
             ]
         , newTabLink []
-            { label = text Strings.officialDocs
+            { label = text Translation.officialDocs
             , url = docsUrl
             }
         , newTabLink []
-            { label = text Strings.source
+            { label = text Translation.source
             , url = gitHubUrl
             }
         ]
@@ -241,11 +241,11 @@ viewModuleHeader a b =
                 }
             ]
         , newTabLink []
-            { label = text Strings.officialDocs
+            { label = text Translation.officialDocs
             , url = docsUrl
             }
         , newTabLink []
-            { label = text Strings.source
+            { label = text Translation.source
             , url = gitHubUrl
             }
         ]
@@ -267,7 +267,7 @@ viewPackageReadme a =
                     |> Maybe.andThen (Markdown.Renderer.render Markdown.renderer >> Result.toMaybe)
                     |> Maybe.withDefault
                         [ Status.view []
-                            [ text Strings.readmeIsNotAvailable
+                            [ text Translation.readmeIsNotAvailable
                             ]
                         ]
                 )
@@ -308,12 +308,12 @@ viewModuleReadme _ b c =
 
                         Err _ ->
                             Status.view []
-                                [ text Strings.readmeIsNotAvailable
+                                [ text Translation.readmeIsNotAvailable
                                 ]
 
                 Nothing ->
                     Status.view []
-                        [ text Strings.moduleNotFound
+                        [ text Translation.moduleNotFound
                         ]
     in
     column
@@ -388,7 +388,7 @@ viewIndex a =
     in
     column [ width fill, spacing 1 ]
         (p [ fontWeight 7 ]
-            [ text Strings.index
+            [ text Translation.index
             ]
             :: (a |> List.map viewSection)
         )
@@ -408,7 +408,7 @@ viewMarkdown a =
                 |> Markdown.Renderer.render Markdown.renderer
                 |> Result.withDefault
                     [ Status.view []
-                        [ text Strings.readmeIsNotAvailable
+                        [ text Translation.readmeIsNotAvailable
                         ]
                     ]
             )
@@ -444,7 +444,7 @@ viewMember a =
                     |> Maybe.andThen (Markdown.Renderer.render Markdown.renderer >> Result.toMaybe)
                     |> Maybe.withDefault
                         [ Status.view []
-                            [ text Strings.readmeIsNotAvailable
+                            [ text Translation.readmeIsNotAvailable
                             ]
                         ]
                 )
@@ -468,17 +468,17 @@ viewLoading fn a =
                     case c of
                         Loading ->
                             Status.view []
-                                [ text Strings.loading
+                                [ text Translation.loading
                                 ]
 
                         HttpError d ->
                             Status.view []
-                                [ text (Strings.httpError d)
+                                [ text (Translation.httpError d)
                                 ]
 
         Nothing ->
             Status.view []
-                [ text Strings.packageNotFound
+                [ text Translation.packageNotFound
                 ]
 
 
