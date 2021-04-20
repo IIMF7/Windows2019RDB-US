@@ -1,6 +1,6 @@
 module Utils.Resolver exposing (..)
 
-import Http exposing (Error(..), Response(..))
+import Http
 import Json.Decode as Decode exposing (Decoder)
 
 
@@ -15,7 +15,7 @@ json decoder =
         (\b ->
             case b |> Decode.decodeString decoder of
                 Err c ->
-                    Err (BadBody (Decode.errorToString c))
+                    Err (Http.BadBody (Decode.errorToString c))
 
                 Ok c ->
                     Ok c
@@ -26,25 +26,25 @@ json decoder =
 --
 
 
-base : (String -> Result Http.Error a) -> Http.Resolver Error a
+base : (String -> Result Http.Error a) -> Http.Resolver Http.Error a
 base fn =
     let
         toResult : Http.Response String -> Result Http.Error a
         toResult a =
             case a of
-                BadUrl_ b ->
-                    Err (BadUrl b)
+                Http.BadUrl_ b ->
+                    Err (Http.BadUrl b)
 
-                Timeout_ ->
-                    Err Timeout
+                Http.Timeout_ ->
+                    Err Http.Timeout
 
-                NetworkError_ ->
-                    Err NetworkError
+                Http.NetworkError_ ->
+                    Err Http.NetworkError
 
-                BadStatus_ b _ ->
-                    Err (BadStatus b.statusCode)
+                Http.BadStatus_ b _ ->
+                    Err (Http.BadStatus b.statusCode)
 
-                GoodStatus_ _ b ->
+                Http.GoodStatus_ _ b ->
                     fn b
     in
     Http.stringResolver toResult
