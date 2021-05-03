@@ -28,7 +28,7 @@ Prefix search: for "mdgriffith/elm-ui" type "md u".
 
 
 tampermonkey =
-    "Redirect Script for Tampermonkey"
+    "Redirect script for Tampermonkey"
 
 
 groupBy =
