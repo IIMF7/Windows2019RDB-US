@@ -237,23 +237,23 @@ image =
 -- Colors
 
 
-gray0 =
+gray10 =
     Element.rgb 1 1 1
 
 
-gray1 =
+gray9 =
     Element.rgb 0.96 0.97 0.97
 
 
-gray2 =
+gray8 =
     Element.rgb 0.9 0.92 0.93
 
 
-gray3 =
+gray7 =
     Element.rgb 0.86 0.88 0.89
 
 
-gray4 =
+gray6 =
     Element.rgb 0.8 0.82 0.84
 
 
@@ -261,23 +261,23 @@ gray5 =
     Element.rgb 0.67 0.7 0.73
 
 
-gray6 =
+gray4 =
     Element.rgb 0.41 0.45 0.48
 
 
-gray7 =
+gray3 =
     Element.rgb 0.28 0.3 0.33
 
 
-gray8 =
+gray2 =
     Element.rgb 0.19 0.22 0.24
 
 
-gray9 =
+gray1 =
     Element.rgb 0.12 0.14 0.15
 
 
-gray10 =
+gray0 =
     Element.rgb 0 0 0
 
 
@@ -286,7 +286,7 @@ primary =
 
 
 secondary =
-    gray6
+    gray4
 
 
 success =
@@ -457,7 +457,7 @@ borderShadow a =
         { offset = ( 0, step_ 1 )
         , size = 0
         , blur = step_ a
-        , color = gray10 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
+        , color = gray0 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
         }
 
 
@@ -471,7 +471,7 @@ br =
 
 hr =
     row [ width fill, paddingXY 0 1 ]
-        [ el [ width fill, borderWidthEach 0 0 0 1, borderColor gray3 ] none
+        [ el [ width fill, borderWidthEach 0 0 0 1, borderColor gray7 ] none
         ]
 
 
@@ -504,8 +504,8 @@ buttonLink a =
 inputStyle a =
     padding 0.5
         :: spacing 0.5
-        :: bgColor gray0
-        :: borderColor gray4
+        :: bgColor gray10
+        :: borderColor gray6
         :: borderWidth 1
         :: borderRounded 0.25
         :: a
@@ -578,7 +578,7 @@ inputOption a b =
 
 
 labelStyle a =
-    fontSize 0.875 :: fontColor gray6 :: a
+    fontSize 0.875 :: fontColor gray4 :: a
 
 
 labelRight a =
@@ -608,8 +608,8 @@ labelHidden =
 rootStyle a =
     fontSize 1
         :: fontFamilyDefault
-        :: fontColor gray9
-        :: bgColor gray1
+        :: fontColor gray1
+        :: bgColor gray9
         :: a
 
 

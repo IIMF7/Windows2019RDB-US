@@ -277,7 +277,7 @@ viewPackage expand active a =
                 noneAttribute
 
             else
-                fontColor gray6
+                fontColor gray4
 
         moduleColor : Elm.Module.Name -> Element.Attribute msg
         moduleColor b =
@@ -285,7 +285,7 @@ viewPackage expand active a =
                 noneAttribute
 
             else
-                fontColor gray9
+                fontColor gray1
     in
     column [ width fill, height fill ]
         [ link [ width fill, paddingXY 1 0.25, packageColor ]
@@ -305,7 +305,7 @@ viewPackage expand active a =
                     )
             )
         , if shortened then
-            link [ width fill, paddingXY 2.5 0, fontColor gray9 ]
+            link [ width fill, paddingXY 2.5 0, fontColor gray1 ]
                 { label = text Translation.ellipsis
                 , url = Router.viewToUrl (Router.PackageView a.name Nothing)
                 }

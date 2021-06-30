@@ -195,10 +195,10 @@ viewModuleGroup active expand a =
                 noneAttribute
 
             else
-                fontColor gray9
+                fontColor gray1
     in
     column [ width fill, height fill ]
-        [ buttonLink [ width fill, paddingXY 1 0.25, fontColor gray6 ]
+        [ buttonLink [ width fill, paddingXY 1 0.25, fontColor gray4 ]
             { label = text (Elm.Module.toString a.name)
             , onPress = Just (ToggleModuleGroup a.name)
             }

@@ -180,11 +180,11 @@ viewPackageHeader a =
         [ width fill
         , spacing 1
         , paddingXY 1 0.75
-        , borderColor gray3
+        , borderColor gray7
         , borderWidthEach 0 0 0 1
         ]
         [ h5 []
-            [ link [ fontColor gray9, onClick (Reveal a) ]
+            [ link [ fontColor gray1, onClick (Reveal a) ]
                 { label = text (Elm.Package.toString a)
                 , url = Router.PackageView a Nothing |> Router.viewToUrl
                 }
@@ -231,11 +231,11 @@ viewModuleHeader a b =
         [ width fill
         , spacing 1
         , paddingXY 1 0.75
-        , borderColor gray3
+        , borderColor gray7
         , borderWidthEach 0 0 0 1
         ]
         [ h5 []
-            [ link [ fontColor gray9, onClick (Reveal a) ]
+            [ link [ fontColor gray1, onClick (Reveal a) ]
                 { label = text (Elm.Module.toString b)
                 , url = Router.ModuleView a b Nothing |> Router.viewToUrl
                 }
@@ -334,7 +334,7 @@ viewSections a =
         viewSection b =
             column [ width fill, spacing 1 ]
                 (p [ fontWeight 7 ]
-                    [ link [ id (Markdown.idFromString b.name), fontColor gray9 ]
+                    [ link [ id (Markdown.idFromString b.name), fontColor gray1 ]
                         { label = text b.name
                         , url = Markdown.idToUrl b.name
                         }
@@ -362,7 +362,7 @@ viewIndex a =
         viewSection b =
             column [ width fill, spacing 0.25, paddingXY 1.5 0 ]
                 (p []
-                    [ link [ fontColor gray9 ]
+                    [ link [ fontColor gray1 ]
                         { label = text b.name
                         , url = Markdown.idToUrl b.name
                         }
@@ -382,7 +382,7 @@ viewIndex a =
                             { label = text c.name
                             , url = Markdown.idToUrl c.name
                             }
-                        , el [ fontColor gray6 ]
+                        , el [ fontColor gray4 ]
                             (text c.type_)
                         ]
     in
@@ -401,7 +401,7 @@ viewMarkdown a =
             [ padding 1
             , spacing 1
             , fontSize 0.9375
-            , bgColor gray1
+            , bgColor gray9
             , borderRounded 0.25
             ]
             (a
@@ -427,7 +427,7 @@ viewMember a =
                 { label = text a.name
                 , url = Markdown.idToUrl a.name
                 }
-            , el [ fontColor gray6 ]
+            , el [ fontColor gray4 ]
                 (text a.type_)
             ]
         , column [ width fill, paddingXY 1.5 0 ]
@@ -435,7 +435,7 @@ viewMember a =
                 [ padding 1
                 , spacing 1
                 , fontSize 0.9375
-                , bgColor gray1
+                , bgColor gray9
                 , borderRounded 0.25
                 ]
                 (a.comment
