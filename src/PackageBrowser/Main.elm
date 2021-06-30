@@ -180,7 +180,7 @@ view model =
     { title = title
     , body =
         [ layout [] (viewBody model)
-        , scaleUi
+        , adaptiveScale
         ]
     }
 
@@ -228,12 +228,4 @@ viewBody model =
             )
         , border_
         , el [ width fill ] none
-        ]
-
-
-scaleUi : Html.Html msg
-scaleUi =
-    Html.node "style"
-        []
-        [ Html.text "@media only screen and (pointer: fine) { body { zoom: 0.875 } }"
         ]

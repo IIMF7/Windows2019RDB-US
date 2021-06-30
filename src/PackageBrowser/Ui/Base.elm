@@ -122,6 +122,10 @@ inputPlaceholder a =
     Element.Input.placeholder (fontColor A.placeholderColor :: fontSize A.placeholderFontSize :: a)
 
 
+adaptiveScale =
+    Html.node "style" [] [ Html.text "@media screen and (pointer: fine) { body { zoom: 0.875 } }" ]
+
+
 
 --
 
