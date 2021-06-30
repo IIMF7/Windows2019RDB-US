@@ -400,7 +400,7 @@ viewMarkdown a =
         [ textColumn
             [ padding 16
             , spacing 16
-            , fontSize 0.9375
+            , fontSize 15
             , bgColor grey9
             , borderRounded 0.25
             ]
@@ -434,7 +434,7 @@ viewMember a =
             [ textColumn
                 [ padding 16
                 , spacing 16
-                , fontSize 0.9375
+                , fontSize 15
                 , bgColor grey9
                 , borderRounded 0.25
                 ]

@@ -17,13 +17,13 @@ renderer =
                 [ fontSize
                     (case level of
                         Block.H1 ->
-                            2
+                            32
 
                         Block.H2 ->
-                            1.5
+                            24
 
                         _ ->
-                            1
+                            16
                     )
                 , fontWeight 7
                 , paddingEach 0 0 16 0

@@ -59,27 +59,27 @@ textColumn a =
 
 
 h1 a =
-    p (Region.heading 1 :: fontSize 1.5 :: a)
+    p (Region.heading 1 :: fontSize 24 :: a)
 
 
 h2 a =
-    p (Region.heading 2 :: fontSize 2 :: a)
+    p (Region.heading 2 :: fontSize 32 :: a)
 
 
 h3 a =
-    p (Region.heading 3 :: fontSize 1.75 :: a)
+    p (Region.heading 3 :: fontSize 28 :: a)
 
 
 h4 a =
-    p (Region.heading 4 :: fontSize 1.5 :: a)
+    p (Region.heading 4 :: fontSize 24 :: a)
 
 
 h5 a =
-    p (Region.heading 5 :: fontSize 1.25 :: a)
+    p (Region.heading 5 :: fontSize 20 :: a)
 
 
 h6 a =
-    p (Region.heading 6 :: fontSize 1 :: a)
+    p (Region.heading 6 :: fontSize 16 :: a)
 
 
 
@@ -321,8 +321,8 @@ fontColor =
     Font.color
 
 
-fontSize a =
-    Font.size (step a)
+fontSize =
+    Font.size
 
 
 
@@ -516,7 +516,7 @@ searchInput a =
 
 
 placeholder a =
-    Input.placeholder (fontSize 0.875 :: a)
+    Input.placeholder (fontSize 14 :: a)
 
 
 
@@ -554,7 +554,7 @@ inputRadioRow :
         }
     -> Element msg
 inputRadioRow a =
-    Input.radioRow (fontSize 0.875 :: a)
+    Input.radioRow (fontSize 14 :: a)
 
 
 inputOption : a -> Element msg -> Input.Option a msg
@@ -578,7 +578,7 @@ inputOption a b =
 
 
 labelStyle a =
-    fontSize 0.875 :: fontColor grey4 :: a
+    fontSize 14 :: fontColor grey4 :: a
 
 
 labelRight a =
@@ -606,7 +606,7 @@ labelHidden =
 
 
 rootStyle a =
-    fontSize 1
+    fontSize 16
         :: fontFamilyDefault
         :: fontColor grey1
         :: bgColor grey9

@@ -213,7 +213,7 @@ viewModuleGroup active expand a =
                                     row []
                                         [ text (Elm.Module.toString vv)
                                         , text " "
-                                        , el [ fontColor grey5, fontSize 0.75 ]
+                                        , el [ fontColor grey5, fontSize 12 ]
                                             (text (Elm.Package.toString v))
                                         ]
                                 , url = Router.viewToUrl (Router.ModuleView v vv Nothing)
