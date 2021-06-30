@@ -448,8 +448,8 @@ borderWidthEach a b c d =
     Border.widthEach { left = a, right = b, top = c, bottom = d }
 
 
-borderRounded a =
-    Border.rounded (step a)
+borderRounded =
+    Border.rounded
 
 
 borderShadow a =
@@ -491,7 +491,7 @@ buttonLink : List (Element.Attribute msg) -> { label : Element msg, onPress : Ma
 buttonLink a =
     Input.button
         (fontColor primary
-            :: borderRounded 0.25
+            :: borderRounded 4
             :: Element.focused [ borderColor (Element.rgba 0 0 0 1) ]
             :: a
         )
@@ -507,7 +507,7 @@ inputStyle a =
         :: bgColor grey10
         :: borderColor grey6
         :: borderWidth 1
-        :: borderRounded 0.25
+        :: borderRounded 4
         :: a
 
 

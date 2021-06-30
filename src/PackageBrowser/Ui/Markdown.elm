@@ -39,7 +39,7 @@ renderer =
         \a ->
             el
                 [ padding 2
-                , borderRounded 0.25
+                , borderRounded 4
                 , bgColor grey8
                 , fontFamilyMonospace
                 ]
@@ -100,7 +100,7 @@ renderer =
             el
                 [ width fill
                 , padding 8
-                , borderRounded 0.25
+                , borderRounded 4
                 , bgColor grey8
                 , fontFamilyMonospace
                 ]

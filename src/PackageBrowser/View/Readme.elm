@@ -402,7 +402,7 @@ viewMarkdown a =
             , spacing 16
             , fontSize 15
             , bgColor grey9
-            , borderRounded 0.25
+            , borderRounded 4
             ]
             (a
                 |> Markdown.Renderer.render Markdown.renderer
@@ -436,7 +436,7 @@ viewMember a =
                 , spacing 16
                 , fontSize 15
                 , bgColor grey9
-                , borderRounded 0.25
+                , borderRounded 4
                 ]
                 (a.comment
                     |> Markdown.Parser.parse
