@@ -10,7 +10,7 @@ view a =
             :: bgColor grey10
             :: borderWidth 1
             :: borderRounded 16
-            :: borderShadow 3
+            :: borderShadow 48
             :: borderColor grey7
             :: a
         )
