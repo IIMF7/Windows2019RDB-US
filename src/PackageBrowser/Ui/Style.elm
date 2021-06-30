@@ -118,48 +118,48 @@ shadow3 =
 --
 
 
-grey10 =
-    Element.rgb 1 1 1
-
-
-grey9 =
-    Element.rgb 0.96 0.97 0.97
-
-
-grey8 =
-    Element.rgb 0.9 0.92 0.93
-
-
-grey7 =
-    Element.rgb 0.86 0.88 0.89
-
-
-grey6 =
-    Element.rgb 0.8 0.82 0.84
-
-
-grey5 =
-    Element.rgb 0.67 0.7 0.73
-
-
-grey4 =
-    Element.rgb 0.41 0.45 0.48
-
-
-grey3 =
-    Element.rgb 0.28 0.3 0.33
-
-
-grey2 =
-    Element.rgb 0.19 0.22 0.24
+grey0 =
+    Element.rgb 0 0 0
 
 
 grey1 =
     Element.rgb 0.12 0.14 0.15
 
 
-grey0 =
-    Element.rgb 0 0 0
+grey2 =
+    Element.rgb 0.19 0.22 0.24
+
+
+grey3 =
+    Element.rgb 0.28 0.3 0.33
+
+
+grey4 =
+    Element.rgb 0.41 0.45 0.48
+
+
+grey5 =
+    Element.rgb 0.67 0.7 0.73
+
+
+grey6 =
+    Element.rgb 0.8 0.82 0.84
+
+
+grey7 =
+    Element.rgb 0.86 0.88 0.89
+
+
+grey8 =
+    Element.rgb 0.9 0.92 0.93
+
+
+grey9 =
+    Element.rgb 0.96 0.97 0.97
+
+
+grey10 =
+    Element.rgb 1 1 1
 
 
 
