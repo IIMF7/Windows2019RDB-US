@@ -98,6 +98,54 @@ monospaceFontFamily =
 --
 
 
+labelColor =
+    grey4
+
+
+labelFontSize =
+    round (rootEm * 0.875)
+
+
+inputSpacing =
+    round (rootEm * 0.5)
+
+
+inputPadding =
+    round (rootEm * 0.5)
+
+
+inputBgColor =
+    grey10
+
+
+inputColor =
+    baseColor
+
+
+inputBorderColor =
+    grey6
+
+
+inputBorderWidth =
+    1
+
+
+inputBorderRounded =
+    round (rootEm * 0.25)
+
+
+placeholderColor =
+    grey4
+
+
+placeholderFontSize =
+    round (rootEm * 0.875)
+
+
+
+--
+
+
 shadow1 a =
     { offset = ( 0, rootEm * 16 )
     , size = 0
