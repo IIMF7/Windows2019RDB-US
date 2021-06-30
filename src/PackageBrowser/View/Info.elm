@@ -42,7 +42,7 @@ view : Model -> Element Msg
 view model =
     if model.show then
         Modal.view [ padding 32 ]
-            [ h5 [ Font.center ]
+            [ h1 [ Font.center ]
                 [ text Translation.info
                 ]
             , column [ width fill, spacing 16 ]

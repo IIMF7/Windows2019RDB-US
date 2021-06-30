@@ -72,7 +72,7 @@ view model =
             , spacing 16
             , paddingXY 16 0
             ]
-            [ h5 []
+            [ h1 []
                 [ link [ fontColor grey1 ]
                     { label = text Translation.title
                     , url = Router.DefaultView |> Router.viewToUrl

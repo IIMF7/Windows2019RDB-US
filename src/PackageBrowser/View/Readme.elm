@@ -183,7 +183,7 @@ viewPackageHeader a =
         , borderColor grey7
         , borderWidthEach 0 0 0 1
         ]
-        [ h5 []
+        [ h1 []
             [ link [ fontColor grey1, onClick (Reveal a) ]
                 { label = text (Elm.Package.toString a)
                 , url = Router.PackageView a Nothing |> Router.viewToUrl
@@ -234,7 +234,7 @@ viewModuleHeader a b =
         , borderColor grey7
         , borderWidthEach 0 0 0 1
         ]
-        [ h5 []
+        [ h1 []
             [ link [ fontColor grey1, onClick (Reveal a) ]
                 { label = text (Elm.Module.toString b)
                 , url = Router.ModuleView a b Nothing |> Router.viewToUrl

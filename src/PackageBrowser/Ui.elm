@@ -59,23 +59,23 @@ textColumn a =
 
 
 h1 a =
-    p (Region.heading 1 :: fontSize 24 :: a)
+    p (Region.heading 1 :: fontSize 20 :: a)
 
 
 h2 a =
-    p (Region.heading 2 :: fontSize 32 :: a)
+    p (Region.heading 2 :: fontSize 16 :: a)
 
 
 h3 a =
-    p (Region.heading 3 :: fontSize 28 :: a)
+    p (Region.heading 3 :: fontSize 16 :: a)
 
 
 h4 a =
-    p (Region.heading 4 :: fontSize 24 :: a)
+    p (Region.heading 4 :: fontSize 16 :: a)
 
 
 h5 a =
-    p (Region.heading 5 :: fontSize 20 :: a)
+    p (Region.heading 5 :: fontSize 16 :: a)
 
 
 h6 a =
