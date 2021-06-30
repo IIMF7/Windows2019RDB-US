@@ -38,7 +38,7 @@ renderer =
     , codeSpan =
         \a ->
             el
-                [ padding 0.125
+                [ padding 2
                 , borderRounded 0.25
                 , bgColor grey8
                 , fontFamilyMonospace
@@ -99,7 +99,7 @@ renderer =
         \{ body } ->
             el
                 [ width fill
-                , padding 0.5
+                , padding 8
                 , borderRounded 0.25
                 , bgColor grey8
                 , fontFamilyMonospace

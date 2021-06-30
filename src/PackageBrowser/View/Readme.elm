@@ -398,7 +398,7 @@ viewMarkdown : List Markdown.Block.Block -> Element msg
 viewMarkdown a =
     column [ width fill, paddingXY 3 0 ]
         [ textColumn
-            [ padding 1
+            [ padding 16
             , spacing 1
             , fontSize 0.9375
             , bgColor grey9
@@ -432,7 +432,7 @@ viewMember a =
             ]
         , column [ width fill, paddingXY 1.5 0 ]
             [ textColumn
-                [ padding 1
+                [ padding 16
                 , spacing 1
                 , fontSize 0.9375
                 , bgColor grey9

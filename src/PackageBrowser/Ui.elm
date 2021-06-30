@@ -136,8 +136,8 @@ minimum =
 -- Padding and Spacing
 
 
-padding a =
-    Element.padding (step a)
+padding =
+    Element.padding
 
 
 paddingXY a b =
@@ -502,7 +502,7 @@ buttonLink a =
 
 
 inputStyle a =
-    padding 0.5
+    padding 8
         :: spacing 0.5
         :: bgColor grey10
         :: borderColor grey6
@@ -611,17 +611,3 @@ rootStyle a =
         :: fontColor grey1
         :: bgColor grey9
         :: a
-
-
-
--- Helpers
-
-
-step : Float -> Int
-step a =
-    round (step_ a)
-
-
-step_ : Float -> Float
-step_ a =
-    a * 16

@@ -4,4 +4,4 @@ import PackageBrowser.Ui exposing (..)
 
 
 view a =
-    p (padding 1 :: fontCenter :: fontColor grey4 :: a)
+    p (padding 16 :: fontCenter :: fontColor grey4 :: a)

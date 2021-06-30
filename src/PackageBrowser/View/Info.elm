@@ -41,7 +41,7 @@ update msg model =
 view : Model -> Element Msg
 view model =
     if model.show then
-        Modal.view [ padding 2 ]
+        Modal.view [ padding 32 ]
             [ h5 [ Font.center ]
                 [ text Translation.info
                 ]
@@ -72,7 +72,7 @@ view model =
                     , text "."
                     ]
                 ]
-            , buttonLink [ centerX, padding 0.5 ]
+            , buttonLink [ centerX, padding 8 ]
                 { label = text Translation.ok
                 , onPress = Just ToggleInfo
                 }
