@@ -4,10 +4,6 @@ import Element
 import Element.Font as Font
 
 
-rootEm =
-    16
-
-
 baseBgColor =
     grey9
 
@@ -17,11 +13,11 @@ baseColor =
 
 
 baseFontSize =
-    rootEm
+    16
 
 
 baseLineSpacing =
-    round (rootEm * 0.5)
+    8
 
 
 linkColor =
@@ -37,27 +33,27 @@ hrBorderColor =
 
 
 h1FontSize =
-    round (rootEm * 1.5)
+    20
 
 
 h2FontSize =
-    round (rootEm * 2)
+    baseFontSize
 
 
 h3FontSize =
-    round (rootEm * 1.75)
+    baseFontSize
 
 
 h4FontSize =
-    round (rootEm * 1.5)
+    baseFontSize
 
 
 h5FontSize =
-    round (rootEm * 1.25)
+    baseFontSize
 
 
 h6FontSize =
-    round (rootEm * 1)
+    baseFontSize
 
 
 
@@ -103,15 +99,15 @@ labelColor =
 
 
 labelFontSize =
-    round (rootEm * 0.875)
+    14
 
 
 inputSpacing =
-    round (rootEm * 0.5)
+    8
 
 
 inputPadding =
-    round (rootEm * 0.5)
+    8
 
 
 inputBgColor =
@@ -131,7 +127,7 @@ inputBorderWidth =
 
 
 inputBorderRounded =
-    round (rootEm * 0.25)
+    4
 
 
 placeholderColor =
@@ -139,7 +135,7 @@ placeholderColor =
 
 
 placeholderFontSize =
-    round (rootEm * 0.875)
+    14
 
 
 
@@ -147,9 +143,9 @@ placeholderFontSize =
 
 
 shadow1 =
-    { offset = ( 0, rootEm )
+    { offset = ( 0, 16 )
     , size = 0
-    , blur = rootEm * 3
+    , blur = 48
     , color = grey0 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
     }
 
