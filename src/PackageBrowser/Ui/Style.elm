@@ -64,40 +64,6 @@ h6FontSize =
 --
 
 
-baseFontFamily =
-    Font.family
-        [ Font.typeface "system-ui"
-        , Font.typeface "-apple-system"
-        , Font.typeface "Segoe UI"
-        , Font.typeface "Roboto"
-        , Font.typeface "Helvetica Neue"
-        , Font.typeface "Arial"
-        , Font.typeface "Noto Sans"
-        , Font.typeface "Liberation Sans"
-        , Font.sansSerif
-        , Font.typeface "Apple Color Emoji"
-        , Font.typeface "Segoe UI Emoji"
-        , Font.typeface "Segoe UI Symbol"
-        , Font.typeface "Noto Color Emoji"
-        ]
-
-
-monospaceFontFamily =
-    Font.family
-        [ Font.typeface "SFMono-Regular"
-        , Font.typeface "Menlo"
-        , Font.typeface "Monaco"
-        , Font.typeface "Consolas"
-        , Font.typeface "Liberation Mono"
-        , Font.typeface "Courier New"
-        , Font.monospace
-        ]
-
-
-
---
-
-
 labelColor =
     grey4
 
@@ -140,6 +106,40 @@ placeholderColor =
 
 placeholderFontSize =
     14
+
+
+
+--
+
+
+baseFontFamily =
+    Font.family
+        [ Font.typeface "system-ui"
+        , Font.typeface "-apple-system"
+        , Font.typeface "Segoe UI"
+        , Font.typeface "Roboto"
+        , Font.typeface "Helvetica Neue"
+        , Font.typeface "Arial"
+        , Font.typeface "Noto Sans"
+        , Font.typeface "Liberation Sans"
+        , Font.sansSerif
+        , Font.typeface "Apple Color Emoji"
+        , Font.typeface "Segoe UI Emoji"
+        , Font.typeface "Segoe UI Symbol"
+        , Font.typeface "Noto Color Emoji"
+        ]
+
+
+monospaceFontFamily =
+    Font.family
+        [ Font.typeface "SFMono-Regular"
+        , Font.typeface "Menlo"
+        , Font.typeface "Monaco"
+        , Font.typeface "Consolas"
+        , Font.typeface "Liberation Mono"
+        , Font.typeface "Courier New"
+        , Font.monospace
+        ]
 
 
 
