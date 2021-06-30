@@ -2,6 +2,7 @@ module PackageBrowser.Ui.Extra exposing (..)
 
 import Element.Input as Input
 import PackageBrowser.Ui.Base exposing (..)
+import PackageBrowser.Ui.Style as Style
 
 
 segmentedControl :
@@ -14,7 +15,7 @@ segmentedControl :
         }
     -> Element msg
 segmentedControl a =
-    inputRadioRow (fontSize (rem 0.875) :: a)
+    inputRadioRow a
 
 
 segmentOption : a -> Element msg -> Input.Option a msg
@@ -23,11 +24,11 @@ segmentOption a b =
         (\v ->
             case v of
                 Input.Idle ->
-                    el [] b
+                    el [ fontSize Style.labelFontSize ] b
 
                 Input.Focused ->
-                    el [] b
+                    el [ fontSize Style.labelFontSize ] b
 
                 Input.Selected ->
-                    el [ fontColor primary ] b
+                    el [ fontSize Style.labelFontSize, fontColor primary ] b
         )
