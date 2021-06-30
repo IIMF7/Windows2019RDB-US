@@ -1,7 +1,7 @@
 addEventListener("DOMContentLoaded", main)
 
 function main() {
-  const app = Elm.PackageBrowser.Main.init({
+  const app = Elm.Main.init({
     node: element(document.body, "div"),
     flags: {},
   })

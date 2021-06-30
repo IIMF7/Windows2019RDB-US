@@ -23,7 +23,7 @@ mv dist/static/VERSION "dist/static/$VERSION"
 sed -i "" "s/VERSION/$VERSION/g" dist/index.html
 
 # Compile our app.
-elm make src/PackageBrowser/Main.elm --optimize --output "dist/static/$VERSION/elm.js"
+elm make src/Main.elm --optimize --output "dist/static/$VERSION/elm.js"
 {
   uglifyjs "dist/static/$VERSION/elm.js" --compress 'pure_funcs=[F2,F3,F4,F5,F6,F7,F8,F9,A2,A3,A4,A5,A6,A7,A8,A9],pure_getters,passes=2,unsafe_comps,unsafe'
   uglifyjs "dist/static/$VERSION/main.js" --compress
