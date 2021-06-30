@@ -155,7 +155,7 @@ view view_ search model =
                         ]
 
                 c ->
-                    Element.Virtualized.column [ paddingXY 0 4, id modulesId ]
+                    Element.Virtualized.column [ paddingXY 0 64, id modulesId ]
                         { data = c
                         , getKey = .name >> Elm.Module.toString
                         , getSize = \v -> computeSize (NameDict.member v.name model.expanded) v
@@ -198,7 +198,7 @@ viewModuleGroup active expand a =
                 fontColor grey1
     in
     column [ width fill, height fill ]
-        [ buttonLink [ width fill, paddingXY 1 0.25, fontColor grey4 ]
+        [ buttonLink [ width fill, paddingXY 16 4, fontColor grey4 ]
             { label = text (Elm.Module.toString a.name)
             , onPress = Just (ToggleModuleGroup a.name)
             }
@@ -208,7 +208,7 @@ viewModuleGroup active expand a =
                     |> List.map
                         (\( v, vv ) ->
                             ( Elm.Package.toString v ++ Elm.Module.toString vv
-                            , link [ width fill, paddingXY 2.5 0.125, linkColor v vv ]
+                            , link [ width fill, paddingXY 40 2, linkColor v vv ]
                                 { label =
                                     row []
                                         [ text (Elm.Module.toString vv)

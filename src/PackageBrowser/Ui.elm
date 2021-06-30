@@ -140,8 +140,8 @@ padding =
     Element.padding
 
 
-paddingXY a b =
-    Element.paddingXY (step a) (step b)
+paddingXY =
+    Element.paddingXY
 
 
 paddingEach a b c d =
@@ -470,7 +470,7 @@ br =
 
 
 hr =
-    row [ width fill, paddingXY 0 1 ]
+    row [ width fill, paddingXY 0 16 ]
         [ el [ width fill, borderWidthEach 0 0 0 1, borderColor grey7 ] none
         ]
 

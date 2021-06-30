@@ -63,14 +63,14 @@ view model =
     column
         [ width fill
         , spacing 0.5
-        , paddingXY 0 0.5
+        , paddingXY 0 8
         , borderColor grey7
         , borderWidthEach 0 0 0 1
         ]
         [ row
             [ width fill
             , spacing 1
-            , paddingXY 1 0
+            , paddingXY 16 0
             ]
             [ h5 []
                 [ link [ fontColor grey1 ]
@@ -85,7 +85,7 @@ view model =
             ]
         , column
             [ width fill
-            , paddingXY 1 0
+            , paddingXY 16 0
             , spacing 0.5
             ]
             [ searchInput [ Input.focusedOnLoad ]

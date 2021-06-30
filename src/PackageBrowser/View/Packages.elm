@@ -214,7 +214,7 @@ view search view_ model =
                         ]
 
                 c ->
-                    Element.Virtualized.column [ paddingXY 0 4, id packagesId ]
+                    Element.Virtualized.column [ paddingXY 0 64, id packagesId ]
                         { data = c
                         , getKey = .name >> Elm.Package.toString
                         , getSize = \v -> computeSize (NameDict.member v.name model.expanded) v
@@ -288,7 +288,7 @@ viewPackage expand active a =
                 fontColor grey1
     in
     column [ width fill, height fill ]
-        [ link [ width fill, paddingXY 1 0.25, packageColor ]
+        [ link [ width fill, paddingXY 16 4, packageColor ]
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name Nothing)
             }
@@ -297,7 +297,7 @@ viewPackage expand active a =
                 |> List.map
                     (\v ->
                         ( Elm.Module.toString v
-                        , link [ width fill, paddingXY 2.5 0.125, moduleColor v ]
+                        , link [ width fill, paddingXY 40 2, moduleColor v ]
                             { label = text (Elm.Module.toString v)
                             , url = Router.viewToUrl (Router.ModuleView a.name v Nothing)
                             }
@@ -305,7 +305,7 @@ viewPackage expand active a =
                     )
             )
         , if shortened then
-            link [ width fill, paddingXY 2.5 0, fontColor grey1 ]
+            link [ width fill, paddingXY 40 0, fontColor grey1 ]
                 { label = text Translation.ellipsis
                 , url = Router.viewToUrl (Router.PackageView a.name Nothing)
                 }

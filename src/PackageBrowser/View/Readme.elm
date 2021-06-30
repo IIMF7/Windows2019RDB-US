@@ -179,7 +179,7 @@ viewPackageHeader a =
     row
         [ width fill
         , spacing 1
-        , paddingXY 1 0.75
+        , paddingXY 16 12
         , borderColor grey7
         , borderWidthEach 0 0 0 1
         ]
@@ -230,7 +230,7 @@ viewModuleHeader a b =
     row
         [ width fill
         , spacing 1
-        , paddingXY 1 0.75
+        , paddingXY 16 12
         , borderColor grey7
         , borderWidthEach 0 0 0 1
         ]
@@ -352,7 +352,7 @@ viewSections a =
                     viewMember c
     in
     column [ width fill, spacing 1.5 ]
-        (viewIndex a :: column [ paddingXY 0 0.5 ] [] :: (a |> List.map viewSection))
+        (viewIndex a :: column [ paddingXY 0 8 ] [] :: (a |> List.map viewSection))
 
 
 viewIndex : List Section.Section -> Element msg
@@ -360,7 +360,7 @@ viewIndex a =
     let
         viewSection : Section.Section -> Element.Element msg
         viewSection b =
-            column [ width fill, spacing 0.25, paddingXY 1.5 0 ]
+            column [ width fill, spacing 0.25, paddingXY 24 0 ]
                 (p []
                     [ link [ fontColor grey1 ]
                         { label = text b.name
@@ -377,7 +377,7 @@ viewIndex a =
                     none
 
                 Section.MemberItem c ->
-                    row [ width fill, paddingXY 1.5 0 ]
+                    row [ width fill, paddingXY 24 0 ]
                         [ link []
                             { label = text c.name
                             , url = Markdown.idToUrl c.name
@@ -396,7 +396,7 @@ viewIndex a =
 
 viewMarkdown : List Markdown.Block.Block -> Element msg
 viewMarkdown a =
-    column [ width fill, paddingXY 3 0 ]
+    column [ width fill, paddingXY 48 0 ]
         [ textColumn
             [ padding 16
             , spacing 1
@@ -420,7 +420,7 @@ viewMember a =
     column
         [ width fill
         , spacing 0.5
-        , paddingXY 1.5 0
+        , paddingXY 24 0
         ]
         [ row [ width fill ]
             [ link [ id (Markdown.idFromString a.name), fontWeight 7 ]
@@ -430,7 +430,7 @@ viewMember a =
             , el [ fontColor grey4 ]
                 (text a.type_)
             ]
-        , column [ width fill, paddingXY 1.5 0 ]
+        , column [ width fill, paddingXY 24 0 ]
             [ textColumn
                 [ padding 16
                 , spacing 1
