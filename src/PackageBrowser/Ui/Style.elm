@@ -24,6 +24,10 @@ linkColor =
     primary
 
 
+hrPadding =
+    ( 0, 16 )
+
+
 hrBorderColor =
     grey7
 
