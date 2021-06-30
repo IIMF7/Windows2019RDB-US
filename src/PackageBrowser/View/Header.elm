@@ -62,14 +62,14 @@ view : Model -> Element.Element Msg
 view model =
     column
         [ width fill
-        , spacing 0.5
+        , spacing 8
         , paddingXY 0 8
         , borderColor grey7
         , borderWidthEach 0 0 0 1
         ]
         [ row
             [ width fill
-            , spacing 1
+            , spacing 16
             , paddingXY 16 0
             ]
             [ h5 []
@@ -86,7 +86,7 @@ view model =
         , column
             [ width fill
             , paddingXY 16 0
-            , spacing 0.5
+            , spacing 8
             ]
             [ searchInput [ Input.focusedOnLoad ]
                 { label = labelHidden Translation.searchInput

@@ -51,7 +51,7 @@ column =
 
 
 p a =
-    Element.paragraph (spacing 0.5 :: a)
+    Element.paragraph (spacing 8 :: a)
 
 
 textColumn a =
@@ -148,12 +148,12 @@ paddingEach a b c d =
     Element.paddingEach { left = a, right = b, top = c, bottom = d }
 
 
-spacing a =
-    Element.spacing (step a)
+spacing =
+    Element.spacing
 
 
-spacingXY a b =
-    Element.spacingXY (step a) (step b)
+spacingXY =
+    Element.spacingXY
 
 
 spaceEvenly =
@@ -503,7 +503,7 @@ buttonLink a =
 
 inputStyle a =
     padding 8
-        :: spacing 0.5
+        :: spacing 8
         :: bgColor grey10
         :: borderColor grey6
         :: borderWidth 1
@@ -533,7 +533,7 @@ inputCheckbox :
         }
     -> Element msg
 inputCheckbox a =
-    Input.checkbox (spacing 0.5 :: a)
+    Input.checkbox (spacing 8 :: a)
 
 
 inputDefaultCheckbox =

@@ -178,7 +178,7 @@ viewPackageHeader a =
     in
     row
         [ width fill
-        , spacing 1
+        , spacing 16
         , paddingXY 16 12
         , borderColor grey7
         , borderWidthEach 0 0 0 1
@@ -229,7 +229,7 @@ viewModuleHeader a b =
     in
     row
         [ width fill
-        , spacing 1
+        , spacing 16
         , paddingXY 16 12
         , borderColor grey7
         , borderWidthEach 0 0 0 1
@@ -260,7 +260,7 @@ viewPackageReadme a =
     let
         view_ : PackageReadme.PackageReadme -> Element msg
         view_ b =
-            textColumn [ spacing 1 ]
+            textColumn [ spacing 16 ]
                 (b.readme
                     |> Markdown.Parser.parse
                     |> Result.toMaybe
@@ -332,7 +332,7 @@ viewSections a =
     let
         viewSection : Section.Section -> Element.Element msg
         viewSection b =
-            column [ width fill, spacing 1 ]
+            column [ width fill, spacing 16 ]
                 (p [ fontWeight 7 ]
                     [ link [ id (Markdown.idFromString b.name), fontColor grey1 ]
                         { label = text b.name
@@ -351,7 +351,7 @@ viewSections a =
                 Section.MemberItem c ->
                     viewMember c
     in
-    column [ width fill, spacing 1.5 ]
+    column [ width fill, spacing 24 ]
         (viewIndex a :: column [ paddingXY 0 8 ] [] :: (a |> List.map viewSection))
 
 
@@ -360,7 +360,7 @@ viewIndex a =
     let
         viewSection : Section.Section -> Element.Element msg
         viewSection b =
-            column [ width fill, spacing 0.25, paddingXY 24 0 ]
+            column [ width fill, spacing 4, paddingXY 24 0 ]
                 (p []
                     [ link [ fontColor grey1 ]
                         { label = text b.name
@@ -386,7 +386,7 @@ viewIndex a =
                             (text c.type_)
                         ]
     in
-    column [ width fill, spacing 1 ]
+    column [ width fill, spacing 16 ]
         (p [ fontWeight 7 ]
             [ text Translation.index
             ]
@@ -399,7 +399,7 @@ viewMarkdown a =
     column [ width fill, paddingXY 48 0 ]
         [ textColumn
             [ padding 16
-            , spacing 1
+            , spacing 16
             , fontSize 0.9375
             , bgColor grey9
             , borderRounded 0.25
@@ -419,7 +419,7 @@ viewMember : Section.Member -> Element msg
 viewMember a =
     column
         [ width fill
-        , spacing 0.5
+        , spacing 8
         , paddingXY 24 0
         ]
         [ row [ width fill ]
@@ -433,7 +433,7 @@ viewMember a =
         , column [ width fill, paddingXY 24 0 ]
             [ textColumn
                 [ padding 16
-                , spacing 1
+                , spacing 16
                 , fontSize 0.9375
                 , bgColor grey9
                 , borderRounded 0.25

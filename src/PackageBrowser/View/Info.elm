@@ -45,7 +45,7 @@ view model =
             [ h5 [ Font.center ]
                 [ text Translation.info
                 ]
-            , column [ width fill, spacing 1 ]
+            , column [ width fill, spacing 16 ]
                 [ p []
                     [ text Translation.infoText1
                     ]

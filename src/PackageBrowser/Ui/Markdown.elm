@@ -32,7 +32,7 @@ renderer =
                 ]
                 children
     , paragraph = p []
-    , blockQuote = column [ spacing 1, paddingEach 32 0 0 0 ]
+    , blockQuote = column [ spacing 16, paddingEach 32 0 0 0 ]
     , html = Markdown.Html.oneOf []
     , text = text
     , codeSpan =
@@ -62,11 +62,11 @@ renderer =
                 }
     , unorderedList =
         \a ->
-            column [ spacing 1, paddingEach 4 0 0 0 ]
+            column [ spacing 16, paddingEach 4 0 0 0 ]
                 (a
                     |> List.map
                         (\(Block.ListItem b c) ->
-                            row [ spacing 0.5 ]
+                            row [ spacing 8 ]
                                 [ el [ alignTop ]
                                     (case b of
                                         Block.IncompleteTask ->
@@ -84,11 +84,11 @@ renderer =
                 )
     , orderedList =
         \startIndex a ->
-            column [ spacing 1, paddingEach 4 0 0 0 ]
+            column [ spacing 16, paddingEach 4 0 0 0 ]
                 (a
                     |> List.indexedMap
                         (\i b ->
-                            row [ spacing 0.5 ]
+                            row [ spacing 8 ]
                                 [ el [ alignTop ]
                                     (text (String.fromInt (i + startIndex) ++ "."))
                                 , p [] b
