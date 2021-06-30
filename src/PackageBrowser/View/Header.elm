@@ -1,10 +1,9 @@
 module PackageBrowser.View.Header exposing (..)
 
-import Element
-import Element.Input as Input
 import PackageBrowser.Router as Router
 import PackageBrowser.Translation as Translation
-import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Base exposing (..)
+import PackageBrowser.Ui.Extra exposing (..)
 
 
 type alias Model =
@@ -58,7 +57,7 @@ update msg model =
 --
 
 
-view : Model -> Element.Element Msg
+view : Model -> Element Msg
 view model =
     column
         [ width fill
@@ -78,7 +77,7 @@ view model =
                     , url = Router.DefaultView |> Router.viewToUrl
                     }
                 ]
-            , buttonLink []
+            , link_ []
                 { label = text Translation.info
                 , onPress = Just ToggleInfo
                 }
@@ -88,17 +87,17 @@ view model =
             , paddingXY 16 0
             , spacing 8
             ]
-            [ searchInput [ Input.focusedOnLoad ]
-                { label = labelHidden Translation.searchInput
-                , placeholder = Just (placeholder [] (text Translation.searchInput))
+            [ inputSearch [ inputFocusedOnLoad ]
+                { label = inputLabelHidden Translation.searchInput
+                , placeholder = Just (inputPlaceholder [] (text Translation.searchInput))
                 , text = model.search
                 , onChange = SearchChanged
                 }
-            , inputRadioRow []
+            , segmentedControl []
                 { label = labelLeft [] (text (Translation.groupBy ++ " "))
                 , options =
-                    [ inputOption GroupByPackages (text (Translation.packageOption ++ " "))
-                    , inputOption GroupByModules (text (Translation.moduleOption ++ " "))
+                    [ segmentOption GroupByPackages (text (Translation.packageOption ++ " "))
+                    , segmentOption GroupByModules (text (Translation.moduleOption ++ " "))
                     ]
                 , selected = Just model.groupBy
                 , onChange = GroupByChanged

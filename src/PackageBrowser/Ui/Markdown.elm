@@ -1,11 +1,11 @@
 module PackageBrowser.Ui.Markdown exposing (..)
 
 import Element.Input as Input
-import Element.Region as Region
 import Markdown.Block as Block
 import Markdown.Html
 import Markdown.Renderer
-import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Base exposing (..)
+import PackageBrowser.Ui.Style as Style
 import Url.Builder
 
 
@@ -25,9 +25,9 @@ renderer =
                         _ ->
                             16
                     )
-                , fontWeight 7
+                , fontBold
                 , paddingEach 0 0 16 0
-                , Region.heading (Block.headingLevelToInt level)
+                , regionHeading (Block.headingLevelToInt level)
                 , id (idFromString rawText)
                 ]
                 children
@@ -41,10 +41,10 @@ renderer =
                 [ padding 2
                 , borderRounded 4
                 , bgColor grey8
-                , fontFamilyMonospace
+                , Style.monospaceFontFamily
                 ]
                 (text a)
-    , strong = p [ fontWeight 7 ]
+    , strong = p [ fontBold ]
     , emphasis = p [ fontItalic ]
     , strikethrough = p [ fontStrike ]
     , hardLineBreak = br
@@ -102,7 +102,7 @@ renderer =
                 , padding 8
                 , borderRounded 4
                 , bgColor grey8
-                , fontFamilyMonospace
+                , Style.monospaceFontFamily
                 ]
                 (text body)
     , thematicBreak = hr

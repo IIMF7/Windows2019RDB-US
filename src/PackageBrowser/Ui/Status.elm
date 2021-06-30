@@ -1,6 +1,6 @@
 module PackageBrowser.Ui.Status exposing (..)
 
-import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Base exposing (..)
 
 
 view a =

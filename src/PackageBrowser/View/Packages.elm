@@ -3,9 +3,6 @@ module PackageBrowser.View.Packages exposing (..)
 import Browser.Dom
 import Database.Package as Package
 import Database.Package.Decode
-import Element
-import Element.Keyed
-import Element.Lazy as Lazy
 import Element.Virtualized
 import Elm.Module
 import Elm.Package
@@ -14,7 +11,7 @@ import Http
 import Json.Decode as Decode
 import PackageBrowser.Router as Router
 import PackageBrowser.Translation as Translation
-import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Base exposing (..)
 import PackageBrowser.Ui.Status as Status
 import Regex
 import Task
@@ -221,7 +218,7 @@ view search view_ model =
                         , scrollOffset = model.scrollOffset
                         , view =
                             \v ->
-                                Lazy.lazy3 viewPackage
+                                lazy3 viewPackage
                                     (NameDict.member v.name model.expanded)
                                     (activePackageAndModule view_ v)
                                     v
@@ -271,7 +268,7 @@ viewPackage expand active a =
             else
                 ( False, modules_ )
 
-        packageColor : Element.Attribute msg
+        packageColor : Attribute msg
         packageColor =
             if active == Just Nothing then
                 noneAttribute
@@ -279,7 +276,7 @@ viewPackage expand active a =
             else
                 fontColor grey4
 
-        moduleColor : Elm.Module.Name -> Element.Attribute msg
+        moduleColor : Elm.Module.Name -> Attribute msg
         moduleColor b =
             if active == Just (Just b) then
                 noneAttribute
@@ -292,7 +289,7 @@ viewPackage expand active a =
             { label = text (Elm.Package.toString a.name)
             , url = Router.viewToUrl (Router.PackageView a.name Nothing)
             }
-        , Element.Keyed.column [ width fill ]
+        , keyedColumn [ width fill ]
             (modules
                 |> List.map
                     (\v ->

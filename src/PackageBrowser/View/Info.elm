@@ -1,8 +1,7 @@
 module PackageBrowser.View.Info exposing (..)
 
-import Element.Font as Font
 import PackageBrowser.Translation as Translation
-import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Base exposing (..)
 import PackageBrowser.Ui.Modal as Modal
 
 
@@ -42,7 +41,7 @@ view : Model -> Element Msg
 view model =
     if model.show then
         Modal.view [ padding 32 ]
-            [ h1 [ Font.center ]
+            [ h1 [ fontCenter ]
                 [ text Translation.info
                 ]
             , column [ width fill, spacing 16 ]
@@ -72,7 +71,7 @@ view model =
                     , text "."
                     ]
                 ]
-            , buttonLink [ centerX, padding 8 ]
+            , link_ [ centerX, padding 8 ]
                 { label = text Translation.ok
                 , onPress = Just ToggleInfo
                 }

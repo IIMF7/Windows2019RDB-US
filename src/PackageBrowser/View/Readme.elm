@@ -3,8 +3,6 @@ module PackageBrowser.View.Readme exposing (..)
 import Browser.Dom
 import Database.PackageReadme as PackageReadme
 import Database.PackageReadme.Decode
-import Element
-import Element.Events exposing (onClick)
 import Elm.Module
 import Elm.Module.NameDict as ModuleNameDict
 import Elm.Package
@@ -15,7 +13,7 @@ import Markdown.Parser
 import Markdown.Renderer
 import PackageBrowser.Router as Router
 import PackageBrowser.Translation as Translation
-import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Base exposing (..)
 import PackageBrowser.Ui.Markdown as Markdown
 import PackageBrowser.Ui.Status as Status
 import PackageBrowser.View.Readme.Section as Section
@@ -277,7 +275,7 @@ viewPackageReadme a =
         , height fill
         , paddingEach 32 32 16 64
         , id readmeId
-        , Element.scrollbars
+        , scrollbars
         ]
         [ viewLoading view_ a
         ]
@@ -321,7 +319,7 @@ viewModuleReadme _ b c =
         , height fill
         , paddingEach 16 16 16 64
         , id readmeId
-        , Element.scrollbars
+        , scrollbars
         ]
         [ viewLoading view_ c
         ]
@@ -330,10 +328,10 @@ viewModuleReadme _ b c =
 viewSections : List Section.Section -> Element msg
 viewSections a =
     let
-        viewSection : Section.Section -> Element.Element msg
+        viewSection : Section.Section -> Element msg
         viewSection b =
             column [ width fill, spacing 16 ]
-                (p [ fontWeight 7 ]
+                (p [ fontBold ]
                     [ link [ id (Markdown.idFromString b.name), fontColor grey1 ]
                         { label = text b.name
                         , url = Markdown.idToUrl b.name
@@ -358,7 +356,7 @@ viewSections a =
 viewIndex : List Section.Section -> Element msg
 viewIndex a =
     let
-        viewSection : Section.Section -> Element.Element msg
+        viewSection : Section.Section -> Element msg
         viewSection b =
             column [ width fill, spacing 4, paddingXY 24 0 ]
                 (p []
@@ -387,7 +385,7 @@ viewIndex a =
                         ]
     in
     column [ width fill, spacing 16 ]
-        (p [ fontWeight 7 ]
+        (p [ fontBold ]
             [ text Translation.index
             ]
             :: (a |> List.map viewSection)
@@ -423,7 +421,7 @@ viewMember a =
         , paddingXY 24 0
         ]
         [ row [ width fill ]
-            [ link [ id (Markdown.idFromString a.name), fontWeight 7 ]
+            [ link [ id (Markdown.idFromString a.name), fontBold ]
                 { label = text a.name
                 , url = Markdown.idToUrl a.name
                 }

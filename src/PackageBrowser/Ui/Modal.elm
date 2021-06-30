@@ -1,6 +1,6 @@
 module PackageBrowser.Ui.Modal exposing (..)
 
-import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Base exposing (..)
 
 
 view a =
@@ -10,7 +10,7 @@ view a =
             :: bgColor grey10
             :: borderWidth 1
             :: borderRounded 16
-            :: borderShadow 48
+            :: borderShadow shadow1
             :: borderColor grey7
             :: a
         )

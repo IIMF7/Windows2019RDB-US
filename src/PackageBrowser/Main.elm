@@ -2,15 +2,13 @@ module PackageBrowser.Main exposing (..)
 
 import Browser
 import Browser.Navigation as Navigation
-import Element
-import Element.Lazy as Lazy
 import Elm.Module
 import Elm.Package
 import Html
 import Json.Decode as Decode
 import PackageBrowser.Router as Router
 import PackageBrowser.Translation as Translation
-import PackageBrowser.Ui as Ui exposing (..)
+import PackageBrowser.Ui.Base exposing (..)
 import PackageBrowser.View.Header as Header
 import PackageBrowser.View.Info as Info
 import PackageBrowser.View.Modules as Modules
@@ -181,7 +179,7 @@ view model =
     in
     { title = title
     , body =
-        [ Element.layout (Ui.rootStyle []) (viewBody model)
+        [ layout [] (viewBody model)
         , scaleUi
         ]
     }
@@ -194,14 +192,14 @@ viewBody model =
         border_ =
             el [ height fill, borderColor grey7, borderWidthEach 1 0 0 0 ] none
 
-        infoView : Element.Attribute Msg
+        infoView : Attribute Msg
         infoView =
-            Element.inFront
+            inFront
                 (el
-                    [ Element.moveDown 16
-                    , Element.moveRight 16
+                    [ moveDown 16
+                    , moveRight 16
                     ]
-                    (Info.view model.info |> Element.map InfoMsg)
+                    (Info.view model.info |> map InfoMsg)
                 )
     in
     row
@@ -212,21 +210,21 @@ viewBody model =
         [ el [ width fill ] none
         , border_
         , column [ width (px 320), height fill, bgColor grey10 ]
-            [ Lazy.lazy Header.view model.header
-                |> Element.map HeaderMsg
+            [ lazy Header.view model.header
+                |> map HeaderMsg
             , case model.header.groupBy of
                 Header.GroupByPackages ->
-                    Lazy.lazy3 Packages.view model.header.search model.router.view model.packages
-                        |> Element.map PackagesMsg
+                    lazy3 Packages.view model.header.search model.router.view model.packages
+                        |> map PackagesMsg
 
                 Header.GroupByModules ->
-                    Lazy.lazy3 Modules.view model.router.view model.header.search model.modules
-                        |> Element.map ModulesMsg
+                    lazy3 Modules.view model.router.view model.header.search model.modules
+                        |> map ModulesMsg
             ]
         , border_
         , el [ width (px 880), height fill, bgColor grey10 ]
-            (Lazy.lazy2 Readme.view model.router.view model.readme
-                |> Element.map ReadmeMsg
+            (lazy2 Readme.view model.router.view model.readme
+                |> map ReadmeMsg
             )
         , border_
         , el [ width fill ] none

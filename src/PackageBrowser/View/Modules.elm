@@ -3,9 +3,6 @@ module PackageBrowser.View.Modules exposing (..)
 import Browser.Dom
 import Database.ModuleGroup as ModuleGroup
 import Database.ModuleGroup.Decode
-import Element
-import Element.Keyed
-import Element.Lazy as Lazy
 import Element.Virtualized
 import Elm.Module
 import Elm.Module.NameDict as NameDict
@@ -14,7 +11,7 @@ import Http
 import Json.Decode as Decode
 import PackageBrowser.Router as Router
 import PackageBrowser.Translation as Translation
-import PackageBrowser.Ui exposing (..)
+import PackageBrowser.Ui.Base exposing (..)
 import PackageBrowser.Ui.Status as Status
 import Task
 
@@ -162,7 +159,7 @@ view view_ search model =
                         , scrollOffset = model.scrollOffset
                         , view =
                             \v ->
-                                Lazy.lazy3 viewModuleGroup (Router.viewToPackageAndModuleName view_) (NameDict.member v.name model.expanded) v
+                                lazy3 viewModuleGroup (Router.viewToPackageAndModuleName view_) (NameDict.member v.name model.expanded) v
                         , onScroll = ScrollOffsetChanged
                         }
 
@@ -189,7 +186,7 @@ computeSize expand a =
 viewModuleGroup : Maybe ( Elm.Package.Name, Elm.Module.Name ) -> Bool -> ModuleGroup.ModuleGroup -> Element Msg
 viewModuleGroup active expand a =
     let
-        linkColor : Elm.Package.Name -> Elm.Module.Name -> Element.Attribute msg
+        linkColor : Elm.Package.Name -> Elm.Module.Name -> Attribute msg
         linkColor b c =
             if Just ( b, c ) == active then
                 noneAttribute
@@ -198,12 +195,12 @@ viewModuleGroup active expand a =
                 fontColor grey1
     in
     column [ width fill, height fill ]
-        [ buttonLink [ width fill, paddingXY 16 4, fontColor grey4 ]
+        [ link_ [ width fill, paddingXY 16 4, fontColor grey4 ]
             { label = text (Elm.Module.toString a.name)
             , onPress = Just (ToggleModuleGroup a.name)
             }
         , if expand then
-            Element.Keyed.column [ width fill ]
+            keyedColumn [ width fill ]
                 (a.modules
                     |> List.map
                         (\( v, vv ) ->
