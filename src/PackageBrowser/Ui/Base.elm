@@ -14,14 +14,6 @@ import Html.Attributes
 import PackageBrowser.Ui.Style as A
 
 
-rem a =
-    round (A.rootEm * a)
-
-
-rem_ a =
-    A.rootEm * a
-
-
 layout a =
     Element.layout (bgColor A.baseBgColor :: fontColor A.baseColor :: fontSize A.baseFontSize :: A.baseFontFamily :: a)
 
