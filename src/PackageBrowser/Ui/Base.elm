@@ -126,6 +126,14 @@ inputPlaceholder a =
 --
 
 
+baseFontFamily =
+    A.baseFontFamily
+
+
+monospaceFontFamily =
+    A.monospaceFontFamily
+
+
 shadow1 =
     A.shadow1
 
