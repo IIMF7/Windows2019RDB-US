@@ -146,10 +146,10 @@ placeholderFontSize =
 --
 
 
-shadow1 a =
-    { offset = ( 0, rootEm * 16 )
+shadow1 =
+    { offset = ( 0, rootEm )
     , size = 0
-    , blur = rootEm * a
+    , blur = rootEm * 3
     , color = grey0 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
     }
 
