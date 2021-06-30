@@ -195,10 +195,10 @@ viewModuleGroup active expand a =
                 noneAttribute
 
             else
-                fontColor gray1
+                fontColor grey1
     in
     column [ width fill, height fill ]
-        [ buttonLink [ width fill, paddingXY 1 0.25, fontColor gray4 ]
+        [ buttonLink [ width fill, paddingXY 1 0.25, fontColor grey4 ]
             { label = text (Elm.Module.toString a.name)
             , onPress = Just (ToggleModuleGroup a.name)
             }
@@ -213,7 +213,7 @@ viewModuleGroup active expand a =
                                     row []
                                         [ text (Elm.Module.toString vv)
                                         , text " "
-                                        , el [ fontColor gray5, fontSize 0.75 ]
+                                        , el [ fontColor grey5, fontSize 0.75 ]
                                             (text (Elm.Package.toString v))
                                         ]
                                 , url = Router.viewToUrl (Router.ModuleView v vv Nothing)

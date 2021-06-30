@@ -64,7 +64,7 @@ view model =
         [ width fill
         , spacing 0.5
         , paddingXY 0 0.5
-        , borderColor gray7
+        , borderColor grey7
         , borderWidthEach 0 0 0 1
         ]
         [ row
@@ -73,7 +73,7 @@ view model =
             , paddingXY 1 0
             ]
             [ h5 []
-                [ link [ fontColor gray1 ]
+                [ link [ fontColor grey1 ]
                     { label = text Translation.title
                     , url = Router.DefaultView |> Router.viewToUrl
                     }

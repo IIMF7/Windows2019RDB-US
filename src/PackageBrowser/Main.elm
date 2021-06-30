@@ -192,7 +192,7 @@ viewBody model =
     let
         border_ : Element msg
         border_ =
-            el [ height fill, borderColor gray7, borderWidthEach 1 0 0 0 ] none
+            el [ height fill, borderColor grey7, borderWidthEach 1 0 0 0 ] none
 
         infoView : Element.Attribute Msg
         infoView =
@@ -211,7 +211,7 @@ viewBody model =
         ]
         [ el [ width fill ] none
         , border_
-        , column [ width (px 320), height fill, bgColor gray10 ]
+        , column [ width (px 320), height fill, bgColor grey10 ]
             [ Lazy.lazy Header.view model.header
                 |> Element.map HeaderMsg
             , case model.header.groupBy of
@@ -224,7 +224,7 @@ viewBody model =
                         |> Element.map ModulesMsg
             ]
         , border_
-        , el [ width (px 880), height fill, bgColor gray10 ]
+        , el [ width (px 880), height fill, bgColor grey10 ]
             (Lazy.lazy2 Readme.view model.router.view model.readme
                 |> Element.map ReadmeMsg
             )

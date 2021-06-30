@@ -7,10 +7,10 @@ view a =
     column
         (width (shrink |> maximum 512)
             :: spacing 2
-            :: bgColor gray10
+            :: bgColor grey10
             :: borderWidth 1
             :: borderRounded 1
             :: borderShadow 3
-            :: borderColor gray7
+            :: borderColor grey7
             :: a
         )

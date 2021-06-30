@@ -40,7 +40,7 @@ renderer =
             el
                 [ padding 0.125
                 , borderRounded 0.25
-                , bgColor gray8
+                , bgColor grey8
                 , fontFamilyMonospace
                 ]
                 (text a)
@@ -101,7 +101,7 @@ renderer =
                 [ width fill
                 , padding 0.5
                 , borderRounded 0.25
-                , bgColor gray8
+                , bgColor grey8
                 , fontFamilyMonospace
                 ]
                 (text body)
