@@ -275,7 +275,7 @@ viewPackageReadme a =
     column
         [ width fill
         , height fill
-        , paddingEach 2 2 1 4
+        , paddingEach 32 32 16 64
         , id readmeId
         , Element.scrollbars
         ]
@@ -319,7 +319,7 @@ viewModuleReadme _ b c =
     column
         [ width fill
         , height fill
-        , paddingEach 1 1 1 4
+        , paddingEach 16 16 16 64
         , id readmeId
         , Element.scrollbars
         ]

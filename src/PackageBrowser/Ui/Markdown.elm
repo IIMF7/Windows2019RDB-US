@@ -26,13 +26,13 @@ renderer =
                             1
                     )
                 , fontWeight 7
-                , paddingEach 0 0 1 0
+                , paddingEach 0 0 16 0
                 , Region.heading (Block.headingLevelToInt level)
                 , id (idFromString rawText)
                 ]
                 children
     , paragraph = p []
-    , blockQuote = column [ spacing 1, paddingEach 2 0 0 0 ]
+    , blockQuote = column [ spacing 1, paddingEach 32 0 0 0 ]
     , html = Markdown.Html.oneOf []
     , text = text
     , codeSpan =
@@ -62,7 +62,7 @@ renderer =
                 }
     , unorderedList =
         \a ->
-            column [ spacing 1, paddingEach 0.25 0 0 0 ]
+            column [ spacing 1, paddingEach 4 0 0 0 ]
                 (a
                     |> List.map
                         (\(Block.ListItem b c) ->
@@ -84,7 +84,7 @@ renderer =
                 )
     , orderedList =
         \startIndex a ->
-            column [ spacing 1, paddingEach 0.25 0 0 0 ]
+            column [ spacing 1, paddingEach 4 0 0 0 ]
                 (a
                     |> List.indexedMap
                         (\i b ->

@@ -145,7 +145,7 @@ paddingXY =
 
 
 paddingEach a b c d =
-    Element.paddingEach { left = step a, right = step b, top = step c, bottom = step d }
+    Element.paddingEach { left = a, right = b, top = c, bottom = d }
 
 
 spacing a =
