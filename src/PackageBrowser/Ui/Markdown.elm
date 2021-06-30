@@ -5,7 +5,6 @@ import Markdown.Block as Block
 import Markdown.Html
 import Markdown.Renderer
 import PackageBrowser.Ui.Base exposing (..)
-import PackageBrowser.Ui.Style as Style
 import Url.Builder
 
 
@@ -41,7 +40,7 @@ renderer =
                 [ padding 2
                 , borderRounded 4
                 , bgColor grey8
-                , Style.monospaceFontFamily
+                , monospaceFontFamily
                 ]
                 (text a)
     , strong = p [ fontBold ]
@@ -102,7 +101,7 @@ renderer =
                 , padding 8
                 , borderRounded 4
                 , bgColor grey8
-                , Style.monospaceFontFamily
+                , monospaceFontFamily
                 ]
                 (text body)
     , thematicBreak = hr
