@@ -64,26 +64,6 @@ h6FontSize =
 --
 
 
-shadow1 a =
-    { offset = ( 0, rootEm * 16 )
-    , size = 0
-    , blur = rootEm * a
-    , color = grey0 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
-    }
-
-
-shadow2 =
-    shadow1
-
-
-shadow3 =
-    shadow1
-
-
-
---
-
-
 baseFontFamily =
     Font.family
         [ Font.typeface "system-ui"
@@ -112,6 +92,26 @@ monospaceFontFamily =
         , Font.typeface "Courier New"
         , Font.monospace
         ]
+
+
+
+--
+
+
+shadow1 a =
+    { offset = ( 0, rootEm * 16 )
+    , size = 0
+    , blur = rootEm * a
+    , color = grey0 |> Element.toRgb |> (\v -> { v | alpha = 0.2 }) |> Element.fromRgb
+    }
+
+
+shadow2 =
+    shadow1
+
+
+shadow3 =
+    shadow1
 
 
 
