@@ -61,7 +61,7 @@ view model =
                 , p []
                     [ newTabLink []
                         { label = text Translation.source
-                        , url = "https://github.com/pravdomil/Elm-Packages"
+                        , url = "https://github.com/pravdomil/Elm-Packages-Browser"
                         }
                     , text ". "
                     , newTabLink []
